@@ -1,0 +1,24 @@
+include "Scripts/PandaProject/GlobalDefines.subproject"
+
+project "SimpleApp"
+    kind "ConsoleApp"
+    language "C++"
+
+    targetdir(project_target_dir)
+    objdir(project_int_dir)
+
+    files
+    {
+        "./**.h",
+        "./**.cpp"
+    }
+
+    includedirs
+    {
+        "%{engine_include_dir}"
+    }
+
+    links
+    {
+        "Panda"
+    }

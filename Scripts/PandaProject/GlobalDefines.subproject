@@ -1,0 +1,8 @@
+-- 最终的输出路径
+project_target_dir = "%{wks.location}/Bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+-- 中间文件输出
+project_int_dir = "%{wks.location}/BinInt/"
+
+-- 包含文件夹
+engine_include_dir = "%{wks.location}/Engine/Source"

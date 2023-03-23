@@ -1,0 +1,12 @@
+include "/Scripts/PandaProject/GlobalDefines.subproject"
+
+project "Shaders"
+    kind "None"
+
+    targetdir(project_target_dir)
+    objdir(project_int_dir)
+
+    files
+    {
+        "./**"
+    }

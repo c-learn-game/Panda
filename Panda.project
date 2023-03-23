@@ -1,0 +1,48 @@
+workspace "Panda"
+    configurations {"Debug", "Release"}
+    platforms {"GLFW"}
+    architecture ("x86_64", "ARM64")
+
+    cppdialect "c++11"
+
+    targetdir(project_target_dir)
+    objdir(project_int_dir)
+
+    filter "platforms:GLFW"
+        defines
+        {
+            "PANDA_PLATFORM_GLFW",
+            "PANDA_GLAD_OPENGL_VERSION_MAJOR=4",
+            "PANDA_GLAD_OPENGL_VERSION_MINOR=0"
+        }
+    filter {}
+
+    filter "configurations:Debug"
+        runtime "Debug"
+        symbols "on"
+
+        defines
+        {
+            "PANDA_BUDEG"
+        }
+
+    filter {}
+
+    filter "configurations:Release"
+        runtime "Release"
+        optimize "on"
+
+        defines
+        {
+            "PANDA_NO_BUDEG"
+        }
+    filter {}
+
+    group "Engine"
+        include "Engine/Source/Panda.project"
+        include "Engine/Shaders/Shaders.project"
+    group ""
+
+    group "Test"
+        include "Test/SimpleApp/SimpleApp.project"
+    group ""
