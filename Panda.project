@@ -43,6 +43,12 @@ workspace "Panda"
         include "Engine/Shaders/Shaders.project"
     group ""
 
+    group "Third"
+        include "Engine/Third/GLFW.project"
+        include "Engine/Third/Glad.project"
+        include "Engine/Third/Glm.project"
+    group ""
+
     group "Test"
         include "Test/SimpleApp/SimpleApp.project"
     group ""

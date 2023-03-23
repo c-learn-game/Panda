@@ -1,0 +1,20 @@
+include "Scripts/PandaProject/GlobalDefines.subproject"
+
+project "Glad"
+    kind "StaticLib"
+    language "C"
+
+    targetdir(project_target_dir)
+    objdir(project_int_dir)
+
+    files
+    {
+        "glad/src/**"
+    }
+
+    includedirs
+    {
+        project_include_dirs["Glad"]
+    }
+
+    

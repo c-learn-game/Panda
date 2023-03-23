@@ -1,0 +1,6 @@
+[submodule "Engine/Third/glfw"]
+	path = Engine/Third/glfw
+	url = git@github.com:chendebi/glfw.git
+[submodule "Engine/Third/glm"]
+	path = Engine/Third/glm
+	url = git@github.com:chendebi/glm.git

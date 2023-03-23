@@ -1,0 +1,15 @@
+include "Scripts/PandaProject/GlobalDefines.subproject"
+
+project "Glm"
+    kind "None"
+
+    targetdir(project_target_dir)
+    objdir(project_int_dir)
+
+    files
+    {
+        "glm/**.hpp",
+        "glm/**.inl"
+    }
+
+    

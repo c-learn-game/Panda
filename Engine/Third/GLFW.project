@@ -1,0 +1,69 @@
+include "Scripts/PandaProject/GlobalDefines.subproject"
+
+project "GLFW"
+    kind "StaticLib"
+    language "C"
+    staticruntime "off"
+
+    targetdir(project_target_dir)
+    objdir(project_int_dir)
+
+    files
+    {
+        "glfw/include/GLFW/glfw3.h",
+        "glfw/include/GLFW/glfw3native.h",
+        "glfw/src/context.c",
+        "glfw/src/init.c",
+        "glfw/src/input.c",
+        "glfw/src/monitor.c",
+        "glfw/src/vulkan.c",
+        "glfw/src/window.c",
+        "glfw/src/platform.c",
+        "glfw/src/egl_context.c",
+        "glfw/src/null_*.c",
+    }
+
+    filter { "system:windows" }
+        systemversion "latest"
+        staticruntime "On"
+
+        files
+        {
+            "glfw/src/wgl_context.c",
+            "glfw/src/osmesa_context.c",
+            "glfw/src/win32_*.c"
+        }
+
+        defines
+        {
+            "_GLFW_WIN32",
+            "_CRT_SECURE_NO_WARNINGS"
+        }
+
+    filter {"system:macosx"}
+        files
+        {
+            "glfw/src/osmesa_context.c",
+            "glfw/src/cocoa*.h",
+            "glfw/src/cocoa*.c",
+            "glfw/src/internal.h",
+            "glfw/src/*.m",
+            "glfw/src/posix_*.c",
+            "glfw/src/posix_*.h"
+        }
+
+        defines
+        {
+            "_GLFW_COCOA"
+        }
+    filter {}
+
+    filter "configurations:Debug"
+        runtime "Debug"
+        symbols "on"
+    filter {}
+
+    filter "configurations:Release"
+        runtime "Release"
+        optimize "on"
+    filter {}

@@ -5,4 +5,8 @@ project_target_dir = "%{wks.location}/Bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.ar
 project_int_dir = "%{wks.location}/BinInt/"
 
 -- 包含文件夹
-engine_include_dir = "%{wks.location}/Engine/Source"
+project_include_dirs = {}
+project_include_dirs["Panda"] = "%{wks.location}/Engine/Source"
+project_include_dirs["GLFW"] = "%{wks.location}/Engine/Third/glfw/include"
+project_include_dirs["Glad"] = "%{wks.location}/Engine/Third/glad/include"
+project_include_dirs["Glm"] = "%{wks.location}/Engine/Third/glm/glm"
