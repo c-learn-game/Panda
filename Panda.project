@@ -1,6 +1,6 @@
 workspace "Panda"
     configurations {"Debug", "Release"}
-    platforms {"GLFW"}
+    platforms {"GLFW+OpenGL"}
     architecture ("x86_64", "ARM64")
 
     cppdialect "c++11"
@@ -8,12 +8,20 @@ workspace "Panda"
     targetdir(project_target_dir)
     objdir(project_int_dir)
 
-    filter "platforms:GLFW"
+-- 全局定义宏说明
+
+-- PANDA_PLATFORM_GLFW: 使用GLFW构建
+-- PANDA_RENDERER_OPENGL： 渲染接口使用OpenGL, OpenGL使用Glad加载
+-- PANDA_OPENGL_VERSION_MAJOR: 要求OpenGL最低主版本号
+-- PANDA_OPENGL_VERSION_MINOR： 要求OpenGL最低次版本号
+
+    filter "platforms:GLFW+OpenGL"
         defines
         {
             "PANDA_PLATFORM_GLFW",
-            "PANDA_GLAD_OPENGL_VERSION_MAJOR=4",
-            "PANDA_GLAD_OPENGL_VERSION_MINOR=0"
+            "PANDA_OPENGL",
+            "PANDA_OPENGL_VERSION_MAJOR=4",
+            "PANDA_OPENGL_VERSION_MINOR=0"
         }
     filter {}
 

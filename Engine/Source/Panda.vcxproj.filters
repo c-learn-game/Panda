@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Base">
+      <UniqueIdentifier>{60EC827C-4C23-840D-F50F-6A10E125000F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Private">
+      <UniqueIdentifier>{4AE33CC5-3646-CC69-DFCB-0420CB0D98EC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Private\Logging">
+      <UniqueIdentifier>{E06D378A-CCFC-C053-751B-D54E6189D1F9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Private\Thread">
+      <UniqueIdentifier>{71BA03A2-DD1B-E1AF-6689-2762D2E9176F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Public">
+      <UniqueIdentifier>{8EE33B44-FA98-B439-838D-AE10EF41AB3D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Public\Logging">
+      <UniqueIdentifier>{24724489-90D3-2197-1941-684985A15856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Public\Thread">
+      <UniqueIdentifier>{35469F2D-212A-6083-8A8A-5AD6768D4A05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Public\Types">
+      <UniqueIdentifier>{B299FE4E-1EB0-FCE4-6727-8806D37CCD6C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Event">
+      <UniqueIdentifier>{E70B220D-5320-4ABE-1CA2-ED1D887546EF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Event\Public">
+      <UniqueIdentifier>{3565799B-21C8-0840-CA4D-41F6B68FD4C2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Launch">
+      <UniqueIdentifier>{E06644C0-CC08-6F96-B5C3-82EAA104F6E6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Surface">
+      <UniqueIdentifier>{6E631512-DA42-94AD-E35A-1F844FB9FA0E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Surface\Private">
+      <UniqueIdentifier>{58882404-C413-92C8-CD24-15BD392FEEC8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Surface\Public">
+      <UniqueIdentifier>{DC1E1C27-C8EC-0F2D-B180-80539DEDEB91}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Base\Base.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Public\Assert.h">
+      <Filter>Base\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Public\Logging\Logging.h">
+      <Filter>Base\Public\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Public\Pointer.h">
+      <Filter>Base\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Public\Thread\Thread.h">
+      <Filter>Base\Public\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Public\Types\Array.h">
+      <Filter>Base\Public\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Public\Types\List.h">
+      <Filter>Base\Public\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Public\Types\Map.h">
+      <Filter>Base\Public\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Public\Types\Math.h">
+      <Filter>Base\Public\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Public\Types\Queue.h">
+      <Filter>Base\Public\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Public\Types\Size.h">
+      <Filter>Base\Public\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Public\Types\String.h">
+      <Filter>Base\Public\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\Public\Event.h">
+      <Filter>Event\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Launch\EngineLaunch.h">
+      <Filter>Launch</Filter>
+    </ClInclude>
+    <ClInclude Include="Surface\Private\ApplicationPrivate.h">
+      <Filter>Surface\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="Surface\Private\GLFWApplicationPrivate.h">
+      <Filter>Surface\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="Surface\Public\Application.h">
+      <Filter>Surface\Public</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Base\Private\Logging\Logging.cpp">
+      <Filter>Base\Private\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\Private\Thread\Thread.cpp">
+      <Filter>Base\Private\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Surface\Private\Application.cpp">
+      <Filter>Surface\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Surface\Private\ApplicationPrivate.cpp">
+      <Filter>Surface\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Surface\Private\GLFWApplicationPrivate.cpp">
+      <Filter>Surface\Private</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

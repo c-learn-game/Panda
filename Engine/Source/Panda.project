@@ -1,7 +1,7 @@
 include "/Scripts/PandaProject/GlobalDefines.subproject"
 
 project "Panda"
-    kind "ConsoleApp"
+    kind "StaticLib"
     language "C++"
 
     targetdir(project_target_dir)
@@ -15,5 +15,31 @@ project "Panda"
 
     includedirs
     {
-        "%{engine_include_dir}"
+        project_include_dirs["Panda"],
+        project_include_dirs["GLFW"],
+        project_include_dirs["Glad"],
+        project_include_dirs["Glm"]
     }
+
+    links
+    {
+        "GLFW",
+        "Glad"
+    }
+
+    filter "system:windows"
+        links
+        {
+            "opengl32.lib"
+        }
+    filter {}
+
+    filter "system:macosx"
+        links
+        {
+            "AppKit.framework",
+            "IOKit.framework",
+            "CoreFoundation.framework",
+            "OpenGL.framework"
+        }
+    filter {}

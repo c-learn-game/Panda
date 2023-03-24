@@ -23,7 +23,5 @@ project "SimpleApp"
 
     links
     {
-        "Panda",
-        "GLFW",
-        "Glad"
+        "Panda"
     }
