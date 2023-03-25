@@ -1,6 +1,7 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 #include "Base/Base.h"
+#include "Event/Public/Event.h"
 
 int main(int, char**);
 
@@ -43,6 +44,14 @@ namespace Panda
         static CApplication* Get();
         
         void Quit();
+        
+        void AddEvent(CEvent*  InEvent);
+        
+    protected:
+        void OnWindowCloseEvent(class CWindowCloseEvent *InEvent);
+        
+    private:
+        void ExecuteAppEvents();
 
     private:
         friend int ::main(int, char**);
@@ -67,6 +76,8 @@ namespace Panda
         class CApplicationPrivate* P;
 
         SharedPtr<CWindow> ContextWindow;
+        
+        CList<CEvent*> AppEventList;
     };
 
     // 实现此函数

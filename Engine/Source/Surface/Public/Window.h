@@ -1,4 +1,4 @@
-﻿#ifndef WINDOW_H
+#ifndef WINDOW_H
 #define WINDOW_H
 
 #include "Base/Base.h"
@@ -9,6 +9,8 @@ namespace Panda
     {
     public:
         explicit CWindow(CWindow* Parent = nullptr, const CString& DefaultTitle = "Window");
+        
+        virtual ~CWindow();
 
         void SetWindowTitle(const CString& NewWindowTitle);
 

@@ -1,6 +1,7 @@
 #include "Surface/Public/Application.h"
 #include "ApplicationPrivate.h"
 #include "Surface/Public/Window.h"
+#include "Event/Public/ApplicationEvents.h"
 
 namespace Panda
 {
@@ -39,6 +40,13 @@ namespace Panda
         
     }
 
+    void CApplication::AddEvent(CEvent* InEvent)
+    {
+        checkmsg(InEvent.GetInCategory(CEvent::ApplicationEventcategory), "An event of a type other than ApplicationEventCategory, whitch type is: %s", InEvent.GetEventName().c_str())
+        
+        AppEventList.push_back(InEvent);
+    }
+
     void CApplication::PreInit()
     {
         ContextWindow = MakeSharedPtr<CWindow>(nullptr, ApplicationName);
@@ -49,7 +57,26 @@ namespace Panda
         while (bRunning)
         {
             P->PollEvents();
+            ExecuteAppEvents();
         }
         return QuitCode;
+    }
+
+    void CApplication::ExecuteAppEvents()
+    {
+        for (auto Event : AppEventList) {
+            if (Event->GetType() == CEvent::EEventType::CloseEvent)
+            {
+                OnWindowCloseEvent(dynamic_cast<CWindowCloseEvent*>(Event));
+            }
+        }
+    }
+
+    void CApplication::OnWindowCloseEvent(CWindowCloseEvent *InEvent)
+    {
+        if (InEvent->CloseWindow == ContextWindow.get())
+        {
+            bRunning = false;
+        }
     }
 }

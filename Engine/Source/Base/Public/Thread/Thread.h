@@ -18,8 +18,6 @@ namespace Panda
         
         explicit CThread(const CThreadID& ID);
         
-        explicit CThread() = default;
-        
         virtual ~CThread() = default;
 
         bool IsReadOnly() const { return bReadOnly; }
@@ -38,7 +36,7 @@ namespace Panda
     CThread::CThread(_Fn&& _Fx, _Args&&... _Ax)
         : bReadOnly(false)
     {
-        Thread = std::thread(_Fx, _Ax...);
+        //Thread = std::thread(_Fx, _Ax...);
     }
 }
 

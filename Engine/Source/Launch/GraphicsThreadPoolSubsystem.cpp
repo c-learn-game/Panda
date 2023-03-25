@@ -3,7 +3,7 @@
 
 namespace Panda
 {
-    
+    CThread* FGraphicsThreadPoolSubsystem::MainThread = nullptr;
 
     FGraphicsThreadPoolSubsystem::~FGraphicsThreadPoolSubsystem()
     {

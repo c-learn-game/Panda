@@ -1,4 +1,4 @@
-﻿#include "Surface/Public/Window.h"
+#include "Surface/Public/Window.h"
 
 #include "WindowPrivate.h"
 
@@ -8,7 +8,12 @@ namespace Panda
         : ParentWindow(Parent), WindowTitle(DefaultTitle),
           WindowSize(CWindowPrivate::WindowDefaultWidth, CWindowPrivate::WindowDefaultHeight)
     {
-        P = CWindowPrivate::Create(DefaultTitle);
+        P = CWindowPrivate::Create(this, DefaultTitle);
+    }
+
+    CWindow::~CWindow()
+    {
+        P->DestroyWindow();
     }
 
     void CWindow::SetWindowTitle(const CString& NewWindowTitle)

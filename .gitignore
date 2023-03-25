@@ -42,3 +42,5 @@ BinInt/
 *.xcuserstate
 *.xcworkspacedata
 *.DS_Store
+DerivedData
+*.xcsettings

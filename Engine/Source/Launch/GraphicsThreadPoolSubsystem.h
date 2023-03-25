@@ -21,8 +21,6 @@ namespace Panda
 
         static CThread* MainThread;
 
-        static CThread* RendererThread;
-
         static void Init();
     };
     

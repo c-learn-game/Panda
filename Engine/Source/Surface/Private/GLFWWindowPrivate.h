@@ -1,4 +1,4 @@
-﻿#ifndef GLFWWINDOWPRIVATE_H
+#ifndef GLFWWINDOWPRIVATE_H
 #define GLFWWINDOWPRIVATE_H
 
 #include "WindowPrivate.h"
@@ -10,7 +10,7 @@ namespace Panda
     class CGLFWWindowPrivate : public CWindowPrivate
     {
     public:
-        explicit CGLFWWindowPrivate(const CString& WindowTitle);
+        explicit CGLFWWindowPrivate(class CWindow* WindowInterface, const CString& WindowTitle);
 
         ~CGLFWWindowPrivate() override;
 
@@ -18,6 +18,8 @@ namespace Panda
 
         void SetWindowSize(CIntSize NewSize) override;
 
+        void DestroyWindow() override;
+        
     private:
         GLFWwindow* WindowHandle;
     
