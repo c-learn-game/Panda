@@ -1,9 +1,8 @@
-﻿#ifndef THREAD_H
+#ifndef THREAD_H
 #define THREAD_H
 
 #include <thread>
-
-#include "Base/Public/Types/Array.h"
+#include "Base/Base.h"
 
 using CThreadID = std::thread::id;
 
@@ -19,9 +18,12 @@ namespace Panda
         
         explicit CThread(const CThreadID& ID);
         
+        explicit CThread() = default;
+        
         virtual ~CThread() = default;
 
         bool IsReadOnly() const { return bReadOnly; }
+        
 
     private:
         std::thread Thread;
@@ -36,7 +38,7 @@ namespace Panda
     CThread::CThread(_Fn&& _Fx, _Args&&... _Ax)
         : bReadOnly(false)
     {
-        Thread = std::thread(_Fx, _Ax);
+        Thread = std::thread(_Fx, _Ax...);
     }
 }
 

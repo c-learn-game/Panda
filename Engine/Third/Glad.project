@@ -9,12 +9,11 @@ project "Glad"
 
     files
     {
-        "glad/src/**"
+        "glad/src/**.c"
     }
 
-    includedirs
+    sysincludedirs
     {
-        project_include_dirs["Glad"]
+        "glad/include"
     }
-
     

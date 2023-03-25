@@ -1,4 +1,4 @@
-﻿#include "Surface/Public/Application.h"
+#include "Surface/Public/Application.h"
 #include "ApplicationPrivate.h"
 #include "Surface/Public/Window.h"
 
@@ -29,6 +29,11 @@ namespace Panda
         ApplicationVersion = InVersion;
     }
 
+    CApplication* CApplication::Get()
+    {
+        return AppInst;
+    }
+
     void CApplication::Quit()
     {
         
@@ -36,7 +41,7 @@ namespace Panda
 
     void CApplication::PreInit()
     {
-        MainContextWindow = MakeSharedPtr<CWindow>(nullptr, ApplicationName);
+        ContextWindow = MakeSharedPtr<CWindow>(nullptr, ApplicationName);
     }
 
     int CApplication::Exec()

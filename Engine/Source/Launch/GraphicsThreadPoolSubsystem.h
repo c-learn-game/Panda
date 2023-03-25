@@ -1,4 +1,4 @@
-﻿#ifndef GRAPHICSTHREADPOOLSUBSYSTEM_H
+#ifndef GRAPHICSTHREADPOOLSUBSYSTEM_H
 #define GRAPHICSTHREADPOOLSUBSYSTEM_H
 #include "Base/Public/Pointer.h"
 
@@ -19,11 +19,11 @@ namespace Panda
     public:
         static FGraphicsThreadPoolSubsystem* Get();
 
-        //static SharedPtr<CThread> MainThread;
+        static CThread* MainThread;
 
-        //tatic SharedPtr<CThread> RendererThread;
+        static CThread* RendererThread;
 
-        //static void Init();
+        static void Init();
     };
     
 }

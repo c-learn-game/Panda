@@ -1,7 +1,8 @@
-﻿#ifndef ENGINELAUNCH_H
+#ifndef ENGINELAUNCH_H
 #define ENGINELAUNCH_H
 
 #include "Surface/Public/Application.h"
+#include "GraphicsThreadPoolSubsystem.h"
 
 int main(int Argc, char** Argv)
 {
@@ -10,6 +11,8 @@ int main(int Argc, char** Argv)
     LogInfo(LogSystem, "Application: %s, Version: %s", App->GetApplicationName().c_str(), App->GetApplicationVersion().c_str())
 
     App->PreInit();
+    
+    Panda::FGraphicsThreadPoolSubsystem::Init();
     
     const int Code = App->Exec();
 

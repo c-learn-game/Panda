@@ -1,4 +1,4 @@
-﻿#ifndef APPLICATION_H
+#ifndef APPLICATION_H
 #define APPLICATION_H
 #include "Base/Base.h"
 
@@ -40,6 +40,8 @@ namespace Panda
 
         CString GetApplicationVersion() const { return ApplicationVersion; }
 
+        static CApplication* Get();
+        
         void Quit();
 
     private:
@@ -64,7 +66,7 @@ namespace Panda
 
         class CApplicationPrivate* P;
 
-        SharedPtr<CWindow> MainContextWindow;
+        SharedPtr<CWindow> ContextWindow;
     };
 
     // 实现此函数

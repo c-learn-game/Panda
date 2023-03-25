@@ -3,11 +3,6 @@ workspace "Panda"
     platforms {"GLFW+OpenGL"}
     architecture ("x86_64", "ARM64")
 
-    cppdialect "c++11"
-
-    targetdir(project_target_dir)
-    objdir(project_int_dir)
-
 -- 全局定义宏说明
 
 -- PANDA_PLATFORM_GLFW: 使用GLFW构建

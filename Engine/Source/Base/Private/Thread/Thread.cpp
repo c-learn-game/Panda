@@ -1,4 +1,4 @@
-﻿#include "Base/Public/Thread/Thread.h"
+#include "Base/Public/Thread/Thread.h"
 
 namespace Panda
 {

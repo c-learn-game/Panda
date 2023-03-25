@@ -3,6 +3,8 @@ include "/Scripts/PandaProject/GlobalDefines.subproject"
 project "Panda"
     kind "StaticLib"
     language "C++"
+    staticruntime "On"
+    cppdialect "c++17"
 
     targetdir(project_target_dir)
     objdir(project_int_dir)
@@ -20,26 +22,3 @@ project "Panda"
         project_include_dirs["Glad"],
         project_include_dirs["Glm"]
     }
-
-    links
-    {
-        "GLFW",
-        "Glad"
-    }
-
-    filter "system:windows"
-        links
-        {
-            "opengl32.lib"
-        }
-    filter {}
-
-    filter "system:macosx"
-        links
-        {
-            "AppKit.framework",
-            "IOKit.framework",
-            "CoreFoundation.framework",
-            "OpenGL.framework"
-        }
-    filter {}

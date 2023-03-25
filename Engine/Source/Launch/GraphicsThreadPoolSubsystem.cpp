@@ -1,7 +1,10 @@
-﻿#include "GraphicsThreadPoolSubsystem.h"
+#include "GraphicsThreadPoolSubsystem.h"
+#include "Base/Public/Thread/Thread.h"
 
 namespace Panda
 {
+    
+
     FGraphicsThreadPoolSubsystem::~FGraphicsThreadPoolSubsystem()
     {
     }
@@ -11,5 +14,11 @@ namespace Panda
     {
         static FGraphicsThreadPoolSubsystem PoolInst;
         return &PoolInst;
+    }
+
+    void FGraphicsThreadPoolSubsystem::Init()
+    {
+        MainThread = new CThread(std::this_thread::get_id());
+        //RendererThread = new CThread<>
     }
 }

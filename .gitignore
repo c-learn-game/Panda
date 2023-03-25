@@ -37,3 +37,8 @@ BinInt/
 *.user
 *.vcxproj
 .idea
+*.pbxproj
+*.plist
+*.xcuserstate
+*.xcworkspacedata
+*.DS_Store

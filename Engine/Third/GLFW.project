@@ -3,7 +3,8 @@ include "Scripts/PandaProject/GlobalDefines.subproject"
 project "GLFW"
     kind "StaticLib"
     language "C"
-    staticruntime "off"
+    staticruntime "On"
+    cppdialect "c++17"
 
     targetdir(project_target_dir)
     objdir(project_int_dir)
