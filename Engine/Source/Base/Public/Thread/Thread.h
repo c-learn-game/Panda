@@ -1,43 +1,38 @@
 #ifndef THREAD_H
 #define THREAD_H
 
+#include <mutex>
 #include <thread>
 #include "Base/Base.h"
 
 using CThreadID = std::thread::id;
+using CMutex = std::mutex;
+
+template<typename MutexType>
+using CScopedLock = std::scoped_lock<MutexType>;
 
 namespace Panda
 {
     class CThread
     {
     public:
-        template<class _Fn,
-        class... _Args,
-        class = std::enable_if_t<!std::is_same_v<std::remove_cv_t<std::remove_reference_t<_Fn>>, std::thread>>>
-        explicit CThread(_Fn&& _Fx, _Args&&... _Ax);
-        
-        explicit CThread(const CThreadID& ID);
-        
-        virtual ~CThread() = default;
+        explicit CThread();
 
-        bool IsReadOnly() const { return bReadOnly; }
-        
+        explicit CThread(const CThreadID &InitId);
+
+        explicit CThread(std::thread&& InThread);
+
+        ~CThread();
+
+        void Detach();
 
     private:
         std::thread Thread;
 
-        CThreadID Id;
-        
-        bool bReadOnly;
-        
-    };
+        CThreadID ThreadId;
 
-    template <class _Fn, class ... _Args, class>
-    CThread::CThread(_Fn&& _Fx, _Args&&... _Ax)
-        : bReadOnly(false)
-    {
-        //Thread = std::thread(_Fx, _Ax...);
-    }
+        bool bInitWithId = false;
+    };
 }
 
 #endif

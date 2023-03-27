@@ -20,7 +20,7 @@ namespace Panda
 
         void DestroyWindow() override;
         
-    private:
+    public:
         GLFWwindow* WindowHandle;
     
     };

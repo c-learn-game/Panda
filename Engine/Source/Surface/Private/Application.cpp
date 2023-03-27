@@ -2,6 +2,8 @@
 #include "ApplicationPrivate.h"
 #include "Surface/Public/Window.h"
 #include "Event/Public/ApplicationEvents.h"
+#include "Launch/GraphicsThreadPoolSubsystem.h"
+#include "Renderer/Public/RendererContext.h"
 
 namespace Panda
 {
@@ -37,19 +39,29 @@ namespace Panda
 
     void CApplication::Quit()
     {
-        
+        bRunning = false;
     }
 
-    void CApplication::AddEvent(CEvent* InEvent)
+    bool CApplication::OnWindowCloseEvent(SharedPtr<CWindowCloseEvent> InEvent)
     {
-        checkmsg(InEvent.GetInCategory(CEvent::ApplicationEventcategory), "An event of a type other than ApplicationEventCategory, whitch type is: %s", InEvent.GetEventName().c_str())
-        
-        AppEventList.push_back(InEvent);
+        if (InEvent->Window == ContextWindow.get())
+        {
+            bRunning = false;
+        }
+        return true;
+    }
+
+    bool CApplication::OnWindowResizeEvent(SharedPtr<CWindowResizeEvent> InEvent)
+    {
+        CResizeEvent Event = InEvent->GetWindowEvent();
+        ContextWindow->ResizeEvent(&Event);
+        return true;
     }
 
     void CApplication::PreInit()
     {
         ContextWindow = MakeSharedPtr<CWindow>(nullptr, ApplicationName);
+        SceneRenderer = MakeSharedPtr<FRenderer>(MakeSharedPtr<FRenderContext>(ContextWindow));
     }
 
     int CApplication::Exec()
@@ -64,19 +76,12 @@ namespace Panda
 
     void CApplication::ExecuteAppEvents()
     {
-        for (auto Event : AppEventList) {
-            if (Event->GetType() == CEvent::EEventType::CloseEvent)
-            {
-                OnWindowCloseEvent(dynamic_cast<CWindowCloseEvent*>(Event));
-            }
+        CScopedLock<CMutex> Lock(FGraphicsThreadPoolSubsystem::Get()->MainThreadMutex);
+        for (auto Event : FGraphicsThreadPoolSubsystem::Get()->MainThreadEvents) {
+            CEventDispatcher Dispatcher(Event);
+            Dispatcher.Dispatch<CWindowCloseEvent>(PANDA_BIND_FUNC(CApplication::OnWindowCloseEvent));
+            Dispatcher.Dispatch<CWindowResizeEvent>(PANDA_BIND_FUNC(CApplication::OnWindowResizeEvent));
         }
-    }
-
-    void CApplication::OnWindowCloseEvent(CWindowCloseEvent *InEvent)
-    {
-        if (InEvent->CloseWindow == ContextWindow.get())
-        {
-            bRunning = false;
-        }
+        FGraphicsThreadPoolSubsystem::Get()->MainThreadEvents.clear();
     }
 }

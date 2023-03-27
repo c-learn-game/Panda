@@ -10,6 +10,8 @@
         CString GetEventName() override { return #_type; }\
         int GetCategoryFlags() override { return (int)_category_flags; }
 
+#define PANDA_BIND_FUNC(FUNC) [this](auto&& ...args) -> decltype(auto) { return this->FUNC(std::forward<decltype(args)>(args)...); }
+
 namespace Panda
 {
     class CEvent
@@ -43,7 +45,33 @@ namespace Panda
         {
             return GetCategoryFlags() & static_cast<int>(Category);
         }
+        
+        bool bAccepted = true;
     };
+
+    class CEventDispatcher
+    {
+    public:
+        CEventDispatcher(SharedPtr<CEvent> InEvent);
+
+        template<typename EventType, typename F>
+        bool Dispatch(const F& Func)
+        {
+            if (Event->GetType() == EventType::Type())
+            {
+                Event->bAccepted |= Func(std::dynamic_pointer_cast<EventType>(Event));
+                return true;
+            }
+            return false;
+        }
+
+    private:
+        SharedPtr<CEvent> Event;
+    };
+
+    inline CEventDispatcher::CEventDispatcher(SharedPtr<CEvent> InEvent)
+    : Event(std::move(InEvent))
+    {}
 }
 
 #endif

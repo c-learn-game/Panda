@@ -2,6 +2,7 @@
 #define APPLICATION_H
 #include "Base/Base.h"
 #include "Event/Public/Event.h"
+#include "Renderer/Renderer.h"
 
 int main(int, char**);
 
@@ -46,15 +47,20 @@ namespace Panda
         void Quit();
         
         void AddEvent(CEvent*  InEvent);
+
+        SharedPtr<FRenderer> GetSceneRenderer() { return SceneRenderer; }
         
-    protected:
-        void OnWindowCloseEvent(class CWindowCloseEvent *InEvent);
+    public:
+        bool OnWindowCloseEvent(SharedPtr<class CWindowCloseEvent> InEvent);
+        
+        bool OnWindowResizeEvent(SharedPtr<class CWindowResizeEvent> InEvent);
         
     private:
         void ExecuteAppEvents();
 
     private:
         friend int ::main(int, char**);
+        
         void PreInit();
         
         int Exec();
@@ -78,6 +84,8 @@ namespace Panda
         SharedPtr<CWindow> ContextWindow;
         
         CList<CEvent*> AppEventList;
+
+        SharedPtr<FRenderer> SceneRenderer;
     };
 
     // 实现此函数

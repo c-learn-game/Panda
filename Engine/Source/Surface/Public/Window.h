@@ -5,6 +5,11 @@
 
 namespace Panda
 {
+    class CResizeEvent;
+}
+
+namespace Panda
+{
     class CWindow
     {
     public:
@@ -16,7 +21,12 @@ namespace Panda
 
         void SetWindowSize(CIntSize NewSize);
 
+    protected:
+        friend class CApplication;
+        virtual void ResizeEvent(CResizeEvent* InEvent);
+
     private:
+        friend class FRendererContextPrivate;
         class CWindowPrivate* P;
 
         CWindow* ParentWindow;

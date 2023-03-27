@@ -1,6 +1,15 @@
 #ifndef GRAPHICSTHREADPOOLSUBSYSTEM_H
 #define GRAPHICSTHREADPOOLSUBSYSTEM_H
+#include <mutex>
+
 #include "Base/Public/Pointer.h"
+#include "Base/Public/Thread/Thread.h"
+#include "Base/Public/Types/List.h"
+
+namespace Panda
+{
+    class CEvent;
+}
 
 namespace Panda
 {
@@ -19,9 +28,20 @@ namespace Panda
     public:
         static FGraphicsThreadPoolSubsystem* Get();
 
-        static CThread* MainThread;
-
         static void Init();
+
+        void PushEventToMainThread(SharedPtr<CEvent> InEvent, bool Combined = false);
+
+    public:
+        CList<SharedPtr<CEvent>> MainThreadEvents;
+
+        CMutex MainThreadMutex;
+
+    public:
+
+        static CThread* MainThread;
+        
+        static CThread* RendererThread;
     };
     
 }

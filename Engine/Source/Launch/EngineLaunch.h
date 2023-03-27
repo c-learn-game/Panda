@@ -6,7 +6,7 @@
 
 int main(int Argc, char** Argv)
 {
-    LogInfo(LogSystem, "Start Panda Application")
+    LogInfo(LogSystem, "Panda:: Start Application")
     Panda::CApplication* App = Panda::PandaCreateApplication({Argc, Argv});
     LogInfo(LogSystem, "Application: %s, Version: %s", App->GetApplicationName().c_str(), App->GetApplicationVersion().c_str())
 

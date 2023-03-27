@@ -44,3 +44,4 @@ BinInt/
 *.DS_Store
 DerivedData
 *.xcsettings
+*.filters

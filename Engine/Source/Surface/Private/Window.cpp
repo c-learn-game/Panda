@@ -1,6 +1,7 @@
 #include "Surface/Public/Window.h"
 
 #include "WindowPrivate.h"
+#include "Event/Public/WindowEvents.h"
 
 namespace Panda
 {
@@ -28,5 +29,10 @@ namespace Panda
         if (!NewSize.IsValid()) return;
         WindowSize = NewSize;
         P->SetWindowSize(NewSize);
+    }
+
+    void CWindow::ResizeEvent(CResizeEvent* InEvent)
+    {
+        LogInfo(LogSystem, "resize event: %dx%d", InEvent->With(), InEvent->Height())
     }
 }

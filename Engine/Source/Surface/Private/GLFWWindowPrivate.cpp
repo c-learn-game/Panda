@@ -2,14 +2,26 @@
 
 #include "GLFW/glfw3.h"
 #include "Surface/Public/Window.h"
-#include "Surface/Public/Application.h"
+#include "Launch/GraphicsThreadPoolSubsystem.h"
 #include "Event/Public/ApplicationEvents.h"
 
 void OnGLFWWindowClose(GLFWwindow* WindowHandle)
 {
-    Panda::CWindow* Interface = reinterpret_cast<Panda::CWindow*>(glfwGetWindowUserPointer(WindowHandle));
+    auto* Interface = reinterpret_cast<Panda::CWindow*>(glfwGetWindowUserPointer(WindowHandle));
     check(Interface)
-    Panda::CApplication::Get()->AddEvent(new Panda::CWindowCloseEvent(Interface));
+    Panda::FGraphicsThreadPoolSubsystem::Get()->PushEventToMainThread(Panda::MakeSharedPtr<Panda::CWindowCloseEvent>(Interface), true);
+}
+
+void OnGLFWWindowFrameBufferSizeChanged(GLFWwindow* WindowHandle, int Width, int Height)
+{
+    
+}
+
+void OnGLFWWindowResizeEvent(GLFWwindow* WindowHandle, int Width, int Height)
+{
+    auto* Interface = reinterpret_cast<Panda::CWindow*>(glfwGetWindowUserPointer(WindowHandle));
+    check(Interface)
+    Panda::FGraphicsThreadPoolSubsystem::Get()->PushEventToMainThread(Panda::MakeSharedPtr<Panda::CWindowResizeEvent>(Interface, Width, Height), true);
 }
 
 Panda::CGLFWWindowPrivate::CGLFWWindowPrivate(CWindow* WindowInterface, const CString& WindowTitle)
@@ -22,6 +34,7 @@ Panda::CGLFWWindowPrivate::CGLFWWindowPrivate(CWindow* WindowInterface, const CS
     
     glfwSetWindowUserPointer(WindowHandle, WindowInterface);
     glfwSetWindowCloseCallback(WindowHandle,OnGLFWWindowClose);
+    glfwSetWindowSizeCallback(WindowHandle, OnGLFWWindowResizeEvent);
 }
 
 Panda::CGLFWWindowPrivate::~CGLFWWindowPrivate()
