@@ -20,6 +20,13 @@ workspace "Panda"
         }
     filter {}
 
+    filter "system:windows"
+        defines
+        {
+            "PANDA_SYSTEM_WINDOWS"
+        }
+    filter {}
+
     filter "configurations:Debug"
         runtime "Debug"
         symbols "on"

@@ -3,9 +3,9 @@
 
 #include "Logging/Logging.h"
 
-#ifndef PANDA_BUDEG
-    #if defined(CG_SYSTEM_WINDOWS)
-        #define CG_DEBUGBREAK() __debugbreak();
+#ifdef PANDA_BUDEG
+    #if defined(PANDA_SYSTEM_WINDOWS)
+        #define PANDA_DEBUGBREAK() __debugbreak();
         #define PANDA_ENABLE_ASSETS
     #else
         #warning current system doesn't support debugbreak yet!
@@ -18,7 +18,11 @@
 #ifdef PANDA_ENABLE_ASSETS
 
 #define check(exp)\
-    if (!(exp)) PANDA_DEBUGBREAK();
+    if (!(exp))\
+	{\
+		LogInfo(LogSystem, "check %s failed!", #exp);\
+		PANDA_DEBUGBREAK();\
+	}
 
 #define checkmsg(exp, msg, ...)\
     if (!(exp))\

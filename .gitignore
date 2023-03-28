@@ -45,3 +45,4 @@ BinInt/
 DerivedData
 *.xcsettings
 *.filters
+.vs
