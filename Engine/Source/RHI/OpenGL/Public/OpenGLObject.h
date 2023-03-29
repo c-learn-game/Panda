@@ -14,9 +14,6 @@ namespace Panda
         // 不使用当前对象
         virtual void UnUse() = 0;
 
-        // 初始化当前对象
-        virtual void Init() = 0;
-
         //销毁当前对象
         virtual void Destroy() = 0;
 

@@ -61,7 +61,7 @@ namespace Panda
     void CApplication::PreInit()
     {
         ContextWindow = MakeSharedPtr<CWindow>(nullptr, ApplicationName);
-        SceneRenderer = MakeSharedPtr<FRenderer>(MakeSharedPtr<FRenderContext>(ContextWindow));
+        Context = MakeSharedPtr<FRenderContext>(ContextWindow);
     }
 
     int CApplication::Exec()

@@ -29,10 +29,6 @@ namespace Panda
     {
         check(IsValid())
         PANDA_GL_CALL(glBindVertexArray(VAO))
-        for (int Index : VertexIndices)
-        {
-            PANDA_GL_CALL(glEnableVertexAttribArray(Index))
-        }
     }
 
     void FVertexArrayObject::UnUse()
@@ -50,19 +46,16 @@ namespace Panda
         return VAO > 0;
     }
 
-    void FVertexArrayObject::AddAttributes(FVertexBufferObject* VBO,
-        const CArray<FVertexArrayAttributes>& Attributes)
+    void FVertexArrayObject::SetBuffer(FVertexBufferObject* vbo)
     {
         check(IsValid())
         Use();
-        VBO->Use();
-        for (int Index = 0; Index < Attributes.size(); ++Index)
+        vbo->Use();
+        for (int Index = 0; Index < vbo->GetLayouts().size(); ++Index)
         {
-            const auto Attribute = Attributes[Index];
-            PANDA_GL_CALL(glVertexAttribPointer(Index, Attribute.VertexCount, GL_FLOAT, Attribute.bNormalized, Attribute.Stride, (void*)CurrentOffset))
-            CurrentOffset += Attribute.Stride;
-            VertexIndices.Add(Index);
+            auto Layout = vbo->GetLayouts()[Index];
+            PANDA_GL_CALL(glEnableVertexAttribArray(Index))
+            PANDA_GL_CALL(glVertexAttribPointer(Index, Layout.Count, Layout.Type, Layout.bNormalized, Layout.Stride, (void*)Layout.Offset))
         }
-        VBO->UnUse();
     }
 }

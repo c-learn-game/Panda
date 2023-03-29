@@ -20,7 +20,7 @@ namespace Panda
         bool bHasError = false;\
         while (const GLenum ErrorCode = glGetError())\
         {\
-            LogInfo(LogSystem, "OpenGL Error With Code: %d", ErrorCode)\
+            LogInfo(LogSystem, "OpenGL Error With Code: %x", ErrorCode)\
             bHasError = true;\
         }\
         check(!bHasError)\
@@ -28,9 +28,7 @@ namespace Panda
 
 #else
     #define PANDA_GL_CALL(exp) \
-    exp;\
-    LogInfo(LogSystem, "xxx")
+    exp;
 
 #endif
-
 #endif

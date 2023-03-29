@@ -1,6 +1,7 @@
 ﻿#ifndef RENDERER_H
 #define RENDERER_H
 #include "Base/Public/Pointer.h"
+#include "Base/Public/Types/Array.h"
 
 namespace Panda
 {
@@ -16,16 +17,17 @@ namespace Panda
 {
     class FRenderer
     {
-    public:
-        explicit FRenderer(const SharedPtr<FRenderContext>& Context);
-
-        void Init();
-
-        void RenderMain();
-
     private:
-        SharedPtr<FRenderContext> RendererContext;
+        explicit FRenderer() = default;
+
+        virtual ~FRenderer() = default;
+        
+    public:
+        static FRenderer* Get();
+        
     };
+
+    void RenderThreadMain(const SharedPtr<FRenderContext>& Context);
 }
 
 #endif

@@ -25,7 +25,7 @@ namespace Panda
     {
         MainThread = new CThread(std::this_thread::get_id());
         
-        RendererThread = new CThread(std::thread(&FRenderer::RenderMain, CApplication::Get()->GetSceneRenderer()));
+        RendererThread = new CThread(std::thread(&RenderThreadMain, CApplication::Get()->GetContext()));
         RendererThread->Detach();
     }
 

@@ -5,6 +5,17 @@
 
 namespace Panda
 {
+
+    struct FVertexBufferLayout
+    {
+        int Type = 0;
+        int Count = 0;
+        uint8 bNormalized = 0;
+        int Stride = 0;
+        int Offset = 0;
+        
+    };
+    
     class FVertexBufferObject : FOpenGLObject
     {
     public:
@@ -12,7 +23,7 @@ namespace Panda
 
         explicit FVertexBufferObject(float* InBufferData, int InBufferSize);
 
-        void Init() override;
+        void Init();
 
         void Destroy() override;
 
@@ -22,11 +33,32 @@ namespace Panda
 
         bool IsValid() override;
 
+        template <typename T>
+        void AddLayout(int VertexCount, bool bNormalized)
+        {
+            check(false)
+        }
+
+        template <>
+        void AddLayout<float>(int VertexCount, bool bNormalized);
+
+        CArray<FVertexBufferLayout> GetLayouts() const { return Layouts; }
+        
     private:
         uint VBO;
         float* BufferData;
         int BufferSize;
+        int CurrentOffset = 0;
+        CArray<FVertexBufferLayout> Layouts;
     };
+
+    template <>
+    void FVertexBufferObject::AddLayout<float>(int VertexCount, bool bNormalized)
+    {
+        const int Stride = 4 * VertexCount;
+        this->Layouts.Add({GL_FLOAT, VertexCount, bNormalized, Stride, CurrentOffset});
+        CurrentOffset += Stride;
+    }
 }
 
 #endif

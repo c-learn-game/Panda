@@ -26,7 +26,7 @@ namespace Panda
     public:
         explicit FVertexArrayObject();
 
-        void Init() override;
+        void Init();
 
         void Destroy() override;
 
@@ -36,7 +36,7 @@ namespace Panda
 
         bool IsValid() override;
 
-        void AddAttributes(FVertexBufferObject* VBO, const CArray<FVertexArrayAttributes>& Attribute);
+        void SetBuffer(FVertexBufferObject* vbo);
         
     private:
         uint VAO;

@@ -48,7 +48,7 @@ namespace Panda
         
         void AddEvent(CEvent*  InEvent);
 
-        SharedPtr<FRenderer> GetSceneRenderer() { return SceneRenderer; }
+        SharedPtr<FRenderContext> GetContext() const { return Context; }
         
     public:
         bool OnWindowCloseEvent(SharedPtr<class CWindowCloseEvent> InEvent);
@@ -85,7 +85,7 @@ namespace Panda
         
         CList<CEvent*> AppEventList;
 
-        SharedPtr<FRenderer> SceneRenderer;
+        SharedPtr<FRenderContext> Context;
     };
 
     // 实现此函数
