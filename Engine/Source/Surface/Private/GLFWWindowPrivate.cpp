@@ -4,6 +4,7 @@
 #include "Surface/Public/Window.h"
 #include "Launch/GraphicsThreadPoolSubsystem.h"
 #include "Event/Public/ApplicationEvents.h"
+#include "Renderer/Public/RenderThread.h"
 
 void OnGLFWWindowClose(GLFWwindow* WindowHandle)
 {
@@ -24,6 +25,12 @@ void OnGLFWWindowResizeEvent(GLFWwindow* WindowHandle, int Width, int Height)
     Panda::FGraphicsThreadPoolSubsystem::Get()->PushEventToMainThread(Panda::MakeSharedPtr<Panda::CWindowResizeEvent>(Interface, Width, Height), true);
 }
 
+void OnGLFWWindowMouseButtonEvent(GLFWwindow* WindowHandle, int Button, int Action, int Mods)
+{
+    static int x = 0;
+    Panda::FRenderThread::PushNumber(++x);
+}
+
 Panda::CGLFWWindowPrivate::CGLFWWindowPrivate(CWindow* WindowInterface, const CString& WindowTitle)
     : CWindowPrivate(WindowInterface, WindowTitle)
 {
@@ -35,6 +42,7 @@ Panda::CGLFWWindowPrivate::CGLFWWindowPrivate(CWindow* WindowInterface, const CS
     glfwSetWindowUserPointer(WindowHandle, WindowInterface);
     glfwSetWindowCloseCallback(WindowHandle,OnGLFWWindowClose);
     glfwSetWindowSizeCallback(WindowHandle, OnGLFWWindowResizeEvent);
+    glfwSetMouseButtonCallback(WindowHandle, OnGLFWWindowMouseButtonEvent);
 }
 
 Panda::CGLFWWindowPrivate::~CGLFWWindowPrivate()

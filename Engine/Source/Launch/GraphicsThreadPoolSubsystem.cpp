@@ -3,12 +3,14 @@
 #include "Event/Public/Event.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/Public/RendererContext.h"
+#include "Renderer/Public/RenderThread.h"
 #include "Surface/Public/Application.h"
 
 namespace Panda
 {
     CThread* FGraphicsThreadPoolSubsystem::MainThread = nullptr;
     CThread* FGraphicsThreadPoolSubsystem::RendererThread = nullptr;
+    FRenderThread* FGraphicsThreadPoolSubsystem::RenderThread = nullptr;
 
     FGraphicsThreadPoolSubsystem::~FGraphicsThreadPoolSubsystem()
     {
@@ -27,6 +29,10 @@ namespace Panda
         
         RendererThread = new CThread(std::thread(&RenderThreadMain, CApplication::Get()->GetContext()));
         RendererThread->Detach();
+
+        RenderThread = new FRenderThread();\
+        RenderThread->Run();
+        RenderThread->Detach();
     }
 
     void FGraphicsThreadPoolSubsystem::PushEventToMainThread(const SharedPtr<CEvent> InEvent, bool Combined)

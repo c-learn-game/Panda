@@ -8,11 +8,8 @@
 
 namespace Panda
 {
+    class FRenderThread;
     class CEvent;
-}
-
-namespace Panda
-{
     class CThread;
 }
 
@@ -42,6 +39,8 @@ namespace Panda
         static CThread* MainThread;
         
         static CThread* RendererThread;
+
+        static FRenderThread* RenderThread;
     };
     
 }

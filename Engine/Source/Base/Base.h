@@ -27,6 +27,10 @@ using int32 = glm::int32;
 
 namespace Panda
 {
+
+    template <typename T>
+    using CDequeue = std::deque<T>;
+    
     enum MouseButton
     {
         NoButton,
