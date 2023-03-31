@@ -4,6 +4,7 @@
 #include "Surface/Public/Window.h"
 #include "Launch/GraphicsThreadPoolSubsystem.h"
 #include "Event/Public/ApplicationEvents.h"
+#include "Renderer/Command/ViewportCommand.h"
 #include "Renderer/Public/RenderThread.h"
 
 void OnGLFWWindowClose(GLFWwindow* WindowHandle)
@@ -15,7 +16,7 @@ void OnGLFWWindowClose(GLFWwindow* WindowHandle)
 
 void OnGLFWWindowFrameBufferSizeChanged(GLFWwindow* WindowHandle, int Width, int Height)
 {
-    
+    Panda::FRenderer::AddDrawCommand<Panda::FViewportCommand>(0, 0, Width, Height);
 }
 
 void OnGLFWWindowResizeEvent(GLFWwindow* WindowHandle, int Width, int Height)
@@ -27,8 +28,6 @@ void OnGLFWWindowResizeEvent(GLFWwindow* WindowHandle, int Width, int Height)
 
 void OnGLFWWindowMouseButtonEvent(GLFWwindow* WindowHandle, int Button, int Action, int Mods)
 {
-    static int x = 0;
-    Panda::FRenderThread::PushNumber(++x);
 }
 
 Panda::CGLFWWindowPrivate::CGLFWWindowPrivate(CWindow* WindowInterface, const CString& WindowTitle)
@@ -43,6 +42,7 @@ Panda::CGLFWWindowPrivate::CGLFWWindowPrivate(CWindow* WindowInterface, const CS
     glfwSetWindowCloseCallback(WindowHandle,OnGLFWWindowClose);
     glfwSetWindowSizeCallback(WindowHandle, OnGLFWWindowResizeEvent);
     glfwSetMouseButtonCallback(WindowHandle, OnGLFWWindowMouseButtonEvent);
+    glfwSetFramebufferSizeCallback(WindowHandle, OnGLFWWindowFrameBufferSizeChanged);
 }
 
 Panda::CGLFWWindowPrivate::~CGLFWWindowPrivate()

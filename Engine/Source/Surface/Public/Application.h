@@ -2,7 +2,7 @@
 #define APPLICATION_H
 #include "Base/Base.h"
 #include "Event/Public/Event.h"
-#include "Renderer/Renderer.h"
+#include "Renderer/Public/RendererContext.h"
 
 int main(int, char**);
 

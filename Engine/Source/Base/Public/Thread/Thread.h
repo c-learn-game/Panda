@@ -11,6 +11,9 @@ using CMutex = std::mutex;
 template<typename MutexType>
 using CScopedLock = std::scoped_lock<MutexType>;
 
+template<typename MutexType>
+using CGuardLock = std::lock_guard<MutexType>;
+
 namespace Panda
 {
     class CThread

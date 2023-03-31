@@ -4,6 +4,8 @@
 
 #include <thread>
 #include <mutex>
+
+#include "Thread.h"
 #include "Base/Public/Logging/Logging.h"
 
 namespace Panda
@@ -28,6 +30,8 @@ namespace Panda
         void Detach();
 
         bool Joinable() const;
+
+        CThreadID GetThreadId() const;
 
         void Run();
 
@@ -70,6 +74,12 @@ namespace Panda
     bool FThreadBase<T>::Joinable() const
     {
         return StdThread.joinable();
+    }
+
+    template <typename T>
+    CThreadID FThreadBase<T>::GetThreadId() const
+    {
+        return StdThread.get_id();
     }
 
     template <typename T>

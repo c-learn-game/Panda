@@ -1,7 +1,7 @@
 #include "GraphicsThreadPoolSubsystem.h"
 #include "Base/Public/Thread/Thread.h"
 #include "Event/Public/Event.h"
-#include "Renderer/Renderer.h"
+#include "Renderer/Command/ContextChangeCommand.h"
 #include "Renderer/Public/RendererContext.h"
 #include "Renderer/Public/RenderThread.h"
 #include "Surface/Public/Application.h"
@@ -9,7 +9,6 @@
 namespace Panda
 {
     CThread* FGraphicsThreadPoolSubsystem::MainThread = nullptr;
-    CThread* FGraphicsThreadPoolSubsystem::RendererThread = nullptr;
     FRenderThread* FGraphicsThreadPoolSubsystem::RenderThread = nullptr;
 
     FGraphicsThreadPoolSubsystem::~FGraphicsThreadPoolSubsystem()
@@ -27,10 +26,7 @@ namespace Panda
     {
         MainThread = new CThread(std::this_thread::get_id());
         
-        RendererThread = new CThread(std::thread(&RenderThreadMain, CApplication::Get()->GetContext()));
-        RendererThread->Detach();
-
-        RenderThread = new FRenderThread();\
+        RenderThread = new FRenderThread(CApplication::Get()->GetContext());
         RenderThread->Run();
         RenderThread->Detach();
     }

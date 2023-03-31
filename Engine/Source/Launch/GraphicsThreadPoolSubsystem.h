@@ -37,9 +37,6 @@ namespace Panda
     public:
 
         static CThread* MainThread;
-        
-        static CThread* RendererThread;
-
         static FRenderThread* RenderThread;
     };
     

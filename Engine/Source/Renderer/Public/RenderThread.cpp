@@ -1,39 +1,66 @@
 ﻿#include "RenderThread.h"
 
+#include "RendererContext.h"
 #include "Base/Public/Logging/Logging.h"
+#include "Renderer/Private/Command/RenderCommandBase.h"
+#include "RHI/Public/PlatformRHI.h"
 
 namespace Panda
 {
 
-    FMutex FRenderThread::EventMutex;
+    FMutex FRenderer::CommandMutex;
 
-    FThreadCondition FRenderThread::Condition;
+    FThreadCondition FRenderer::Condition;
 
-    CDequeue<int> FRenderThread::Numbers;
-    
-    FRenderThread::FRenderThread()
-        : FThreadBase("Render Thread")
+    CDequeue<SharedPtr<FRenderCommandBase>> FRenderer::Commands;
+
+    FRenderer::FRenderer()
     {
     }
 
-    void FRenderThread::PushNumber(int x)
+    void FRenderer::SetContext(const SharedPtr<FRenderContext>& NewContext)
     {
-        std::lock_guard<FMutex> Lock(EventMutex);
+        // 必须在渲染线程调用
+        Context = NewContext;
+        Commands.clear();
+    }
 
-        LogInfo(LogSystem, "get number: %d", x)
-        Numbers.push_back(x);
-        Condition.notify_one();
+    void FRenderer::InitContext() const
+    {
+        Context->Init();
+        RHICommand->SetClearColor(0.2f, 0.4f, 0.8f);
+    }
+
+    FRenderer* FRenderer::Get()
+    {
+        static FRenderer Renderer;
+        return &Renderer;
+    }
+
+    FRenderThread::FRenderThread(SharedPtr<FRenderContext> Context)
+        : FThreadBase("Render Thread")
+    {
+        FRenderer::Get()->SetContext(Context);
     }
 
     void FRenderThread::ThreadMain()
     {
-        while (true)
+        FRenderer::Get()->InitContext();
+        RHICommand->Clear();
+        FRenderer::Get()->Context->SwapBuffers();
+        while (bRunning)
         {
-            FUniqueLock<FMutex> Lock(EventMutex);
-            Condition.wait(Lock, [this]() { return !Numbers.empty(); });
-            int Num = Numbers.front();
-            LogInfo(LogSystem, "Process number: %d", Num)
-            Numbers.pop_front();
+            FUniqueLock<FMutex> Lock(FRenderer::CommandMutex);
+            FRenderer::Condition.wait(Lock);
+            RHICommand->Clear();
+            for (const auto& Command : FRenderer::Commands)
+            {
+                Command->Execute();
+            }
+            FRenderer::Commands.clear();
+            FRenderer::Get()->Context->SwapBuffers();
+            
         }
+        LogInfo(LogSystem, "Thread %d Quit", GetThreadId())
     }
 }
