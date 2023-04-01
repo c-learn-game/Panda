@@ -19,6 +19,20 @@ project "Panda"
     {
         project_include_dirs["Panda"],
         project_include_dirs["GLFW"],
-        project_include_dirs["Glad"],
-        project_include_dirs["Glm"]
+        project_include_dirs["Glm"],
+        project_include_dirs["Glad"]
     }
+
+    filter "action:xcode4"
+        sysincludedirs
+        {
+            project_include_dirs["Glad"]
+        }
+    filter {}
+
+    filter "action:!xcode4"
+        includedirs
+        {
+            project_include_dirs["Glad"]
+        }
+    filter {}

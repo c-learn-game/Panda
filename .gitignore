@@ -46,3 +46,5 @@ DerivedData
 *.xcsettings
 *.filters
 .vs
+cmake*
+*.cmake

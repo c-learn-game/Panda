@@ -1,4 +1,4 @@
-﻿#include "RenderThread.h"
+#include "RenderThread.h"
 
 #include "RendererContext.h"
 #include "Base/Public/Logging/Logging.h"
@@ -50,16 +50,18 @@ namespace Panda
         FRenderer::Get()->Context->SwapBuffers();
         while (bRunning)
         {
-            FUniqueLock<FMutex> Lock(FRenderer::CommandMutex);
-            FRenderer::Condition.wait(Lock);
-            RHICommand->Clear();
-            for (const auto& Command : FRenderer::Commands)
+            // 执行指令
+            SharedPtr<FRenderCommandBase> Command;
             {
-                Command->Execute();
+                FUniqueLock<FMutex> Lock(FRenderer::CommandMutex);
+                FRenderer::Condition.wait(Lock);
+                Command = FRenderer::Commands.front();
+                FRenderer::Commands.pop_front();
             }
-            FRenderer::Commands.clear();
+            Command->Execute();
+            // 收集场景数据
+            RHICommand->Clear();
             FRenderer::Get()->Context->SwapBuffers();
-            
         }
         LogInfo(LogSystem, "Thread %d Quit", GetThreadId())
     }

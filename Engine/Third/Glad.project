@@ -12,8 +12,17 @@ project "Glad"
         "glad/src/**.c"
     }
 
-    sysincludedirs
-    {
-        "glad/include"
-    }
+    filter "action:xcode4"
+        sysincludedirs
+        {
+            project_include_dirs["Glad"]
+        }
+    filter {}
+
+    filter "action:!xcode4"
+        includedirs
+        {
+            project_include_dirs["Glad"]
+        }
+    filter {}
     

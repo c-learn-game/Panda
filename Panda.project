@@ -1,3 +1,6 @@
+include "/Scripts/PandaProject/GlobalDefines.subproject"
+
+
 workspace "Panda"
     configurations {"Debug", "Release"}
     platforms {"GLFW+OpenGL"}
