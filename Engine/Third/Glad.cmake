@@ -1,4 +1,6 @@
-﻿add_library("Glad" STATIC
+﻿include (../../Scripts/CMake/PandaGlobal.cmake)
+
+panda_add_library("Glad" STATIC
   "Engine/Third/glad/src/glad.c"
 )
 if(CMAKE_BUILD_TYPE STREQUAL Debug)

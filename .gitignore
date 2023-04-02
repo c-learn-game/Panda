@@ -47,3 +47,5 @@ DerivedData
 *.filters
 .vs
 cmake-build*
+CMakeFiles/
+CMakeCache.txt
