@@ -16,7 +16,9 @@ namespace Panda
         
         void SetViewport(int x, int y, int w, int h) override;
 
-        
+        int CompileShader(const char *VertShaderSource, const char *FragShaderSource) override;
+
+        void UseShader(const int &ShaderId) override;
     };
 }
 

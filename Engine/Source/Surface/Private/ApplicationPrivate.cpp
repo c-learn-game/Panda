@@ -1,4 +1,4 @@
-﻿#include "ApplicationPrivate.h"
+#include "ApplicationPrivate.h"
 
 #include "GLFWApplicationPrivate.h"
 
@@ -13,4 +13,5 @@ namespace Panda
 #endif
         return nullptr;
     }
+
 }

@@ -1,5 +1,5 @@
 ﻿#include "OpenGLPlatformRHI.h"
-#include "glad/glad.h"
+#include "Public/OpenGLBase.h"
 
 namespace Panda
 { 
@@ -16,5 +16,64 @@ namespace Panda
     void FOpenGLPlatformRHI::SetViewport(int x, int y, int w, int h)
     {
         glViewport(x, y, w, h);
+    }
+
+    int FOpenGLPlatformRHI::CompileShader(const char *VertShaderSource, const char *FragShaderSource) {
+        check(!IsValid())
+        int ProgramId = glCreateProgram();
+        auto CompileShader = [&](const char* ShaderSource, uint ShaderType) -> uint
+        {
+            PANDA_GL_CALL(uint Shader = glCreateShader(ShaderType))
+            PANDA_GL_CALL(glShaderSource(Shader, 1, &ShaderSource, nullptr))
+            PANDA_GL_CALL(glCompileShader(Shader))
+            int Success = 1;
+            char InfoLog[512];
+            PANDA_GL_CALL(glGetShaderiv(Shader, GL_COMPILE_STATUS, &Success))
+            if (!Success)
+            {
+                PANDA_GL_CALL(glGetShaderInfoLog(Shader, 512, NULL, InfoLog))
+                LogWarning(LogSystem, "Shader compile failed!")
+                LogWarning(LogSystem, "    %s", InfoLog)
+                PANDA_GL_CALL(glDeleteShader(Shader))
+                Shader = 0;
+            }
+            return Shader;
+        };
+        uint vs = CompileShader(VertShaderSource, GL_VERTEX_SHADER);
+        uint fs = CompileShader(FragShaderSource, GL_FRAGMENT_SHADER);
+
+        if (vs && fs)
+        {
+            glAttachShader(ProgramId, vs);
+            glAttachShader(ProgramId, fs);
+            glLinkProgram(ProgramId);
+
+            int Success = 1;
+            char InfoLog[512];
+            PANDA_GL_CALL(glGetProgramiv(ProgramId, GL_LINK_STATUS, &Success))
+            if (!Success)
+            {
+                PANDA_GL_CALL(glGetProgramInfoLog(ProgramId, 512, NULL, InfoLog))
+                LogWarning(LogSystem, "Program links failed!")
+                LogWarning(LogSystem, "    %s", InfoLog)
+                PANDA_GL_CALL(glDeleteProgram(ProgramId))
+                ProgramId = 0;
+            }
+            PANDA_GL_CALL(glDeleteShader(vs))
+            PANDA_GL_CALL(glDeleteShader(fs))
+        }
+        else
+        {
+            if (vs) PANDA_GL_CALL(glDeleteShader(vs))
+            if (fs) PANDA_GL_CALL(glDeleteShader(vs))
+            PANDA_GL_CALL(glDeleteProgram(ProgramId))
+            ProgramId = 0;
+        }
+        return ProgramId;
+    }
+
+    void FOpenGLPlatformRHI::UseShader(const int &ShaderId)
+    {
+        PANDA_GL_CALL(glUseProgram(ShaderId))
     }
 }

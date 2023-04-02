@@ -15,6 +15,10 @@ namespace Panda
         virtual void SetClearColor(float r=0.0f, float g=0.0f, float b=0.0f, float a=1.0f) = 0;
         
         virtual void SetViewport(int x, int y, int w, int h) = 0;
+
+        virtual int CompileShader(const char* VertShaderSource, const char* FragShaderSource) = 0;
+
+        virtual void UseShader(const int& ShaderId) = 0;
         
         static FPlatformRHI* GetRHI();
     };
