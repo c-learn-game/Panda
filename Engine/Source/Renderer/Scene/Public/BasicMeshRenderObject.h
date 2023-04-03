@@ -16,7 +16,6 @@ namespace Panda
     private:
         // vao, vbo
 
-
     };
 
 }

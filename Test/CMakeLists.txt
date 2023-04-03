@@ -1,0 +1,1 @@
+include(SimpleApp/SimpleApp.cmake)

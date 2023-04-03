@@ -17,7 +17,7 @@ void Panda::FGLFWRendererContextPrivate::Init()
     
     int Status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
-    checkmsg(Status, "Initilize glad failed!")
+    checkmsg(Status, "Initialize glad failed!")
 
     LogInfo(LogSystem, "OpenGL Info")
     LogInfo(LogSystem, "   OpenGL Vendor: %s", glGetString(GL_VENDOR))

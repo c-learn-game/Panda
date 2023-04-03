@@ -10,11 +10,21 @@ add_library(Panda STATIC "${SOURCE_FILES}")
 
 set_target_properties(Panda PROPERTIES FOLDER "Engine")
 
-add_compile_definitions(PANDA_OPENGL)
-
-include_directories(
-        ${CMAKE_CURRENT_SOURCE_DIR}
-        "../Third/glm/glm"
+add_compile_definitions(
+        PANDA_OPENGL
+        PANDA_PLATFORM_GLFW
 )
 
-target_link_libraries(Panda GLFW Glad)
+if(APPLE)
+    add_compile_definitions(
+            PANDA_OPENGL_VERSION_MAJOR=4
+            PANDA_OPENGL_VERSION_MINOR=0
+    )
+endif()
+
+target_include_directories(
+        Panda PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_link_libraries(Panda GLFW Glad Glm)
