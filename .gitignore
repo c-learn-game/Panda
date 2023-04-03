@@ -49,3 +49,4 @@ DerivedData
 cmake-build*
 CMakeFiles/
 CMakeCache.txt
+Build
