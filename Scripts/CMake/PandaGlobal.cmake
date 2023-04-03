@@ -1,9 +1,3 @@
-function(to_relativepath SOURCE_FILES)
-    foreach(fileItem ${ARGN})
-        string(REPLACE "${SOURCE_DIR}" "" GROUP "${PARENT_DIR}")
-    endforeach()
-endfunction(to_relativepath)
-
 
 # 参数是filters
 function(panda_init_files_group BASE_DIR)

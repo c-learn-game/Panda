@@ -20,7 +20,7 @@ namespace Panda
     
     private:
         
-    }
+    };
 }
 
 #endif /* SCENECOMPONENT_H */
