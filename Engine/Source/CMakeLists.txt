@@ -20,6 +20,11 @@ if(APPLE)
             PANDA_OPENGL_VERSION_MAJOR=4
             PANDA_OPENGL_VERSION_MINOR=0
     )
+elseif(WIN32)
+    add_compile_definitions(
+            PANDA_OPENGL_VERSION_MAJOR=4
+            PANDA_OPENGL_VERSION_MINOR=5
+    )
 endif()
 
 target_include_directories(
@@ -27,4 +32,5 @@ target_include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+set_target_properties(Panda PROPERTIES FOLDER "Engine/Engine")
 target_link_libraries(Panda GLFW Glad Glm)

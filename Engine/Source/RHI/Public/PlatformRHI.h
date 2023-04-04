@@ -1,10 +1,15 @@
 ﻿#ifndef PLATFORMRHI_H
 #define PLATFORMRHI_H
-#include "Base/Public/Pointer.h"
-#include "Base/Public/Types/Math.h"
+
+#include "Base/Base.h"
 
 namespace Panda
 {
+	enum class EBufferUsage
+	{
+		BU_STATIC = 0x88E4,
+	};
+
     class FPlatformRHI
     {
     public:
@@ -19,6 +24,8 @@ namespace Panda
         virtual int CompileShader(const char* VertShaderSource, const char* FragShaderSource) = 0;
 
         virtual void UseShader(const int& ShaderId) = 0;
+
+		virtual uint SubmitVertexBuffer(float* Vertices, int BufferSize, EBufferUsage Usage = EBufferUsage::BU_STATIC) = 0;
         
         static FPlatformRHI* GetRHI();
     };

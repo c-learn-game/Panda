@@ -19,6 +19,8 @@ namespace Panda
         int CompileShader(const char *VertShaderSource, const char *FragShaderSource) override;
 
         void UseShader(const int &ShaderId) override;
+
+		uint SubmitVertexBuffer(float* Vertices, int BufferSize, EBufferUsage Usage = EBufferUsage::BU_STATIC) override;
     };
 }
 

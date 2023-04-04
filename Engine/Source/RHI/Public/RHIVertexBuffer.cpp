@@ -3,3 +3,13 @@
 //
 
 #include "RHIVertexBuffer.h"
+#include "RHI/Public/RHIVertexBuffer.h"
+
+namespace Panda
+{
+	FRHIVertexBuffer::FRHIVertexBuffer(float * Buffer)
+	{
+		//BufferID = RHICommand->S
+	}
+}
+

@@ -76,4 +76,12 @@ namespace Panda
     {
         PANDA_GL_CALL(glUseProgram(ShaderId))
     }
+	uint FOpenGLPlatformRHI::SubmitVertexBuffer(float * Vertices, int BufferSize, EBufferUsage Usage)
+	{
+		uint BufferId = 0;
+		PANDA_GL_CALL(glGenBuffers(1, &BufferId))
+		PANDA_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, BufferId))
+		PANDA_GL_CALL(glBufferData(GL_ARRAY_BUFFER, BufferSize, Vertices, (int)Usage))
+		return BufferId;
+	}
 }
