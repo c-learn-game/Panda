@@ -22,7 +22,9 @@ namespace Panda
 
 		uint CreateVertexBufferObject(float *Vertices, int BufferSize, EBufferUsage Usage = EBufferUsage::BU_STATIC) override;
 
-		uint CreateVertexArrayObject(const CArray<FVertexBufferLayout> &Layouts) override;
+		uint CreateVertexArrayObject(int StrideSize, const CArray<FVertexBufferLayout> &Layouts) override;
+
+		void DrawArray(uint VaoId, int Count) override;
     };
 }
 

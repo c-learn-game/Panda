@@ -14,12 +14,13 @@ namespace Panda
     public:
         explicit FRHIVertexArray() = delete;
 
-        explicit FRHIVertexArray(const SharedPtr<class FRHIVertexBuffer>& Buffer);
+        explicit FRHIVertexArray(const SharedPtr<class FRHIVertexBuffer>& InBuffer);
 
+        void DrawArray();
 
     private:
         uint VAOId = 0;
-
+        SharedPtr<class FRHIVertexBuffer> Buffer;
     };
 }
 

@@ -85,21 +85,28 @@ namespace Panda
         return BufferId;
     }
 
-    uint FOpenGLPlatformRHI::CreateVertexArrayObject(const CArray<FVertexBufferLayout> &Layouts) {
+    uint FOpenGLPlatformRHI::CreateVertexArrayObject(int StrideSize, const CArray<FVertexBufferLayout> &Layouts) {
         uint VaoId = 0;
         PANDA_GL_CALL(glGenVertexArrays(1, &VaoId))
-        int Offset = 0;
+        PANDA_GL_CALL(glBindVertexArray(VaoId))
         for (int i = 0; i < Layouts.size(); ++i) {
+            LogInfo(LogSystem, "Create vao, %d, %d， %d", i, StrideSize, Layouts[i].Count)
             const FVertexBufferLayout& Layout = Layouts[i];
+            PANDA_GL_CALL(glVertexAttribPointer(i, Layout.Count, GL_FLOAT,
+                                                GL_FALSE, StrideSize, (void*)Layout.Offset))
+
+            // 保持最大的attrib index 是启用的
             PANDA_GL_CALL(glEnableVertexAttribArray(i))
-            PANDA_GL_CALL(glVertexAttribPointer(i, Layout.Count, Layout.Normalized,
-                                                Layout.VariableType, Layout.StrideSize, (void*)Offset))
-            Offset += Layout.StrideSize;
         }
         return VaoId;
     }
 
     FOpenGLPlatformRHI::FOpenGLPlatformRHI() {
         static_assert(PLATFORM_VAR_FLOAT == GL_FLOAT);
+    }
+
+    void FOpenGLPlatformRHI::DrawArray(uint VaoId, int Count) {
+        PANDA_GL_CALL(glBindVertexArray(VaoId))
+        PANDA_GL_CALL(glDrawArrays(GL_TRIANGLES, 0, Count))
     }
 }

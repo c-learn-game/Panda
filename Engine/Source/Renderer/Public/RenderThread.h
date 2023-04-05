@@ -37,8 +37,8 @@ namespace Panda
     {
     public:
         FRenderThread(SharedPtr<class FRenderContext> Context);
-        
-        void ThreadMain() override;
+
+        [[noreturn]] [[noreturn]] void ThreadMain() override;
 
     private:
         bool bRunning = true;

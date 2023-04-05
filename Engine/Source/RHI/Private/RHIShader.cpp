@@ -11,7 +11,7 @@ namespace Panda
         ShaderID = RHICommand->CompileShader(VertexShaderSource.c_str(), FragShaderSource.c_str());
     }
 
-    FRHIShader::~FRHIShader() noexcept {
+    FRHIShader::~FRHIShader() {
 
     }
 

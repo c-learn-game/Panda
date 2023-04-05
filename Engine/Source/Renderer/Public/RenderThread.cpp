@@ -4,6 +4,33 @@
 #include "Base/Public/Logging/Logging.h"
 #include "Renderer/Private/Command/RenderCommandBase.h"
 #include "RHI/Public/PlatformRHI.h"
+#include "RHI/Public/RHIVertexBuffer.h"
+#include "RHI/Public/RHIVertexArray.h"
+#include "RHI/Public/RHIShader.h"
+
+static float Vertices[] = {
+    -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
+     0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+     0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+};
+
+const char *vertexShaderSource = "#version 330 core\n"
+                                 "layout (location = 0) in vec3 aPos;\n"
+                                 "layout (location = 1) in vec3 aColor;\n"
+                                 "out vec4 OutColor;\n"
+                                 "void main()\n"
+                                 "{\n"
+                                 "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+                                 "   OutColor = vec4(aColor.x,aColor.y,aColor.z,1.0);\n"
+                                 "}\0";
+
+const char *fragmentShaderSource = "#version 330 core\n"
+                                   "in vec4 OutColor;\n"
+                                   "out vec4 FragColor;\n"
+                                   "void main()\n"
+                                   "{\n"
+                                   "   FragColor = OutColor;\n"
+                                   "}\n\0";
 
 namespace Panda
 {
@@ -43,10 +70,18 @@ namespace Panda
         FRenderer::Get()->SetContext(Context);
     }
 
-    void FRenderThread::ThreadMain()
+    [[noreturn]] void FRenderThread::ThreadMain()
     {
         FRenderer::Get()->InitContext();
         RHICommand->Clear();
+        SharedPtr<FRHIVertexBuffer> Buffer = MakeSharedPtr<FRHIVertexBuffer>(Vertices, sizeof (Vertices));
+        FRHIShader Shader(vertexShaderSource, fragmentShaderSource);
+        Buffer->AddLayout<float>(3);
+        Buffer->AddLayout<float>(3);
+        FRHIVertexArray Elem(Buffer);
+        RHICommand->Clear();
+        Shader.Execute();
+        Elem.DrawArray();
         FRenderer::Get()->Context->SwapBuffers();
         while (bRunning)
         {
@@ -61,6 +96,8 @@ namespace Panda
             Command->Execute();
             // 收集场景数据
             RHICommand->Clear();
+            Shader.Execute();
+            Elem.DrawArray();
             FRenderer::Get()->Context->SwapBuffers();
         }
         LogInfo(LogSystem, "Thread %d Quit", GetThreadId())

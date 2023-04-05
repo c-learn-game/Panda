@@ -8,8 +8,13 @@
 
 namespace Panda
 {
-    FRHIVertexArray::FRHIVertexArray(const SharedPtr<class FRHIVertexBuffer>& Buffer)
+    FRHIVertexArray::FRHIVertexArray(const SharedPtr<class FRHIVertexBuffer>& InBuffer)
+            : Buffer(InBuffer)
     {
-        VAOId = RHICommand->CreateVertexArrayObject(Buffer.)
+        VAOId = RHICommand->CreateVertexArrayObject( Buffer->StrideSize, Buffer->GetLayouts());
+    }
+
+    void FRHIVertexArray::DrawArray() {
+        RHICommand->DrawArray(VAOId, 3);
     }
 }

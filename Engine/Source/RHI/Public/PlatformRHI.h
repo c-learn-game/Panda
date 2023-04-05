@@ -1,25 +1,10 @@
 ﻿#ifndef PLATFORMRHI_H
 #define PLATFORMRHI_H
 
-#include "Base/Base.h"
-
-#define PLATFORM_VAR_FLOAT 0x1406 // GL_FLOAT
+#include "RHIBase.h"
 
 namespace Panda
 {
-	enum class EBufferUsage
-	{
-		BU_STATIC = 0x88E4,
-	};
-
-	struct FVertexBufferLayout
-    {
-
-	    int VariableType;
-	    uint8 Normalized;
-        int Count;
-	    int StrideSize;
-    };
 
     class FPlatformRHI
     {
@@ -38,7 +23,9 @@ namespace Panda
 
 		virtual uint CreateVertexBufferObject(float* Vertices, int BufferSize, EBufferUsage Usage = EBufferUsage::BU_STATIC) = 0;
 
-		virtual uint CreateVertexArrayObject(const CArray<FVertexBufferLayout>& Layouts) = 0;
+		virtual uint CreateVertexArrayObject(int StrideSize, const CArray<FVertexBufferLayout>& Layouts) = 0;
+
+		virtual void DrawArray(uint VaoId, int Count) = 0;
         
         static FPlatformRHI* GetRHI();
     };

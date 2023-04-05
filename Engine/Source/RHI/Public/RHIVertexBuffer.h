@@ -18,17 +18,15 @@ namespace Panda
     class FRHIVertexBuffer : public FRHIObject
     {
     public:
-        explicit FRHIVertexBuffer() = default;
-
         explicit FRHIVertexBuffer(float *Buffer, int BufferSize);
 
         ~FRHIVertexBuffer() override;
 
 		template<typename T>
-		void AddLayout(int Count);
+		void AddLayout(int Count, bool bNormalized=false);
 
 		template<>
-		void AddLayout<float>( int Count);
+		void AddLayout<float>( int Count, bool bNormalized);
 
 		CArray<FVertexBufferLayout> GetLayouts() const {
 		    return BufferLayouts;
@@ -36,20 +34,23 @@ namespace Panda
 
 	private:
 		uint BufferID = 0;
+		friend class FRHIVertexArray;
 		CArray<FVertexBufferLayout> BufferLayouts;
+		int StrideSize = 0;
     };
 
 	template<typename T>
-	inline void FRHIVertexBuffer::AddLayout(int Count)
+	inline void FRHIVertexBuffer::AddLayout(int Count, bool bNormalized)
 	{
 		//static_assert(false);
         check(false)
 	}
 
     template<>
-	inline void FRHIVertexBuffer::AddLayout<float>( int Count)
+	inline void FRHIVertexBuffer::AddLayout<float>( int Count, bool bNormalized)
 	{
-		BufferLayouts.Add({PLATFORM_VAR_FLOAT, false, Count, 4 * sizeof (float )});
+		BufferLayouts.Add({PLATFORM_VAR_FLOAT, bNormalized, Count, StrideSize});
+		StrideSize += Count * sizeof (float);
 	}
 }
 
