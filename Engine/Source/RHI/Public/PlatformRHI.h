@@ -3,12 +3,23 @@
 
 #include "Base/Base.h"
 
+#define PLATFORM_VAR_FLOAT 0x1406 // GL_FLOAT
+
 namespace Panda
 {
 	enum class EBufferUsage
 	{
 		BU_STATIC = 0x88E4,
 	};
+
+	struct FVertexBufferLayout
+    {
+
+	    int VariableType;
+	    uint8 Normalized;
+        int Count;
+	    int StrideSize;
+    };
 
     class FPlatformRHI
     {
@@ -25,7 +36,9 @@ namespace Panda
 
         virtual void UseShader(const int& ShaderId) = 0;
 
-		virtual uint SubmitVertexBuffer(float* Vertices, int BufferSize, EBufferUsage Usage = EBufferUsage::BU_STATIC) = 0;
+		virtual uint CreateVertexBufferObject(float* Vertices, int BufferSize, EBufferUsage Usage = EBufferUsage::BU_STATIC) = 0;
+
+		virtual uint CreateVertexArrayObject(const CArray<FVertexBufferLayout>& Layouts) = 0;
         
         static FPlatformRHI* GetRHI();
     };

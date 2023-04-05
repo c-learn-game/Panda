@@ -5,7 +5,7 @@
 #ifndef PANDA_RHIVERTEXBUFFER_H
 #define PANDA_RHIVERTEXBUFFER_H
 
-#include "Base/Base.h"
+#include "RHIObject.h"
 
 namespace Panda
 {
@@ -15,34 +15,41 @@ namespace Panda
 		uint8 Normalized = false;
 	};
 
-    class FRHIVertexBuffer
+    class FRHIVertexBuffer : public FRHIObject
     {
     public:
-        explicit FRHIVertexBuffer();
+        explicit FRHIVertexBuffer() = default;
 
-        explicit FRHIVertexBuffer(float *Buffer);
+        explicit FRHIVertexBuffer(float *Buffer, int BufferSize);
+
+        ~FRHIVertexBuffer() override;
 
 		template<typename T>
-		void AddLayout(int Type, int Count);
+		void AddLayout(int Count);
 
 		template<>
-		void AddLayout<float>(int Type, int Count);
+		void AddLayout<float>( int Count);
+
+		CArray<FVertexBufferLayout> GetLayouts() const {
+		    return BufferLayouts;
+		}
 
 	private:
 		uint BufferID = 0;
-		CArray<FRHIVertexBufferLayout> BufferLayouts;
+		CArray<FVertexBufferLayout> BufferLayouts;
     };
 
 	template<typename T>
-	inline void FRHIVertexBuffer::AddLayout(int Type, int Count)
+	inline void FRHIVertexBuffer::AddLayout(int Count)
 	{
-		static_assert(false)
+		//static_assert(false);
+        check(false)
 	}
 
-	template<>
-	inline void FRHIVertexBuffer::AddLayout<float>(int Type, int Count)
+    template<>
+	inline void FRHIVertexBuffer::AddLayout<float>( int Count)
 	{
-		BufferLayouts.Add({ Type, false });
+		BufferLayouts.Add({PLATFORM_VAR_FLOAT, false, Count, 4 * sizeof (float )});
 	}
 }
 

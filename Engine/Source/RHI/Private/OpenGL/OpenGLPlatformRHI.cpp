@@ -76,12 +76,30 @@ namespace Panda
     {
         PANDA_GL_CALL(glUseProgram(ShaderId))
     }
-	uint FOpenGLPlatformRHI::SubmitVertexBuffer(float * Vertices, int BufferSize, EBufferUsage Usage)
-	{
-		uint BufferId = 0;
-		PANDA_GL_CALL(glGenBuffers(1, &BufferId))
-		PANDA_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, BufferId))
-		PANDA_GL_CALL(glBufferData(GL_ARRAY_BUFFER, BufferSize, Vertices, (int)Usage))
-		return BufferId;
-	}
+
+    uint FOpenGLPlatformRHI::CreateVertexBufferObject(float *Vertices, int BufferSize, EBufferUsage Usage) {
+        uint BufferId = 0;
+        PANDA_GL_CALL(glGenBuffers(1, &BufferId))
+        PANDA_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, BufferId))
+        PANDA_GL_CALL(glBufferData(GL_ARRAY_BUFFER, BufferSize, Vertices, (int)Usage))
+        return BufferId;
+    }
+
+    uint FOpenGLPlatformRHI::CreateVertexArrayObject(const CArray<FVertexBufferLayout> &Layouts) {
+        uint VaoId = 0;
+        PANDA_GL_CALL(glGenVertexArrays(1, &VaoId))
+        int Offset = 0;
+        for (int i = 0; i < Layouts.size(); ++i) {
+            const FVertexBufferLayout& Layout = Layouts[i];
+            PANDA_GL_CALL(glEnableVertexAttribArray(i))
+            PANDA_GL_CALL(glVertexAttribPointer(i, Layout.Count, Layout.Normalized,
+                                                Layout.VariableType, Layout.StrideSize, (void*)Offset))
+            Offset += Layout.StrideSize;
+        }
+        return VaoId;
+    }
+
+    FOpenGLPlatformRHI::FOpenGLPlatformRHI() {
+        static_assert(PLATFORM_VAR_FLOAT == GL_FLOAT);
+    }
 }

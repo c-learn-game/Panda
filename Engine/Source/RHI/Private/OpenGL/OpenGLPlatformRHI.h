@@ -8,7 +8,7 @@ namespace Panda
     class FOpenGLPlatformRHI : public FPlatformRHI
     {
     public:
-        explicit FOpenGLPlatformRHI() = default;
+        explicit FOpenGLPlatformRHI();
 
         void Clear() override;
 
@@ -20,7 +20,9 @@ namespace Panda
 
         void UseShader(const int &ShaderId) override;
 
-		uint SubmitVertexBuffer(float* Vertices, int BufferSize, EBufferUsage Usage = EBufferUsage::BU_STATIC) override;
+		uint CreateVertexBufferObject(float *Vertices, int BufferSize, EBufferUsage Usage = EBufferUsage::BU_STATIC) override;
+
+		uint CreateVertexArrayObject(const CArray<FVertexBufferLayout> &Layouts) override;
     };
 }
 
