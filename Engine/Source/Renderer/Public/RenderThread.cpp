@@ -90,10 +90,14 @@ namespace Panda
             {
                 FUniqueLock<FMutex> Lock(FRenderer::CommandMutex);
                 FRenderer::Condition.wait(Lock);
-                Command = FRenderer::Commands.front();
-                FRenderer::Commands.pop_front();
+				while (!FRenderer::Commands.empty())
+				{
+					Command = FRenderer::Commands.front();
+					FRenderer::Commands.pop_front();
+					Command->Execute();
+				}
+				Lock.unlock();
             }
-            Command->Execute();
             // 收集场景数据
             RHICommand->Clear();
             Shader.Execute();

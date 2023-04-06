@@ -13,6 +13,7 @@ namespace Panda
 
     void FViewportCommand::Execute()
     {
+		LogInfo(LogSystem, "reset viewport: %d, %d, %d, %d", x, y, w, h)
         RHICommand->SetViewport(x, y, w, h);
     }
 }

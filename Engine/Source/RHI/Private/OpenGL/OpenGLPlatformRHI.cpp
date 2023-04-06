@@ -89,8 +89,8 @@ namespace Panda
         uint VaoId = 0;
         PANDA_GL_CALL(glGenVertexArrays(1, &VaoId))
         PANDA_GL_CALL(glBindVertexArray(VaoId))
-        for (int i = 0; i < Layouts.size(); ++i) {
-            LogInfo(LogSystem, "Create vao, %d, %d， %d", i, StrideSize, Layouts[i].Count)
+        for (int i = 0; i < Layouts.size(); ++i) 
+		{
             const FVertexBufferLayout& Layout = Layouts[i];
             PANDA_GL_CALL(glVertexAttribPointer(i, Layout.Count, GL_FLOAT,
                                                 GL_FALSE, StrideSize, (void*)Layout.Offset))
