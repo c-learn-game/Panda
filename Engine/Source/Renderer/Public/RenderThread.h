@@ -21,7 +21,7 @@ namespace Panda
         static FRenderer* Get();
         
         template <typename CommandType, typename... Args>
-        static void AddDrawCommand(Args... CommandArgs);
+        static SharedPtr<class FRenderCommandBase> AddDrawCommand(Args... CommandArgs);
         
     private:
         friend class FRenderThread;
@@ -38,19 +38,20 @@ namespace Panda
     public:
         FRenderThread(SharedPtr<class FRenderContext> Context);
 
-        [[noreturn]] [[noreturn]] void ThreadMain() override;
+        void ThreadMain() override;
 
     private:
         bool bRunning = true;
     };
 
     template <typename CommandType, typename ... Args>
-    void FRenderer::AddDrawCommand(Args... CommandArgs)
+	SharedPtr<class FRenderCommandBase> FRenderer::AddDrawCommand(Args... CommandArgs)
     {
         CGuardLock<FMutex> Lock(CommandMutex);
-        Commands.push_back(MakeSharedPtr<CommandType>(CommandArgs...));
-        Condition.notify_one();
-    }
+		auto Command = MakeSharedPtr<CommandType>(CommandArgs...);
+        Commands.push_back(Command);
+		return Command;
+	}
 }
 
 #endif

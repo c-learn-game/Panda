@@ -22,6 +22,8 @@ namespace Panda
 
         ~FRHIVertexBuffer() override;
 
+		uint GetId() const { return BufferID; }
+
 		template<typename T>
 		void AddLayout(int Count, bool bNormalized=false);
 
@@ -33,9 +35,9 @@ namespace Panda
 		}
 
 	private:
-		uint BufferID = 0;
 		friend class FRHIVertexArray;
 		CArray<FVertexBufferLayout> BufferLayouts;
+		uint BufferID = 0;
 		int StrideSize = 0;
     };
 

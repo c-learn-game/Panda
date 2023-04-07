@@ -70,7 +70,7 @@ namespace Panda
         FRenderer::Get()->SetContext(Context);
     }
 
-    [[noreturn]] void FRenderThread::ThreadMain()
+    void FRenderThread::ThreadMain()
     {
         FRenderer::Get()->InitContext();
         RHICommand->Clear();

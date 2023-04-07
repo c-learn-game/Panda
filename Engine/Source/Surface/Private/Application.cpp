@@ -4,6 +4,7 @@
 #include "Event/Public/ApplicationEvents.h"
 #include "Launch/GraphicsThreadPoolSubsystem.h"
 #include "Renderer/Public/RendererContext.h"
+#include "Renderer/Public/RenderThread.h"
 
 namespace Panda
 {
@@ -71,6 +72,7 @@ namespace Panda
             P->PollEvents();
             ExecuteAppEvents();
         }
+		//FRenderer::AddDrawCommand<>
         return QuitCode;
     }
 

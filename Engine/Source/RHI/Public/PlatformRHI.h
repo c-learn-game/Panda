@@ -23,9 +23,11 @@ namespace Panda
 
 		virtual uint CreateVertexBufferObject(float* Vertices, int BufferSize, EBufferUsage Usage = EBufferUsage::BU_STATIC) = 0;
 
-		virtual uint CreateVertexArrayObject(int StrideSize, const CArray<FVertexBufferLayout>& Layouts) = 0;
+		virtual uint CreateVertexArrayObject(uint VboId, int StrideSize, const CArray<FVertexBufferLayout>& Layouts) = 0;
 
 		virtual void DrawArray(uint VaoId, int Count) = 0;
+
+		virtual void UseVertexBuffer(uint VboId) = 0;
         
         static FPlatformRHI* GetRHI();
     };

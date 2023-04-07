@@ -85,10 +85,11 @@ namespace Panda
         return BufferId;
     }
 
-    uint FOpenGLPlatformRHI::CreateVertexArrayObject(int StrideSize, const CArray<FVertexBufferLayout> &Layouts) {
+    uint FOpenGLPlatformRHI::CreateVertexArrayObject(uint VboId, int StrideSize, const CArray<FVertexBufferLayout> &Layouts) {
         uint VaoId = 0;
         PANDA_GL_CALL(glGenVertexArrays(1, &VaoId))
         PANDA_GL_CALL(glBindVertexArray(VaoId))
+		PANDA_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, VboId))
         for (int i = 0; i < Layouts.size(); ++i) 
 		{
             const FVertexBufferLayout& Layout = Layouts[i];
@@ -109,4 +110,8 @@ namespace Panda
         PANDA_GL_CALL(glBindVertexArray(VaoId))
         PANDA_GL_CALL(glDrawArrays(GL_TRIANGLES, 0, Count))
     }
+	void FOpenGLPlatformRHI::UseVertexBuffer(uint VboId)
+	{
+		PANDA_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, VboId));
+	}
 }

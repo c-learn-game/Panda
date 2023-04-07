@@ -45,9 +45,7 @@ namespace Panda
         static CApplication* Get();
         
         void Quit();
-        
-        void AddEvent(CEvent*  InEvent);
-
+       
         SharedPtr<FRenderContext> GetContext() const { return Context; }
         
     public:
