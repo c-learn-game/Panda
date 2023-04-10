@@ -20,7 +20,11 @@ namespace Panda
 
         void UseShader(const int &ShaderId) override;
 
-		uint CreateVertexBufferObject(float *Vertices, int BufferSize, EBufferUsage Usage = EBufferUsage::BU_STATIC) override;
+		void UseIndexBufferObject(const uint& BufferId) override;
+
+		uint CreateVertexBufferObject(const float *Vertices, int BufferSize, EBufferUsage Usage = EBufferUsage::BU_STATIC) override;
+
+		uint CreateIndexBufferObject(const uint* Indices, int BufferSize, EBufferUsage Usage = EBufferUsage::BU_STATIC) override;
 
 		uint CreateVertexArrayObject(uint VboId, int StrideSize, const CArray<FVertexBufferLayout> &Layouts) override;
 

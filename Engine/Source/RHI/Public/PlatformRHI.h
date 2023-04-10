@@ -21,11 +21,17 @@ namespace Panda
 
         virtual void UseShader(const int& ShaderId) = 0;
 
-		virtual uint CreateVertexBufferObject(float* Vertices, int BufferSize, EBufferUsage Usage = EBufferUsage::BU_STATIC) = 0;
+		virtual void UseIndexBufferObject(const uint& BufferId) = 0;
+
+		virtual uint CreateVertexBufferObject(const float* Vertices, int BufferSize, EBufferUsage Usage = EBufferUsage::BU_STATIC) = 0;
+
+		virtual uint CreateIndexBufferObject(const uint* Indices, int BufferSize, EBufferUsage Usage = EBufferUsage::BU_STATIC) = 0;
 
 		virtual uint CreateVertexArrayObject(uint VboId, int StrideSize, const CArray<FVertexBufferLayout>& Layouts) = 0;
 
 		virtual void DrawArray(uint VaoId, int Count) = 0;
+
+		//virtual void DrawIndexed(uint VaoId, )
 
 		virtual void UseVertexBuffer(uint VboId) = 0;
         

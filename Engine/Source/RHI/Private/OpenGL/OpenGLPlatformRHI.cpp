@@ -1,5 +1,5 @@
 ﻿#include "OpenGLPlatformRHI.h"
-#include "Public/OpenGLBase.h"
+#include "OpenGLBase.h"
 
 namespace Panda
 { 
@@ -77,13 +77,27 @@ namespace Panda
         PANDA_GL_CALL(glUseProgram(ShaderId))
     }
 
-    uint FOpenGLPlatformRHI::CreateVertexBufferObject(float *Vertices, int BufferSize, EBufferUsage Usage) {
+	void FOpenGLPlatformRHI::UseIndexBufferObject(const uint & BufferId)
+	{
+		PANDA_GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BufferId))
+	}
+
+    uint FOpenGLPlatformRHI::CreateVertexBufferObject(const float *Vertices, int BufferSize, EBufferUsage Usage) {
         uint BufferId = 0;
         PANDA_GL_CALL(glGenBuffers(1, &BufferId))
         PANDA_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, BufferId))
         PANDA_GL_CALL(glBufferData(GL_ARRAY_BUFFER, BufferSize, Vertices, (int)Usage))
         return BufferId;
     }
+
+	uint FOpenGLPlatformRHI::CreateIndexBufferObject(const uint * Indices, int BufferSize, EBufferUsage Usage)
+	{
+		uint BufferId = 0;
+		PANDA_GL_CALL(glGenBuffers(1, &BufferId))
+		PANDA_GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BufferId))
+		PANDA_GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, BufferSize, Indices, (int)Usage))
+		return BufferId;
+	}
 
     uint FOpenGLPlatformRHI::CreateVertexArrayObject(uint VboId, int StrideSize, const CArray<FVertexBufferLayout> &Layouts) {
         uint VaoId = 0;

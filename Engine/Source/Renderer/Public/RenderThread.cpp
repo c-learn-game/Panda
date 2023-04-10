@@ -106,4 +106,11 @@ namespace Panda
         }
         LogInfo(LogSystem, "Thread %d Quit", GetThreadId())
     }
+
+	void FRenderThread::Stop()
+	{
+		FMutex mutex;
+		CGuardLock<FMutex> Lock(mutex);
+		bRunning = false;
+	}
 }

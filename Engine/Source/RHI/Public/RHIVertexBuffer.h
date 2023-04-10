@@ -18,7 +18,7 @@ namespace Panda
     class FRHIVertexBuffer : public FRHIObject
     {
     public:
-        explicit FRHIVertexBuffer(float *Buffer, int BufferSize);
+        explicit FRHIVertexBuffer(float *Buffer, int InBufferSize);
 
         ~FRHIVertexBuffer() override;
 
@@ -39,6 +39,7 @@ namespace Panda
 		CArray<FVertexBufferLayout> BufferLayouts;
 		uint BufferID = 0;
 		int StrideSize = 0;
+		int BufferSize = 0;
     };
 
 	template<typename T>

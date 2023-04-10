@@ -3,7 +3,6 @@
 
 #include "Base/Base.h"
 #include "glad/glad.h"
-#include "OpenGLObject.h"
 
 #if PANDA_OPENGL_VERSION_MAJOR <= 4 and PANDA_OPENGL_VERSION_MINOR < 5 and defined PANDA_DEBUG
 

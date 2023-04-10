@@ -72,7 +72,7 @@ namespace Panda
             P->PollEvents();
             ExecuteAppEvents();
         }
-		//FRenderer::AddDrawCommand<>
+		FGraphicsThreadPoolSubsystem::Get()->RenderThread->Stop();
         return QuitCode;
     }
 

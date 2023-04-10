@@ -7,7 +7,8 @@
 
 namespace Panda
 {
-	FRHIVertexBuffer::FRHIVertexBuffer(float * Buffer,  int BufferSize)
+	FRHIVertexBuffer::FRHIVertexBuffer(float * Buffer,  int InBufferSize)
+		: BufferSize(InBufferSize)
 	{
         BufferID = RHICommand->CreateVertexBufferObject(Buffer, BufferSize);
 	}
