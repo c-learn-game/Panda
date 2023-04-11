@@ -11,13 +11,16 @@ namespace Panda
     FRHIVertexArray::FRHIVertexArray(const SharedPtr<class FRHIVertexBuffer>& InBuffer)
     {
         VAOId = RHICommand->CreateVertexArrayObject(InBuffer->GetId(), InBuffer->StrideSize, InBuffer->GetLayouts());
-		VertexCount = InBuffer->BufferSize / InBuffer->StrideSize;
+		VertexCount = InBuffer->GetVertexCount();
 	}
 
-    void FRHIVertexArray::DrawArray() {
+    void FRHIVertexArray::DrawArray()
+    {
         RHICommand->DrawArray(VAOId, VertexCount);
     }
+
 	void FRHIVertexArray::DrawIndexed()
 	{
+
 	}
 }

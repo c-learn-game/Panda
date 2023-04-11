@@ -24,6 +24,8 @@ namespace Panda
 
 		uint GetId() const { return BufferID; }
 
+		int GetVertexCount() const;
+
 		template<typename T>
 		void AddLayout(int Count, bool bNormalized=false);
 

@@ -16,5 +16,10 @@ namespace Panda
     FRHIVertexBuffer::~FRHIVertexBuffer() {
 	    //RHICommand
     }
+
+    int FRHIVertexBuffer::GetVertexCount() const
+    {
+        return BufferSize / StrideSize;
+    }
 }
 
