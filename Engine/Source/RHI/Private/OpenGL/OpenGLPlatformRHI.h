@@ -30,6 +30,8 @@ namespace Panda
 
 		void DrawArray(uint VaoId, int Count) override;
 
+        void DrawElements(uint VaoId, int ElementSize) override;
+
 		void UseVertexBuffer(uint VboId) override;
     };
 }

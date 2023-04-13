@@ -124,6 +124,13 @@ namespace Panda
         PANDA_GL_CALL(glBindVertexArray(VaoId))
         PANDA_GL_CALL(glDrawArrays(GL_TRIANGLES, 0, Count))
     }
+
+    void FOpenGLPlatformRHI::DrawElements(uint VaoId, int ElementSize)
+    {
+        PANDA_GL_CALL(glBindVertexArray(VaoId))
+        PANDA_GL_CALL(glDrawElements(GL_TRIANGLES, ElementSize, GL_UNSIGNED_INT, 0))
+    }
+
 	void FOpenGLPlatformRHI::UseVertexBuffer(uint VboId)
 	{
 		PANDA_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, VboId));

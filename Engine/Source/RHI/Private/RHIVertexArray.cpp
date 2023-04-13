@@ -5,6 +5,7 @@
 #include "RHI/Public/RHIVertexArray.h"
 #include "RHI/Public/RHIVertexBuffer.h"
 #include "RHI/Public/PlatformRHI.h"
+#include "RHI/Public/RHIIndexBuffer.h"
 
 namespace Panda
 {
@@ -19,8 +20,9 @@ namespace Panda
         RHICommand->DrawArray(VAOId, VertexCount);
     }
 
-	void FRHIVertexArray::DrawIndexed()
-	{
-
-	}
+	void FRHIVertexArray::DrawElements(FRHIIndexBuffer* Buffer)
+    {
+        Buffer->Bind();
+        RHICommand->DrawElements(VAOId, Buffer->GetBufferSize());
+    }
 }

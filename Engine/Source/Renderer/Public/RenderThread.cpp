@@ -7,11 +7,18 @@
 #include "RHI/Public/RHIVertexBuffer.h"
 #include "RHI/Public/RHIVertexArray.h"
 #include "RHI/Public/RHIShader.h"
+#include "RHI/Public/RHIIndexBuffer.h"
 
 static float Vertices[] = {
     -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
      0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-     0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+     0.5f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+     -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f
+};
+
+static uint Indices[] = {
+        0, 1, 2,
+        0, 2, 3
 };
 
 const char *vertexShaderSource = "#version 330 core\n"
@@ -78,6 +85,7 @@ namespace Panda
         FRHIShader Shader(vertexShaderSource, fragmentShaderSource);
         Buffer->AddLayout<float>(3);
         Buffer->AddLayout<float>(3);
+        FRHIIndexBuffer IBuffer(Indices, sizeof (Indices));
         FRHIVertexArray Elem(Buffer);
         RHICommand->Clear();
         Shader.Execute();
@@ -101,7 +109,7 @@ namespace Panda
             // 收集场景数据
             RHICommand->Clear();
             Shader.Execute();
-            Elem.DrawArray();
+            Elem.DrawElements(&IBuffer);
             FRenderer::Get()->Context->SwapBuffers();
         }
         LogInfo(LogSystem, "Thread %d Quit", GetThreadId())

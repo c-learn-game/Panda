@@ -31,7 +31,7 @@ namespace Panda
 
 		virtual void DrawArray(uint VaoId, int Count) = 0;
 
-		//virtual void DrawIndexed(uint VaoId, )
+		virtual void DrawElements(uint VaoId, int ElementSize) = 0;
 
 		virtual void UseVertexBuffer(uint VboId) = 0;
         

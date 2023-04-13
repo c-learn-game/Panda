@@ -18,7 +18,7 @@ namespace Panda
 
         void DrawArray();
 
-		void DrawIndexed();
+		void DrawElements(class FRHIIndexBuffer* Buffer);
 
     private:
         uint VAOId = 0;
