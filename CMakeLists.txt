@@ -15,5 +15,5 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 project("Panda")
 add_subdirectory(Engine/Third)
-add_subdirectory(Engine/Source)
+#add_subdirectory(Engine/Source)
 add_subdirectory(Test)

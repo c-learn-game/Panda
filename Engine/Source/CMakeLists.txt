@@ -41,4 +41,4 @@ target_include_directories(
 )
 
 set_target_properties(Panda PROPERTIES FOLDER "Engine/Engine")
-target_link_libraries(Panda GLFW Glad Glm)
+target_link_libraries(Panda GLFW Glad Glm Spdlog)
