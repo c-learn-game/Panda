@@ -8,6 +8,7 @@ endif()
 
 target_link_libraries(
         SimpleApp
+        Panda
         GLFW
         Glad
         Spdlog
