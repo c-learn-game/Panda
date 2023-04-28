@@ -1,21 +1,13 @@
 ﻿#include "Basic/Basic.h"
-#include "Basic/Logging/Logging.h"
-class Person
-{
-public:
-    explicit Person(const std::string& name)
-    {
-        Name = name;
-    }
-
-public:
-    std::string Name;
-};
-
 using namespace Panda;
 
 int main()
 {
     FLoggerSubsystem::Init(FLoggerSubsystem::Debug);
-    FLoggerSubsystem::GetCoreLogger()->info("this is a info log");
+    LogDebug("this is a debug log")
+    LogInfo("this is a info log")
+    LogWarn("this is a warn log")
+    LogError("this is a error log")
+    LogCritical("this is a critical log")
+    check(false)
 }

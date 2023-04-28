@@ -27,13 +27,6 @@ elseif(WIN32)
     )
 endif()
 
-if (CMAKE_BUILD_TYPE)
-    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-        add_compile_definitions( PANDA_DEBUG )
-    else()
-        add_compile_definitions( PANDA_RELEASE PANDA_NO_DEBUG )
-    endif()
-endif()
 
 target_include_directories(
         Panda PUBLIC
