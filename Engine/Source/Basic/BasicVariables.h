@@ -21,6 +21,20 @@ namespace Panda
 
     // 类型别名
     using FString = std::string;
+
+    template<typename T>
+    using TArray = std::vector<T>;
+
+    struct FSize
+    {
+        int Width;
+        int Height;
+
+        FSize(int w = 0, int h = 0) : Width(w), Height(h) {}
+
+        bool IsValid() const { return Width > 0 && Height > 0; }
+    };
+
 }
 
 #endif //PANDA_BASICVARIABLES_H

@@ -11,11 +11,13 @@
     #elif defined(__GNUC__)
         #define PANDA_DEBUGBREAK() __builtin_trap();
     #else
-        #warning "not supported compiler"
+        #warning "current compiler not support debugbreak"
         #define PANDA_DEBUGBREAK()
     #endif
 #else
     #define PANDA_DEBUGBREAK()
 #endif
+
+#define PANDA_UNUSED(VAR) (void)VAR;
 
 #endif //PANDA_BASICMACROS_H

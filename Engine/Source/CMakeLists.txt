@@ -10,9 +10,11 @@ add_library(Panda STATIC "${SOURCE_FILES}")
 
 set_target_properties(Panda PROPERTIES FOLDER "Engine")
 
+#set(ApplicationVersion "0.0.0.0" PARENT_SCOPE)
+
 add_compile_definitions(
-        PANDA_OPENGL
-        PANDA_PLATFORM_GLFW
+        PANDA_APPLICATION_NAME="${CMAKE_PROJECT_NAME}"
+        #PANDA_APPLICATION_VERSION="${ApplicationVersion}"
 )
 
 if(APPLE)
@@ -20,6 +22,7 @@ if(APPLE)
             PANDA_OPENGL_VERSION_MAJOR=4
             PANDA_OPENGL_VERSION_MINOR=0
     )
+    set(CMAKE_CXX_FLAGS "-framework Cocoa -framework IOKit")
 elseif(WIN32)
     add_compile_definitions(
             PANDA_OPENGL_VERSION_MAJOR=4
