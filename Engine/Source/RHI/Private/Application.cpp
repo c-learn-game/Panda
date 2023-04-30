@@ -2,21 +2,20 @@
 // Created by chendebi on 2023/4/30.
 //
 
-#include "RHI/Application.h"
+#include "Application.h"
 #include "RHI/Private/RHIApplicationPrivate.h"
 #include "RHI/RHIWindow.h"
 namespace Panda
 {
     Application* Application::GApp = nullptr;
 
-    Application::Application(int argc, char **argv)
+    FString Application::AppName = PANDA_APPLICATION_NAME;
+
+    Application::Application(const TArray<FString>& InArguments)
+    : Arguments(std::move(InArguments))
     {
         checkf(!GApp, "can't recreate application!")
         P = RHIApplicationPrivate::Get();
-        for (int i = 0; i < argc; ++i)
-        {
-            Arguments.push_back(argv[i]);
-        }
         GApp = this;
     }
 
@@ -28,22 +27,16 @@ namespace Panda
 
     int Application::Exec()
     {
-        if (P->Initialize())
+        while (true)
         {
-            MainWindow = MakeShared<RHIWindow>(PANDA_APPLICATION_NAME);
-            while (true)
+            P->PollEvents();
+            if (bShouldQuit)
             {
-                P->PollEvents();
-                if (bShouldQuit)
-                {
-                    break;
-                }
+                break;
             }
-            LogInfo("Quit Application")
-            return 0;
         }
-        LogCritical("Application Initialize failed, Quit!")
-        return 1;
+        LogInfo("Quit Application")
+        return 0;
     }
 
     void Application::Quit()
@@ -54,5 +47,19 @@ namespace Panda
     Application* Application::Get()
     {
         return GApp;
+    }
+
+    bool Application::Initialize()
+    {
+        FLoggerSubsystem::Init(FLoggerSubsystem::Debug);
+        LogInfo("Log system initialized.")
+
+        if (P->Initialize())
+        {
+            MainWindow = MakeShared<RHIWindow>(AppName);
+            LogInfo("{} initialize success.", AppName)
+            return true;
+        }
+        return false;
     }
 }

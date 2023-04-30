@@ -5,16 +5,20 @@
 #ifndef PANDA_APPLICATION_H
 #define PANDA_APPLICATION_H
 
-#include "Basic/Basic.h"
+#include "RHI/RHIWindow.h"
+
+int main(int argc, char** argv);
 
 namespace Panda
 {
     class Application
     {
     public:
-        explicit Application(int argc, char *argv[]);
+        explicit Application(const TArray<FString>& InArguments);
 
         virtual ~Application();
+
+        bool Initialize();
 
         // 关闭程序
         void Quit();
@@ -24,6 +28,14 @@ namespace Panda
         SharedPtr<class RHIWindow> ContextWindow() const { return MainWindow; }
 
         static Application* Get();
+
+    protected:
+        friend int ::main(int, char**);
+        virtual void PreInitApplication() {}
+        virtual void PostInitApplication() {}
+
+    public:
+        static FString AppName;
 
     private:
         static Application* GApp;
@@ -40,6 +52,6 @@ namespace Panda
     };
 }
 
-extern Panda::SharedPtr<Panda::Application> RegisterApplication(int argc, char *argv[]);
+extern Panda::SharedPtr<Panda::Application> GetApplication(const Panda::TArray<Panda::FString>& Arguments);
 
 #endif //PANDA_APPLICATION_H

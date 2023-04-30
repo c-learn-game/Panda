@@ -5,7 +5,7 @@
 #include "RHIWindowPrivateGLFW.h"
 #include "RHI/RHIWindow.h"
 #include "GLFW/glfw3.h"
-#include "RHI/Application.h"
+#include "Application.h"
 
 static void OnWindowClose(GLFWwindow* Window)
 {

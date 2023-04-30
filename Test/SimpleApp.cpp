@@ -1,6 +1,7 @@
-﻿#include "RHI/Application.h"
+﻿#include "Application.h"
 
-Panda::SharedPtr<Panda::Application> RegisterApplication(int argc, char *argv[])
+Panda::SharedPtr<Panda::Application> GetApplication(const Panda::TArray<Panda::FString>& Arguments)
 {
-    return Panda::MakeShared<Panda::Application>(argc, argv);
+    auto app = Panda::MakeShared<Panda::Application>(Arguments);
+    return app;
 }
