@@ -29,6 +29,7 @@ namespace Panda
         void ShowWindow(bool bShow) override;
 
     private:
+        friend class RenderContextGLFW;
         RHIWindow* Window = nullptr;
         GLFWwindow* WindowP = nullptr;
     };

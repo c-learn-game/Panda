@@ -30,6 +30,7 @@ namespace Panda
         void Hide();
 
     private:
+        friend class RenderContextGLFW;
         FString WindowTitle;
 
         FSize WindowSize;

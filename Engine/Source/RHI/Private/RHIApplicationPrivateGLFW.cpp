@@ -8,7 +8,12 @@ namespace Panda
 {
     bool RHIApplicationPrivateGLFW::Initialize()
     {
-        return glfwInit();
+        bool bInited = glfwInit();
+        if (!bInited) return false;
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, PANDA_OPENGL_VERSION_MAJOR);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, PANDA_OPENGL_VERSION_MINOR);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        return true;
     }
 
     void RHIApplicationPrivateGLFW::DestroyApplication()

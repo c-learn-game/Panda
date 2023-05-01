@@ -49,6 +49,8 @@ namespace Panda
 
         // context window
         SharedPtr<class RHIWindow> MainWindow = nullptr;
+        SharedPtr<class FRenderContext> RenderContext = nullptr;
+        SharedPtr<class FRenderer> Renderer = nullptr;
     };
 }
 

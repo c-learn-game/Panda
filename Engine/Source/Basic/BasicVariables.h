@@ -25,6 +25,8 @@ namespace Panda
     template<typename T>
     using TArray = std::vector<T>;
 
+    using uint = unsigned int;
+
     struct FSize
     {
         int Width;

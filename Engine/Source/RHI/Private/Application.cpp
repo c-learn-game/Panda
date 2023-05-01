@@ -5,6 +5,9 @@
 #include "Application.h"
 #include "RHI/Private/RHIApplicationPrivate.h"
 #include "RHI/RHIWindow.h"
+#include "RHI/RenderContext.h"
+#include "Renderer/Renderer.h"
+
 namespace Panda
 {
     Application* Application::GApp = nullptr;
@@ -27,13 +30,10 @@ namespace Panda
 
     int Application::Exec()
     {
-        while (true)
+        while (!bShouldQuit)
         {
             P->PollEvents();
-            if (bShouldQuit)
-            {
-                break;
-            }
+            Renderer->RendererMain();
         }
         LogInfo("Quit Application")
         return 0;
@@ -57,7 +57,10 @@ namespace Panda
         if (P->Initialize())
         {
             MainWindow = MakeShared<RHIWindow>(AppName);
-            LogInfo("{} initialize success.", AppName)
+            RenderContext = FRenderContext::Get(MainWindow);
+            Renderer = MakeShared<FRenderer>(RenderContext);
+            Renderer->Initialize();
+            LogInfo("Application [{}] initialize success.", AppName)
             return true;
         }
         return false;
