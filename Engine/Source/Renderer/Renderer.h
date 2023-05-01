@@ -23,7 +23,8 @@ namespace Panda
         SharedPtr<FRenderContext> Context;
 
         // 临时测试
-        uint vao, vbo, shader;
+        uint vao, vbo;
+        SharedPtr<class FShaderObject> Shader;
     };
 }
 

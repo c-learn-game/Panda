@@ -22,7 +22,6 @@ if(APPLE)
             PANDA_OPENGL_VERSION_MAJOR=4
             PANDA_OPENGL_VERSION_MINOR=0
     )
-    set(CMAKE_CXX_FLAGS "-framework Cocoa -framework IOKit")
 elseif(WIN32)
     add_compile_definitions(
             PANDA_OPENGL_VERSION_MAJOR=4
