@@ -47,8 +47,8 @@ namespace Panda
         vbo = MakeShared<FOpenGLVertexBufferObject>();
         vbo->SetData(vertices, sizeof (vertices));
         FVertexBufferLayout Layout({
-            FVertexBufferElement("Vertex", FVertexBufferElementType::FLOAT, 3, 0),
-            FVertexBufferElement("VertexColor", FVertexBufferElementType::FLOAT, 3, 3 * sizeof (float ))
+            FVertexBufferElement("Vertex", FVertexBufferElementType::Float3),
+            FVertexBufferElement("VertexColor", FVertexBufferElementType::Float3)
         });
         vbo->SetLayout(Layout);
         vbo->Generate();

@@ -7,6 +7,20 @@
 
 namespace Panda
 {
+
+    static GLenum ElementTypeToOpenGLType(const FVertexBufferElementType& Type)
+    {
+        switch (Type)
+        {
+            case FVertexBufferElementType::Float:
+            case FVertexBufferElementType::Float3:
+            case FVertexBufferElementType::Float4:
+                return GL_FLOAT;
+        }
+
+        return 0;
+    }
+
     FOpenGLVertexArrayObject::FOpenGLVertexArrayObject(
             const SharedPtr<class FOpenGLVertexBufferObject> &InVertexBufferObject)
     {
@@ -31,7 +45,7 @@ namespace Panda
         {
             auto Element = Layout[i];
             PANDA_GL_CALL(glVertexAttribPointer(i, Element.Count,
-                                                (int)Element.DataType,
+                                                ElementTypeToOpenGLType(Element.DataType),
                                                 Element.Normalized ? GL_TRUE : GL_FALSE,
                                                 Layout.GetStride(), (void*)Element.Offset))
             PANDA_GL_CALL(glEnableVertexAttribArray(i))

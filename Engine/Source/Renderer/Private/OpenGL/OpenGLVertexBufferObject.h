@@ -12,8 +12,9 @@ namespace Panda
 {
     enum class FVertexBufferElementType : int
     {
-        InValid,
-        FLOAT = 0x1406
+        Float,
+        Float3,
+        Float4
     };
 
     struct FVertexBufferElement
@@ -25,20 +26,35 @@ namespace Panda
         bool Normalized;
 
         FVertexBufferElement(const FString& InName, const FVertexBufferElementType& InDataType,
-                                int InCount, int InOffset, bool bNormalized = false)
-                                : Name(InName), DataType(InDataType), Count(InCount), Offset(InOffset)
+                              bool bNormalized = false)
+                                : Name(InName), DataType(InDataType)
                                 , Normalized(bNormalized)
-        {}
-
-        static int TypeSize(const FVertexBufferElementType& InType)
         {
-            switch (InType) {
-                case FVertexBufferElementType::FLOAT:
-                    return sizeof (float);
+            switch (InDataType) {
+                case FVertexBufferElementType::Float:
+                    Count = 1;
+                    break;
+                case FVertexBufferElementType::Float3:
+                    Count = 3;
+                    break;;
+                case FVertexBufferElementType::Float4:
+                    Count = 4;
+                    break;
                 default:
                     break;
             }
-            checkf(false, "Unsupported buffer element type: {}", static_cast<int>(InType))
+        }
+
+        size_t ElementStride()
+        {
+            switch (DataType) {
+                case FVertexBufferElementType::Float:
+                case FVertexBufferElementType::Float3:
+                case FVertexBufferElementType::Float4:
+                    return Count * sizeof (float );
+                default:
+                    break;
+            }
             return 0;
         }
     };
@@ -49,11 +65,11 @@ namespace Panda
         explicit FVertexBufferLayout(std::initializer_list<FVertexBufferElement> InElements = {})
         : Elements(InElements)
         {
-            int Offset = 0;
+            size_t Offset = 0;
             for (int i = 0; i < Elements.size(); ++i)
             {
                 Elements[i].Offset = Offset;
-                Offset += Elements[i].Count * FVertexBufferElement::TypeSize(Elements[i].DataType);
+                Offset += Elements[i].ElementStride();
             }
             Stride = Offset;
         }
@@ -70,7 +86,7 @@ namespace Panda
     private:
         TArray<FVertexBufferElement> Elements;
 
-        int Stride = 0;
+        size_t Stride = 0;
     };
 
     class FOpenGLVertexBufferObject : public FRendererObject
@@ -92,7 +108,7 @@ namespace Panda
 
         void Bind();
 
-        int GetVertexCount() { return DataSize / DataLayout.GetStride(); }
+        int GetVertexCount() const { return DataSize / DataLayout.GetStride(); }
 
     private:
         int CurrentOffset = 0;
