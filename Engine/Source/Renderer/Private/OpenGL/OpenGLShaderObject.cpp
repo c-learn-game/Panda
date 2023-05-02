@@ -8,7 +8,7 @@
 namespace Panda
 {
     FOpenGLShaderObject::FOpenGLShaderObject(const FString &VertexShaderSource, const FString &PixelShaderSource)
-    : FShaderObject(VertexShaderSource, PixelShaderSource)
+    : FRendererObject()
     {
         auto CreateShader = [&](GLenum ShaderType, const FString& ShaderSource) -> uint
         {

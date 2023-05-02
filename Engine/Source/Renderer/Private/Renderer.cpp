@@ -4,26 +4,32 @@
 
 #include "Renderer/Renderer.h"
 #include "glad/glad.h"
-#include "ShaderObject.h"
+#include "OpenGL/OpenGLShaderObject.h"
+#include "OpenGL/OpenGLVertexBufferObject.h"
+#include "OpenGL/OpenGLVertexArrayObject.h"
 
 const static char* vertexShaderSource = "#version 400 core\n"
                              "layout(location=0) in vec3 vPos;\n"
+                             "layout(location=1) in vec3 vColor;\n"
+                             "out vec4 pColor;\n"
                              "void main()\n"
                              "{\n"
                              "  gl_Position = vec4(vPos.x, vPos.y, vPos.z, 1.0f);\n"
+                             "  pColor = vec4(vColor.x, vColor.y, vColor.z, 1.0f);\n"
                              "}\n\0";
 
 const static char* fragShaderSource = "#version 400 core\n"
                            "out vec4 FragColor;\n"
+                           "in vec4 pColor;\n"
                            "void main()\n"
                            "{\n"
-                           "    FragColor = vec4(0.2, 0.6, 0.8, 1.0);\n"
+                           "    FragColor = pColor;\n"
                            "}\n\0";
 
 static float vertices[] = {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        0.0f, 0.5f, 0.0f
+        -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
+        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f
 };
 
 namespace Panda
@@ -37,35 +43,31 @@ namespace Panda
     void FRenderer::Initialize()
     {
         Context->MakeCurrent();
-        Shader = FShaderObject::Get(vertexShaderSource, fragShaderSource);
-        glGenVertexArrays(1, &vao);
-        glGenBuffers(1, &vbo);
-        // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-        glBindVertexArray(vao);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+        Shader = MakeShared<FOpenGLShaderObject>(vertexShaderSource, fragShaderSource);
+        vbo = MakeShared<FOpenGLVertexBufferObject>();
+        vbo->SetData(vertices, sizeof (vertices));
+        FVertexBufferLayout Layout({
+            FVertexBufferElement("Vertex", FVertexBufferElementType::FLOAT, 3, 0),
+            FVertexBufferElement("VertexColor", FVertexBufferElementType::FLOAT, 3, 3 * sizeof (float ))
+        });
+        vbo->SetLayout(Layout);
+        vbo->Generate();
 
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(0);
-
-        // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-        // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-        // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
-        glBindVertexArray(0);
+        vao = MakeShared<FOpenGLVertexArrayObject>(vbo);
+        vao->Generate();
     }
 
     void FRenderer::RendererMain()
     {
         //glViewport(0, 0, 600, 400);
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        //LogInfo("check error {}", glGetError())
         glClear(GL_COLOR_BUFFER_BIT);
-
+        //LogInfo("check error {}", glGetError())
         // draw our first triangle
         Shader->Bind();
-        glBindVertexArray(vao); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        vao->Draw();
 
         Context->SwapBuffer();
     }

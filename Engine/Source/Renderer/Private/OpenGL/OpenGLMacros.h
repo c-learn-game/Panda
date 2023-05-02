@@ -22,4 +22,6 @@
 #define PANDA_GL_CALL(e) e;
 #endif
 
+static_assert(GL_FLOAT == 0x1406);
+
 #endif //TEST_OPENGLMACROS_H

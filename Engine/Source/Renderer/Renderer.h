@@ -23,8 +23,9 @@ namespace Panda
         SharedPtr<FRenderContext> Context;
 
         // 临时测试
-        uint vao, vbo;
-        SharedPtr<class FShaderObject> Shader;
+        SharedPtr<class FOpenGLVertexArrayObject> vao;
+        SharedPtr<class FOpenGLShaderObject> Shader;
+        SharedPtr<class FOpenGLVertexBufferObject> vbo;
     };
 }
 

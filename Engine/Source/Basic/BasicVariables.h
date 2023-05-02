@@ -26,6 +26,7 @@ namespace Panda
     using TArray = std::vector<T>;
 
     using uint = unsigned int;
+    using ulong = unsigned long;
 
     struct FSize
     {

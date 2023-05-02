@@ -5,18 +5,18 @@
 #ifndef TEST_OPENGLSHADEROBJECT_H
 #define TEST_OPENGLSHADEROBJECT_H
 
-#include "Renderer/Private/ShaderObject.h"
+#include "Renderer/Private/RendererObject.h"
 
 namespace Panda
 {
-    class FOpenGLShaderObject : public FShaderObject
+    class FOpenGLShaderObject : public FRendererObject
     {
     public:
         explicit FOpenGLShaderObject(const FString& VertexShaderSource, const FString& PixelShaderSource);
 
         ~FOpenGLShaderObject() override;
 
-        void Bind() override;
+        void Bind();
 
         bool IsValid() const override;
 
