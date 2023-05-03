@@ -7,6 +7,7 @@
 #include "OpenGL/OpenGLShaderObject.h"
 #include "OpenGL/OpenGLVertexBufferObject.h"
 #include "OpenGL/OpenGLVertexArrayObject.h"
+#include "OpenGL/OpenGLIndexBufferObject.h"
 
 const static char* vertexShaderSource = "#version 400 core\n"
                              "layout(location=0) in vec3 vPos;\n"
@@ -29,7 +30,13 @@ const static char* fragShaderSource = "#version 400 core\n"
 static float vertices[] = {
         -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
         0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-        0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f
+        0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f,
+};
+
+static uint indices[] = {
+        0, 1, 2,
+        0, 2, 3
 };
 
 namespace Panda
@@ -55,6 +62,10 @@ namespace Panda
 
         vao = MakeShared<FOpenGLVertexArrayObject>(vbo);
         vao->Generate();
+
+        ibo = MakeShared<FOpenGLIndexBufferObject>(indices, sizeof (indices));
+        ibo->Generate();
+        LogInfo("Renderer initialize success.")
     }
 
     void FRenderer::RendererMain()
@@ -67,7 +78,7 @@ namespace Panda
         // draw our first triangle
         Shader->Bind();
 
-        vao->Draw();
+        vao->DrawElements(ibo);
 
         Context->SwapBuffer();
     }

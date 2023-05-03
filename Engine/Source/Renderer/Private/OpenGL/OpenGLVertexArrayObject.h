@@ -25,6 +25,8 @@ namespace Panda
 
         void Draw();
 
+        void DrawElements(const SharedPtr<class FOpenGLIndexBufferObject>& ElementBuffer);
+
     private:
         uint ArrayId = 0;
         SharedPtr<class FOpenGLVertexBufferObject> VertexBufferObject = nullptr;

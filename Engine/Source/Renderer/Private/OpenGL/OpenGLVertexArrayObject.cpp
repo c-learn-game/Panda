@@ -4,6 +4,7 @@
 
 #include "OpenGLVertexArrayObject.h"
 #include "OpenGLVertexBufferObject.h"
+#include "OpenGLIndexBufferObject.h"
 
 namespace Panda
 {
@@ -65,5 +66,14 @@ namespace Panda
     {
         PANDA_GL_CALL(glBindVertexArray(ArrayId))
         PANDA_GL_CALL(glDrawArrays(GL_TRIANGLES, 0, VertexCount))
+    }
+
+    void FOpenGLVertexArrayObject::DrawElements(const SharedPtr<FOpenGLIndexBufferObject> &ElementBuffer)
+    {
+        check(IsValid() && ElementBuffer->IsValid())
+        PANDA_GL_CALL(glBindVertexArray(ArrayId))
+        ElementBuffer->Bind();
+        PANDA_GL_CALL(glDrawElements(GL_TRIANGLES, ElementBuffer->GetVertexCount(),
+                                     GL_UNSIGNED_INT, nullptr))
     }
 }

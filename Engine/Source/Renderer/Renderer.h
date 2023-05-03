@@ -26,6 +26,7 @@ namespace Panda
         SharedPtr<class FOpenGLVertexArrayObject> vao;
         SharedPtr<class FOpenGLShaderObject> Shader;
         SharedPtr<class FOpenGLVertexBufferObject> vbo;
+        SharedPtr<class FOpenGLIndexBufferObject> ibo;
     };
 }
 
