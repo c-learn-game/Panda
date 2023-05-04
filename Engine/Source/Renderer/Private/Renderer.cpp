@@ -54,7 +54,10 @@ namespace Panda
         Context->MakeCurrent();
         Shader = MakeShared<FOpenGLShaderObject>(vertexShaderSource, fragShaderSource);
         Component = MakeShared<UPrimitiveComponent>();
-        Component->AddVertex(FVector4(0.0f,0.0f,0.0f,0.0f));
+        Component->AddVertex(FVector4( -0.5f, -0.5f, 0.0f, 1.0f));
+        Component->AddVertex(FVector4( 0.5f, -0.5f, 0.0f, 1.0f));
+        Component->AddVertex(FVector4( 0.0f, 0.5f, 0.0f, 1.0f));
+        Proxy = Component->CreateProxy();
         LogInfo("Renderer initialize success.")
     }
 
@@ -67,17 +70,14 @@ namespace Panda
         //LogInfo("check error {}", glGetError())
         // draw our first triangle
         Shader->Bind();
-
-        vao->DrawElements(ibo);
+        Proxy->Draw();
+        //vao->DrawElements(ibo);
 
         Context->SwapBuffer();
     }
 
 	void FRenderer::DestroyRenderer()
 	{
-		vao = nullptr;
-		vbo = nullptr;
-		ibo = nullptr;
 		Shader = nullptr;
 	}
 }

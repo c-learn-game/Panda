@@ -2,8 +2,8 @@
 // Created by chendebi on 2023/5/4.
 //
 
-#ifndef TEST_RENDERER_H
-#define TEST_RENDERER_H
+#ifndef TEST_VECTOR4_H
+#define TEST_VECTOR4_H
 
 #include "spdlog/fmt/fmt.h"
 
@@ -27,7 +27,7 @@ namespace Panda
 			memset(Data, 0, sizeof(Data));
 		}
 
-		FVector4(float x=0.0f, float y=0.0f, float z=0.0f, float w=0.0f)
+		FVector4(float x, float y=0.0f, float z=0.0f, float w=0.0f)
 			: X(std::move(x))
 			, Y(std::move(y))
 			, Z(std::move(z))
