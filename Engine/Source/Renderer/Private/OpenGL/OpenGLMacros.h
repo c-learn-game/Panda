@@ -14,7 +14,7 @@
     {                    \
     while (GLenum ErrorCode = glGetError())\
     {\
-        LogWarn("OpenGL called with error code {0:x}", ErrorCode)\
+        LogWarn("OpenGL called with error code 0x{0:x}", ErrorCode)\
         LogWarn("   File: {}", __FILE__)        \
         LogWarn("   Line: {}", __LINE__)         \
     }}
