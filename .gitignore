@@ -46,5 +46,7 @@ DerivedData
 *.xcsettings
 *.filters
 .vs
-cmake*
-*.cmake
+cmake-build*
+CMakeFiles/
+CMakeCache.txt
+Build

@@ -4,3 +4,6 @@
 [submodule "Engine/Third/glm"]
 	path = Engine/Third/glm
 	url = git@github.com:chendebi/glm.git
+[submodule "Engine/Third/spdlog"]
+	path = Engine/Third/spdlog
+	url = git@github.com:c-learn-game/spdlog.git
