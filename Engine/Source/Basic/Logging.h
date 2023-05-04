@@ -33,10 +33,10 @@ namespace Panda
     };
 }
 
-#define LogDebug(...) FLoggerSubsystem::GetCoreLogger()->debug(__VA_ARGS__);
-#define LogInfo(...) FLoggerSubsystem::GetCoreLogger()->info(__VA_ARGS__);
-#define LogWarn(...) FLoggerSubsystem::GetCoreLogger()->warn(__VA_ARGS__);
-#define LogError(...) FLoggerSubsystem::GetCoreLogger()->error(__VA_ARGS__);
-#define LogCritical(...) FLoggerSubsystem::GetCoreLogger()->critical(__VA_ARGS__);
+#define LogDebug(...) Panda::FLoggerSubsystem::GetCoreLogger()->debug(__VA_ARGS__);
+#define LogInfo(...) Panda::FLoggerSubsystem::GetCoreLogger()->info(__VA_ARGS__);
+#define LogWarn(...) Panda::FLoggerSubsystem::GetCoreLogger()->warn(__VA_ARGS__);
+#define LogError(...) Panda::FLoggerSubsystem::GetCoreLogger()->error(__VA_ARGS__);
+#define LogCritical(...) Panda::FLoggerSubsystem::GetCoreLogger()->critical(__VA_ARGS__);
 
 #endif //PANDA_LOGGING_H

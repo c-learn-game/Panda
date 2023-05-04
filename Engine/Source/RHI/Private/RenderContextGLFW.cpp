@@ -48,7 +48,7 @@ namespace Panda
         LogInfo("   Version:  {}", (char*)glGetString(GL_VERSION))
 
 #if PANDA_OPENGL_VERSION_MAJOR >=4 and PANDA_OPENGL_VERSION_MINOR >= 5
-        glDebugMessageCallback(OpenGLDebugMessageCallBack);
+        //glDebugMessageCallback(OpenGLDebugMessageCallBack);
 #endif
 
     }

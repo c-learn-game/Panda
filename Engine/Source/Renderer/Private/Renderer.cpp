@@ -34,7 +34,7 @@ static float vertices[] = {
         -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f,
 };
 
-static uint indices[] = {
+static Panda::uint indices[] = {
         0, 1, 2,
         0, 2, 3
 };
@@ -82,4 +82,12 @@ namespace Panda
 
         Context->SwapBuffer();
     }
+
+	void FRenderer::DestroyRenderer()
+	{
+		vao = nullptr;
+		vbo = nullptr;
+		ibo = nullptr;
+		Shader = nullptr;
+	}
 }

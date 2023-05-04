@@ -19,6 +19,8 @@ namespace Panda
 
         virtual void RendererMain();
 
+		void DestroyRenderer();
+
     private:
         SharedPtr<FRenderContext> Context;
 

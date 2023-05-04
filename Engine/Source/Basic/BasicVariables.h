@@ -6,6 +6,7 @@
 #define PANDA_BASICVARIABLES_H
 
 #include <iostream>
+#include <vector>
 #include "BasicMacros.h"
 
 namespace Panda

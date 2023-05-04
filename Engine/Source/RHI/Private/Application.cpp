@@ -35,7 +35,8 @@ namespace Panda
             P->PollEvents();
             Renderer->RendererMain();
         }
-        LogInfo("Quit Application")
+		LogInfo("Quit Application")
+		Renderer->DestroyRenderer();
         return 0;
     }
 

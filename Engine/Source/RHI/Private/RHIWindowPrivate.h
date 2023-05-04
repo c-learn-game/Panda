@@ -10,6 +10,10 @@
 #define RHIWINDOW_DEFAULT_WIDTH 600
 #define RHIWINDOW_DEFAULT_HEIGHT 400
 
+#ifdef _MSC_VER
+#undef CreateWindow
+#endif
+
 namespace Panda
 {
     class RHIWindowPrivate

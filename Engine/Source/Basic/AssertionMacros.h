@@ -18,10 +18,10 @@
         PANDA_DEBUGBREAK()             \
     }
 
-#define checkf(e, format_text, ...) \
+#define checkf(e, ...) \
     if (!(e))    \
     {                               \
-        LogWarn(format_text, ##__VA_ARGS__)                            \
+        LogWarn(##__VA_ARGS__)                            \
         LogWarn("check {} failed!", #e) \
         LogWarn("   File: {}",  __FILE__)         \
         LogWarn("   Line: {}",  __LINE__)         \
