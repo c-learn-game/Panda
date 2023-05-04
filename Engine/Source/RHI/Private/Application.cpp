@@ -52,9 +52,6 @@ namespace Panda
 
     bool Application::Initialize()
     {
-        FLoggerSubsystem::Init(FLoggerSubsystem::Debug);
-        LogInfo("Log system initialized.")
-
         if (P->Initialize())
         {
             MainWindow = MakeShared<RHIWindow>(AppName);

@@ -18,8 +18,12 @@ static TArray<FString> MakeArguments(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
+	FLoggerSubsystem::Init(FLoggerSubsystem::Debug);
+	LogInfo("Log system initialized.")
+
     auto app = GetApplication(MakeArguments(argc, argv));
     app->PreInitApplication();
+
     if (!app->Initialize())
     {
         LogCritical("application initialize failed!");
