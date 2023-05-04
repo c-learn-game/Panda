@@ -25,10 +25,9 @@ namespace Panda
         SharedPtr<FRenderContext> Context;
 
         // 临时测试
-        SharedPtr<class FOpenGLVertexArrayObject> vao;
+        SharedPtr<class UPrimitiveComponent> Component;
         SharedPtr<class FOpenGLShaderObject> Shader;
-        SharedPtr<class FOpenGLVertexBufferObject> vbo;
-        SharedPtr<class FOpenGLIndexBufferObject> ibo;
+        class FPrimitiveProxy* Proxy = nullptr;
     };
 }
 

@@ -27,7 +27,7 @@ namespace Panda
 			memset(Data, 0, sizeof(Data));
 		}
 
-		FVector4(float x, float y, float z, float w)
+		FVector4(float x=0.0f, float y=0.0f, float z=0.0f, float w=0.0f)
 			: X(std::move(x))
 			, Y(std::move(y))
 			, Z(std::move(z))

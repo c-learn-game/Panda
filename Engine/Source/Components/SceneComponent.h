@@ -1,6 +1,6 @@
 //
 // Created by chendebi on 2023/5/04.
-// ¾ßÓÐ³¡¾°Î»ÒÆµÄ×é¼þ
+// ï¿½ï¿½ï¿½Ð³ï¿½ï¿½ï¿½Î»ï¿½Æµï¿½ï¿½ï¿½ï¿½
 //
 
 #ifndef PANDA_SCENECOMPONENT_H
@@ -10,7 +10,20 @@
 
 namespace Panda
 {
-	class USceneComponent : public UActorComponent
+    class FSceneProxy
+    {
+    public:
+        explicit FSceneProxy(class USceneComponent* InComponent);
+
+        virtual ~FSceneProxy() = default;
+
+        virtual void Draw() { check(false) }
+
+    private:
+        class USceneComponent* SceneComponent;
+    };
+
+    class USceneComponent : public UActorComponent
 	{
 	public:
 		explicit USceneComponent(const SharedPtr<UActorComponent>& Parent = nullptr)
@@ -18,7 +31,7 @@ namespace Panda
 
 		virtual ~USceneComponent() = default;
 
-		virtual class FSceneProxy* CreateProxy() { return nullptr; }
+		virtual FSceneProxy* CreateProxy() { return new FSceneProxy(this); }
 	};
 }
 

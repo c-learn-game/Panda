@@ -16,13 +16,13 @@ namespace Panda
 		FVector4 VertexPosition; // primitive vertices
 		FVector4 VertexColors[3]; // vertex colors
 
-		FPrimitiveVertex()
+		explicit FPrimitiveVertex()
 			: VertexPosition({0,0,0,0})
 		{
 			VertexPosition = {0,0,0,0};
 		}
 
-		FPrimitiveVertex(const FVector4& Position,
+        explicit FPrimitiveVertex(const FVector4& Position,
 			const FVector4& VertexColor0 = { 0,0,0,0 },
 			const FVector4& VertexColor1 = { 0,0,0,0 },
 			const FVector4& VertexColor2 = { 0,0,0,0 }
@@ -78,9 +78,12 @@ namespace Panda
 
 		void AddElementIndex(uint Index0, uint Index1, uint Index2);
 
-		void SetVertexColor(const int& Index, const int ColorIndex, const FVector4& VertexColor);
-		
+		void SetVertexColor(const int& Index, const int& ColorIndex, const FVector4& VertexColor);
+
+		FSceneProxy* CreateProxy() override;
+
 	private:
+	    friend class FPrimitiveProxy;
 		TArray<FPrimitiveVertex> Vertices;
 		TArray<FPrimitiveElementIndex> Indices;
 	};

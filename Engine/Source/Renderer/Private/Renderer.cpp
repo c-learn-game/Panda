@@ -8,6 +8,8 @@
 #include "OpenGL/OpenGLVertexBufferObject.h"
 #include "OpenGL/OpenGLVertexArrayObject.h"
 #include "OpenGL/OpenGLIndexBufferObject.h"
+#include "Components/PrimitiveComponent.h"
+#include "Core/Math/Vector4.h"
 
 const static char* vertexShaderSource = "#version 400 core\n"
                              "layout(location=0) in vec3 vPos;\n"
@@ -51,20 +53,8 @@ namespace Panda
     {
         Context->MakeCurrent();
         Shader = MakeShared<FOpenGLShaderObject>(vertexShaderSource, fragShaderSource);
-        vbo = MakeShared<FOpenGLVertexBufferObject>();
-        vbo->SetData(vertices, sizeof (vertices));
-        FVertexBufferLayout Layout({
-            FVertexBufferElement("Vertex", FVertexBufferElementType::Float3),
-            FVertexBufferElement("VertexColor", FVertexBufferElementType::Float3)
-        });
-        vbo->SetLayout(Layout);
-        vbo->Generate();
-
-        vao = MakeShared<FOpenGLVertexArrayObject>(vbo);
-        vao->Generate();
-
-        ibo = MakeShared<FOpenGLIndexBufferObject>(indices, sizeof (indices));
-        ibo->Generate();
+        Component = MakeShared<UPrimitiveComponent>();
+        Component->AddVertex(FVector4(0.0f,0.0f,0.0f,0.0f));
         LogInfo("Renderer initialize success.")
     }
 
