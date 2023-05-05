@@ -2,13 +2,12 @@
 // Created by chendebi on 2023/5/1.
 //
 
-#include "OpenGLShaderObject.h"
+#include "OpenGLShaderResource.h"
 #include "OpenGLMacros.h"
 
 namespace Panda
 {
-    FOpenGLShaderObject::FOpenGLShaderObject(const FString &VertexShaderSource, const FString &PixelShaderSource)
-    : FRendererObject()
+    void FOpenGLShaderResource::InitResource()
     {
         auto CreateShader = [&](GLenum ShaderType, const FString& ShaderSource) -> uint
         {
@@ -31,7 +30,7 @@ namespace Panda
         };
 
         uint VertShader = CreateShader(GL_VERTEX_SHADER, VertexShaderSource);
-        uint FragShader = CreateShader(GL_FRAGMENT_SHADER, PixelShaderSource);
+        uint FragShader = CreateShader(GL_FRAGMENT_SHADER, FragShaderSource);
 
         if (VertShader > 0 && FragShader > 0)
         {
@@ -56,28 +55,38 @@ namespace Panda
         if (FragShader > 0) PANDA_GL_CALL(glDeleteShader(FragShader))
     }
 
-    FOpenGLShaderObject::~FOpenGLShaderObject()
+    FOpenGLShaderResource::~FOpenGLShaderResource()
     {
-        Destroy();
+        if (IsValid())
+        {
+            ReleaseResource();
+        }
     }
 
-    bool FOpenGLShaderObject::IsValid() const
+    bool FOpenGLShaderResource::IsValid() const
     {
         return ShaderId > 0;
     }
 
-    void FOpenGLShaderObject::Bind()
+    void FOpenGLShaderResource::Bind()
     {
         check(IsValid())
         PANDA_GL_CALL(glUseProgram(ShaderId))
     }
 
-    void FOpenGLShaderObject::Destroy()
+    void FOpenGLShaderResource::ReleaseResource()
     {
         if (IsValid())
         {
             PANDA_GL_CALL(glDeleteProgram(ShaderId))
             ShaderId = 0;
         }
+    }
+
+    void FOpenGLShaderResource::SetShaderSource(const FString &InVertexShaderSource,
+                                                const FString &InFragShaderSource)
+    {
+        VertexShaderSource = InVertexShaderSource;
+        FragShaderSource = InFragShaderSource;
     }
 }

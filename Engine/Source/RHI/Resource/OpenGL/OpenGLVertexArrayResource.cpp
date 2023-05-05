@@ -21,9 +21,19 @@ namespace Panda
 
     FOpenGLVertexArrayResource::FOpenGLVertexArrayResource()
     {
+        if (IsValid())
+        {
+            ReleaseResource();
+        }
     }
 
-	void SetVertexBufferResource(SharedPtr<FRHIVertexBufferResource> InBufferResource)
+    void FOpenGLVertexArrayResource::Bind()
+    {
+        check(IsValid())
+        PANDA_GL_CALL(glBindVertexArray(ArrayId))
+    }
+
+	void FOpenGLVertexArrayResource::SetVertexBufferResource(SharedPtr<FRHIVertexBufferResource> InBufferResource)
     {
         check(!IsValid())
 		BufferResource = InBufferResource;

@@ -12,10 +12,10 @@ namespace Panda
 
 		void Draw();
 
-	private:
+	public:
 		class UPrimitiveSceneComponent* SceneComponent = nullptr;
-		SharedPtr<class FOpenGLVertexArrayObject> vao = nullptr;
-		SharedPtr<class FOpenGLIndexBufferObject> ibo = nullptr;
+		SharedPtr<class FRHIVertexArrayResource> vao = nullptr;
+		SharedPtr<class FRHIIndexBufferResource> ibo = nullptr;
 	};
 }
 

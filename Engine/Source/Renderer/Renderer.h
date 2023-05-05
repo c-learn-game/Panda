@@ -26,7 +26,7 @@ namespace Panda
 
         // 临时测试
         SharedPtr<class UPrimitiveSceneComponent> Component;
-        SharedPtr<class FOpenGLShaderObject> Shader;
+        SharedPtr<class FRHIShaderResource> Shader;
         class FPrimitiveSceneProxy* Proxy = nullptr;
     };
 }

@@ -1,39 +1,33 @@
-//
-// Created by chendebi on 2023/5/3.
-//
 
-#ifndef TEST_OPENGLINDEXBUFFEROBJECT_H
-#define TEST_OPENGLINDEXBUFFEROBJECT_H
+#ifndef PANDA_OPENGLINDEXBUFFERRESOURCE_H
+#define PANDA_OPENGLINDEXBUFFERRESOURCE_H
 
-#include "Renderer/Private/RendererObject.h"
+#include "RHI/Resource/RHIIndexBufferResource.h"
 
 namespace Panda
 {
-    class FOpenGLIndexBufferObject : public FRendererObject
+    class FOpenGLIndexBufferResource : public FRHIIndexBufferResource
     {
     public:
-        explicit FOpenGLIndexBufferObject(uint* InIndexData = nullptr, size_t InDataSize = 0);
 
-        ~FOpenGLIndexBufferObject() override;
+        void SetData(void* InIndexData, size_t InDataSize) override;
 
-        void SetIndexData(uint* InIndexData, size_t InDataSize);
-
-        void Generate();
+        void InitResource() override;
 
         bool IsValid() const override { return BufferId > 0; }
 
-        void Destroy() override;
+        void ReleaseResource() override;
 
         void Bind();
 
-        int GetVertexCount() const { return VertexCount; }
+        size_t GetIndexCount() const override { return IndexCount; }
 
     private:
         uint BufferId = 0;
-        uint* IndexData = nullptr;
+        void* IndexData = nullptr;
         size_t DataSize = 0;
 
-        size_t VertexCount = 0;
+        size_t IndexCount = 0;
     };
 }
 

@@ -8,7 +8,7 @@ namespace Panda
 	class FRHIResource
 	{
 	public:
-		virtual FRHIResource() = default;
+		virtual ~FRHIResource() = default;
 
 		virtual void InitResource() = 0;
 

@@ -7,7 +7,8 @@
 #include "Core/Math/Vector4.h"
 #include "Core/Engine/PrimitiveSceneComponent.h"
 #include "Core/Engine/PrimitiveSceneProxy.h"
-#include "OpenGL/OpenGLShaderObject.h"
+#include "RHI/Resource/RHIShaderResource.h"
+#include "RHI/Resource/RHIIndexBufferResource.h"
 
 const static char* vertexShaderSource = "#version 400 core\n"
                              "layout(location=0) in vec3 vPos;\n"
@@ -43,7 +44,9 @@ namespace Panda
     void FRenderer::Initialize()
     {
         Context->MakeCurrent();
-        Shader = MakeShared<FOpenGLShaderObject>(vertexShaderSource, fragShaderSource);
+        Shader = FRHIShaderResource::Create();
+        Shader->SetShaderSource(vertexShaderSource, fragShaderSource);
+        Shader->InitResource();
         Component = MakeShared<UPrimitiveSceneComponent>();
         Component->AddVertex(FVector4( -0.5f, -0.5f, 0.0f, 1.0f));
         Component->AddVertex(FVector4( 0.5f, -0.5f, 0.0f, 1.0f));
@@ -63,6 +66,8 @@ namespace Panda
 
         Shader->Bind();
         Proxy->Draw();
+        Proxy->ibo->Bind();
+        glDrawElements(GL_TRIANGLES, Proxy->ibo->GetIndexCount(), GL_UNSIGNED_INT, nullptr);
 
         Context->SwapBuffer();
     }

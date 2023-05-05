@@ -26,7 +26,7 @@ namespace Panda
 
         void Bind() override;
 
-        int GetVertexCount() const { return DataSize / DataLayout.GetStride(); }
+        int GetVertexCount() const { return DataSize / GetLayout().GetStride(); }
 
     private:
         int CurrentOffset = 0;

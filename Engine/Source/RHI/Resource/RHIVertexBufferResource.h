@@ -86,7 +86,7 @@ namespace Panda
 
 		int ComponentCount() const { return Components.size(); }
 
-		FVertexBufferElement& operator[](const int& Index)
+        FVertexBufferComponent& operator[](const int& Index)
 		{
 			return Components[Index];
 		}
@@ -94,7 +94,7 @@ namespace Panda
 		size_t GetStride() const { return Stride; }
 
 	private:
-		TArray<FVertexBufferElement> Components;
+		TArray<FVertexBufferComponent> Components;
 
 		size_t Stride = 0;
 	};
@@ -102,7 +102,7 @@ namespace Panda
 	class FRHIVertexBufferResource : public FRHIResource
 	{
 	public:
-		// 可能会跨线程操作数据
+
 		virtual void SetData(void* BufferData, size_t DataSize) = 0;
 
 		void SetLayout(const FVertexBufferResourceLayout& InLayout)

@@ -14,6 +14,8 @@ namespace Panda
         bool IsValid() const override
         { return ArrayId > 0; }
 
+        void Bind() override;
+
 		void SetVertexBufferResource(SharedPtr<class FRHIVertexBufferResource> InBufferResource) override;
 
         void InitResource() override;

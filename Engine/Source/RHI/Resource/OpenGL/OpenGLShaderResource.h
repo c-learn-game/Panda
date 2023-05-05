@@ -2,28 +2,31 @@
 // Created by chendebi on 2023/5/1.
 //
 
-#ifndef TEST_OPENGLSHADEROBJECT_H
-#define TEST_OPENGLSHADEROBJECT_H
+#ifndef PANDA_OPENGLSHADERRESOURCE_H
+#define PANDA_OPENGLSHADERRESOURCE_H
 
-#include "Renderer/Private/RendererObject.h"
+#include "RHI/Resource/RHIShaderResource.h"
 
 namespace Panda
 {
-    class FOpenGLShaderObject : public FRendererObject
+    class FOpenGLShaderResource : public FRHIShaderResource
     {
     public:
-        explicit FOpenGLShaderObject(const FString& VertexShaderSource, const FString& PixelShaderSource);
+        ~FOpenGLShaderResource() override;
 
-        ~FOpenGLShaderObject() override;
-
-        void Bind();
+        void Bind() override;
 
         bool IsValid() const override;
 
-        void Destroy() override;
+        void InitResource() override;
+
+        void ReleaseResource() override;
+
+        void SetShaderSource(const FString& InVertexShaderSource, const FString& InFragShaderSource) override;
 
     private:
-
+        FString VertexShaderSource;
+        FString FragShaderSource;
         uint ShaderId = 0;
     };
 }
