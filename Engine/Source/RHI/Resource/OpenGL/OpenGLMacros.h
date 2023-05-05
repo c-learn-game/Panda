@@ -1,9 +1,6 @@
-//
-// Created by chendebi on 2023/5/1.
-//
 
-#ifndef TEST_OPENGLMACROS_H
-#define TEST_OPENGLMACROS_H
+#ifndef PANDA_OPENGLMACROS_H
+#define PANDA_OPENGLMACROS_H
 
 #include "Basic/Basic.h"
 #include "glad/glad.h"
@@ -21,7 +18,5 @@
 #else
 #define PANDA_GL_CALL(e) e;
 #endif
-
-static_assert(GL_FLOAT == 0x1406);
 
 #endif //TEST_OPENGLMACROS_H

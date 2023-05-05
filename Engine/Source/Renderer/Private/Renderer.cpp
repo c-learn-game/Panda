@@ -4,12 +4,10 @@
 
 #include "Renderer/Renderer.h"
 #include "glad/glad.h"
-#include "OpenGL/OpenGLShaderObject.h"
-#include "OpenGL/OpenGLVertexBufferObject.h"
-#include "OpenGL/OpenGLVertexArrayObject.h"
-#include "OpenGL/OpenGLIndexBufferObject.h"
-#include "Components/PrimitiveComponent.h"
 #include "Core/Math/Vector4.h"
+#include "Core/Engine/PrimitiveSceneComponent.h"
+#include "Core/Engine/PrimitiveSceneProxy.h"
+#include "OpenGL/OpenGLShaderObject.h"
 
 const static char* vertexShaderSource = "#version 400 core\n"
                              "layout(location=0) in vec3 vPos;\n"
@@ -29,13 +27,6 @@ const static char* fragShaderSource = "#version 400 core\n"
                            "    FragColor = pColor;\n"
                            "}\n\0";
 
-static float vertices[] = {
-        -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
-        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-        0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
-        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f,
-};
-
 static Panda::uint indices[] = {
         0, 1, 2,
         0, 2, 3
@@ -53,25 +44,25 @@ namespace Panda
     {
         Context->MakeCurrent();
         Shader = MakeShared<FOpenGLShaderObject>(vertexShaderSource, fragShaderSource);
-        Component = MakeShared<UPrimitiveComponent>();
+        Component = MakeShared<UPrimitiveSceneComponent>();
         Component->AddVertex(FVector4( -0.5f, -0.5f, 0.0f, 1.0f));
         Component->AddVertex(FVector4( 0.5f, -0.5f, 0.0f, 1.0f));
         Component->AddVertex(FVector4( 0.0f, 0.5f, 0.0f, 1.0f));
+		Component->SetVertexColor(0, 0, { 1.0f, 0.0f, 0.0f });
+		Component->SetVertexColor(1, 0, { 0.0f, 1.0f, 0.0f });
+		Component->SetVertexColor(2, 0, { 0.0f, 0.0f, 1.0f });
+		Component->AddElementIndex(0, 1, 2);
         Proxy = Component->CreateProxy();
         LogInfo("Renderer initialize success.")
     }
 
     void FRenderer::RendererMain()
     {
-        //glViewport(0, 0, 600, 400);
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        //LogInfo("check error {}", glGetError())
         glClear(GL_COLOR_BUFFER_BIT);
-        //LogInfo("check error {}", glGetError())
-        // draw our first triangle
+
         Shader->Bind();
         Proxy->Draw();
-        //vao->DrawElements(ibo);
 
         Context->SwapBuffer();
     }

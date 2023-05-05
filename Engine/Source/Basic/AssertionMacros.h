@@ -18,7 +18,7 @@
         PANDA_DEBUGBREAK()             \
     }
 
-#ifdef __MSVC_VAR__
+#ifdef _MSC_VER
 #define checkf(e, ...) \
     if (!(e))    \
     {                               \
@@ -40,4 +40,4 @@
     }
 #endif
 
-#endif //PANDA_ASSERTIONMACROS_H
+#endif 

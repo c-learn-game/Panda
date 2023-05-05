@@ -5,7 +5,7 @@
 #ifndef PANDA_PRIMITIVECOMPONENT_H
 #define PANDA_PRIMITIVECOMPONENT_H
 
-#include "SceneComponent.h"
+#include "Basic/Basic.h"
 #include "Core/Math/Vector4.h"
 
 namespace Panda
@@ -59,12 +59,12 @@ namespace Panda
 		{}
 	};
 
-	class UPrimitiveComponent : public USceneComponent
+	class UPrimitiveSceneComponent
 	{
 	public:
-		explicit UPrimitiveComponent(const SharedPtr<UActorComponent>& Parent = nullptr);
+		explicit UPrimitiveSceneComponent();
 
-		virtual ~UPrimitiveComponent();
+		virtual ~UPrimitiveSceneComponent();
 
 		void AddVertex(const FPrimitiveVertex& Vertex);
 
@@ -80,10 +80,12 @@ namespace Panda
 
 		void SetVertexColor(const int& Index, const int& ColorIndex, const FVector4& VertexColor);
 
-		FSceneProxy* CreateProxy() override;
+		void AddIndex(const uint& Index0, const uint& Index1, const uint& Index2);
+
+		class FPrimitiveSceneProxy* CreateProxy();
 
 	private:
-	    friend class FPrimitiveProxy;
+	    friend class FPrimitiveSceneProxy;
 		TArray<FPrimitiveVertex> Vertices;
 		TArray<FPrimitiveElementIndex> Indices;
 	};

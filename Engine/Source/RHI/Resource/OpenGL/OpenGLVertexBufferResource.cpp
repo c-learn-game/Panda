@@ -2,28 +2,23 @@
 // Created by chendebi on 2023/5/2.
 //
 
-#include "OpenGLVertexBufferObject.h"
+#include "OpenGLVertexBufferResource.h"
 
 namespace Panda
 {
 
-    FOpenGLVertexBufferObject::FOpenGLVertexBufferObject()
-    : FRendererObject()
+    FOpenGLVertexBufferResource::FOpenGLVertexBufferResource()
+    : FRHIVertexBufferResource()
     {
     }
 
-    void FOpenGLVertexBufferObject::SetData(void *InVertexData, int InDataSize)
+    void FOpenGLVertexBufferResource::SetData(void *InVertexData, size_t InDataSize)
     {
         VertexData = InVertexData;
         DataSize = InDataSize;
     }
 
-    void FOpenGLVertexBufferObject::SetLayout(const FVertexBufferLayout &InLayout)
-    {
-        DataLayout = InLayout;
-    }
-
-    void FOpenGLVertexBufferObject::Generate()
+    void FOpenGLVertexBufferResource::InitResource()
     {
         check(DataSize > 0 && VertexData)
         PANDA_GL_CALL(glGenBuffers(1, &BufferId))
@@ -31,7 +26,7 @@ namespace Panda
         PANDA_GL_CALL(glBufferData(GL_ARRAY_BUFFER, DataSize, VertexData, GL_STATIC_DRAW))
     }
 
-    void FOpenGLVertexBufferObject::Destroy()
+    void FOpenGLVertexBufferResource::ReleaseResource()
     {
         if (IsValid())
         {
@@ -40,7 +35,7 @@ namespace Panda
         }
     }
 
-    void FOpenGLVertexBufferObject::Bind()
+    void FOpenGLVertexBufferResource::Bind()
     {
         check(IsValid())
         PANDA_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, BufferId));
