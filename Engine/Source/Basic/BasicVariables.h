@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 #include "BasicMacros.h"
 
 namespace Panda
@@ -25,6 +26,9 @@ namespace Panda
 
     template<typename T>
     using TArray = std::vector<T>;
+
+	template<typename _Key, typename _Value>
+    using THash = std::unordered_map<_Key, _Value>;
 
     using uint = unsigned int;
     using ulong = unsigned long;

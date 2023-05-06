@@ -51,10 +51,12 @@ namespace Panda
         Component->AddVertex(FVector4( -0.5f, -0.5f, 0.0f, 1.0f));
         Component->AddVertex(FVector4( 0.5f, -0.5f, 0.0f, 1.0f));
         Component->AddVertex(FVector4( 0.0f, 0.5f, 0.0f, 1.0f));
+        Component->AddVertex(FVector4( -0.5f, 0.5f, 0.0f, 1.0f));
 		Component->SetVertexColor(0, 0, { 1.0f, 0.0f, 0.0f });
 		Component->SetVertexColor(1, 0, { 0.0f, 1.0f, 0.0f });
 		Component->SetVertexColor(2, 0, { 0.0f, 0.0f, 1.0f });
 		Component->AddElementIndex(0, 1, 2);
+		Component->AddElementIndex(0, 2, 3);
         Proxy = Component->CreateProxy();
         LogInfo("Renderer initialize success.")
     }

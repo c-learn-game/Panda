@@ -5,19 +5,10 @@
 #ifndef PANDA_RHI_H
 #define PANDA_RHI_H
 
-#include "Basic/Basic.h"
-
-namespace Panda
-{
-    class RHI
-    {
-    public:
-        explicit RHI() = default;
-        virtual ~RHI() = default;
-
-        //virtual
-    };
-}
+#include "Resource/RHIIndexBufferResource.h"
+#include "Resource/RHIVertexBufferResource.h"
+#include "Resource/RHIVertexArrayResource.h"
+#include "Resource/RHIShaderResource.h"
 
 
 #endif //PANDA_RHI_H

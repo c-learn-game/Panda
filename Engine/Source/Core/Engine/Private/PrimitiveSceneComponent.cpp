@@ -24,9 +24,9 @@ namespace Panda
 		Vertices[Index].VertexColors[ColorIndex] = VertexColor;
 	}
 
-	void UPrimitiveSceneComponent::AddIndex(const uint & Index0, const uint & Index1, const uint & Index2)
+	bool UPrimitiveSceneComponent::Modified() const
 	{
-		Indices.emplace_back(Index0, Index1, Index2 );
+		return bModified;
 	}
 
 	void UPrimitiveSceneComponent::AddElementIndex(const FPrimitiveElementIndex& InIndex)

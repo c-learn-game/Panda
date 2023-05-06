@@ -80,7 +80,7 @@ namespace Panda
 
 		void SetVertexColor(const int& Index, const int& ColorIndex, const FVector4& VertexColor);
 
-		void AddIndex(const uint& Index0, const uint& Index1, const uint& Index2);
+		bool Modified() const;
 
 		class FPrimitiveSceneProxy* CreateProxy();
 
@@ -88,6 +88,7 @@ namespace Panda
 	    friend class FPrimitiveSceneProxy;
 		TArray<FPrimitiveVertex> Vertices;
 		TArray<FPrimitiveElementIndex> Indices;
+		bool bModified = false;
 	};
 }
 

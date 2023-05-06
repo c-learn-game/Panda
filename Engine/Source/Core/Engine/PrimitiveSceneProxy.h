@@ -1,16 +1,18 @@
 #ifndef PANDA_PRIMITIVESCENEPROXY_H
 #define PANDA_PRIMITIVESCENEPROXY_H
 
-#include "Basic/Basic.h"
+#include "ProxyBase.h"
 
 namespace Panda
 {
-	class FPrimitiveSceneProxy
+    class FPrimitiveSceneProxy : public FProxyBase
 	{
 	public:
 		explicit FPrimitiveSceneProxy(class UPrimitiveSceneComponent* InComponent);
 
-		void Draw();
+		void CreateResource() override;
+
+        void ReleaseResource() override;
 
 	public:
 		class UPrimitiveSceneComponent* SceneComponent = nullptr;
