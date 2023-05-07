@@ -11,9 +11,9 @@ namespace Panda
     public:
         explicit AActor();
 
-        virtual ~AActor();
+        virtual ~AActor() = default;
 
-        void AddComponent(const SharedPtr<class UPrimitiveSceneComponent> &NewComponent);
+        //void AddComponent(const SharedPtr<class UPrimitiveSceneComponent> &NewComponent);
 
     private:
         SharedPtr<class UActorComponent> RootComponent = nullptr;

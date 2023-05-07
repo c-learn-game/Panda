@@ -3,16 +3,14 @@
 //
 
 #include "Renderer/Renderer.h"
-#include "glad/glad.h"
 #include "Core/Math/Vector4.h"
 #include "Core/Engine/PrimitiveSceneComponent.h"
 #include "Core/Engine/PrimitiveSceneProxy.h"
-#include "RHI/Resource/RHIShaderResource.h"
-#include "RHI/Resource/RHIIndexBufferResource.h"
+#include "RHI/RHI.h"
 
 const static char* vertexShaderSource = "#version 400 core\n"
                              "layout(location=0) in vec3 vPos;\n"
-                             "layout(location=1) in vec3 vColor;\n"
+                             "layout(location=3) in vec3 vColor;\n"
                              "out vec4 pColor;\n"
                              "void main()\n"
                              "{\n"
@@ -52,25 +50,24 @@ namespace Panda
         Component->AddVertex(FVector4( 0.5f, -0.5f, 0.0f, 1.0f));
         Component->AddVertex(FVector4( 0.0f, 0.5f, 0.0f, 1.0f));
         Component->AddVertex(FVector4( -0.5f, 0.5f, 0.0f, 1.0f));
-		Component->SetVertexColor(0, 0, { 1.0f, 0.0f, 0.0f });
-		Component->SetVertexColor(1, 0, { 0.0f, 1.0f, 0.0f });
-		Component->SetVertexColor(2, 0, { 0.0f, 0.0f, 1.0f });
+		Component->SetVertexColor(0, 1, { 1.0f, 0.0f, 0.0f });
+		Component->SetVertexColor(1, 1, { 0.0f, 1.0f, 0.0f });
+		Component->SetVertexColor(2, 1, { 0.0f, 0.0f, 1.0f });
+		Component->SetVertexColor(3, 1, { 1.0f, 1.0f, 0.0f });
 		Component->AddElementIndex(0, 1, 2);
 		Component->AddElementIndex(0, 2, 3);
         Proxy = Component->CreateProxy();
+        Proxy->CreateResource();
         LogInfo("Renderer initialize success.")
     }
 
     void FRenderer::RendererMain()
     {
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        //glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        //glClear(GL_COLOR_BUFFER_BIT);
 
         Shader->Bind();
-        Proxy->Draw();
-        Proxy->ibo->Bind();
-        glDrawElements(GL_TRIANGLES, Proxy->ibo->GetIndexCount(), GL_UNSIGNED_INT, nullptr);
-
+        RHICommand->DrawMesh(Proxy->GetVertexArrayResource(), Proxy->GetIndexBufferResource());
         Context->SwapBuffer();
     }
 

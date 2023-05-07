@@ -3,3 +3,13 @@
 //
 
 #include "Core/Engine/Actor.h"
+#include "Core/Engine/ActorComponent.h"
+
+namespace Panda
+{
+    AActor::AActor()
+    {
+        RootComponent = MakeShared<UActorComponent>();
+
+    }
+}

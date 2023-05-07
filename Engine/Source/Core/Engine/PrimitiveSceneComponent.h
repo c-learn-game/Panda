@@ -14,6 +14,7 @@ namespace Panda
 	struct FPrimitiveVertex
 	{
 		FVector4 VertexPosition; // primitive vertices
+		FVector4 VertexNormal = {0,0,1,1};
 		FVector4 VertexColors[3]; // vertex colors
 
 		explicit FPrimitiveVertex()
@@ -23,11 +24,13 @@ namespace Panda
 		}
 
         explicit FPrimitiveVertex(const FVector4& Position,
+			const FVector4& Normal = {0,0,1,1},
 			const FVector4& VertexColor0 = { 0,0,0,0 },
 			const FVector4& VertexColor1 = { 0,0,0,0 },
 			const FVector4& VertexColor2 = { 0,0,0,0 }
 			)
 			: VertexPosition(Position)
+			, VertexNormal(Normal)
 		{
 			VertexColors[0] = VertexColor0;
 			VertexColors[1] = VertexColor1;
@@ -68,7 +71,8 @@ namespace Panda
 
 		void AddVertex(const FPrimitiveVertex& Vertex);
 
-		void AddVertex(const FVector4& VertexPosition, 
+		void AddVertex(const FVector4& VertexPosition,
+			const FVector4& Normal = {0, 0, 1, 1},
 			const FVector4& VertexColor0 = {0,0,0,0},
 			const FVector4& VertexColor1 = {0,0,0,0},
 			const FVector4& VertexColor2 = {0,0,0,0}
@@ -77,6 +81,8 @@ namespace Panda
 		void AddElementIndex(const FPrimitiveElementIndex& InIndex);
 
 		void AddElementIndex(uint Index0, uint Index1, uint Index2);
+
+		void SetVertexNormal(const int& Index, const FVector4& InNormal);
 
 		void SetVertexColor(const int& Index, const int& ColorIndex, const FVector4& VertexColor);
 

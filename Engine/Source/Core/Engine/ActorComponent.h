@@ -9,6 +9,7 @@ namespace Panda
     class UActorComponent
     {
     public:
+        UActorComponent();
         ~UActorComponent() = default;
     };
 }

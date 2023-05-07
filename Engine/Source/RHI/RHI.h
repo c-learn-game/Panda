@@ -9,6 +9,13 @@
 #include "Resource/RHIVertexBufferResource.h"
 #include "Resource/RHIVertexArrayResource.h"
 #include "Resource/RHIShaderResource.h"
+#include "Command/RHICommand.h"
 
+namespace Panda
+{
+
+}
+
+#define RHICommand FRHICommand::Get()
 
 #endif //PANDA_RHI_H

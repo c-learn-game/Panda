@@ -3,3 +3,11 @@
 //
 
 #include "Core/Engine/ActorComponent.h"
+
+namespace Panda
+{
+    UActorComponent::UActorComponent()
+    {
+
+    }
+}

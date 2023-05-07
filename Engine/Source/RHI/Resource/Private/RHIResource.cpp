@@ -2,10 +2,10 @@
 #include "RHI/Resource/RHIVertexArrayResource.h"
 #include "RHI/Resource/RHIIndexBufferResource.h"
 #include "RHI/Resource/RHIShaderResource.h"
-#include "RHI/Resource/OpenGL/OpenGLVertexBufferResource.h"
-#include "RHI/Resource/OpenGL/OpenGLVertexArrayResource.h"
-#include "RHI/Resource/OpenGL/OpenGLIndexBufferResorce.h"
-#include "RHI/Resource/OpenGL/OpenGLShaderResource.h"
+#include "RHI/Private/OpenGL/OpenGLVertexBufferResource.h"
+#include "RHI/Private/OpenGL/OpenGLVertexArrayResource.h"
+#include "RHI/Private/OpenGL/OpenGLIndexBufferResorce.h"
+#include "RHI/Private/OpenGL/OpenGLShaderResource.h"
 
 namespace Panda
 {

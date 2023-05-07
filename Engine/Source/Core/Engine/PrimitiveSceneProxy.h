@@ -14,7 +14,13 @@ namespace Panda
 
         void ReleaseResource() override;
 
-	public:
+        SharedPtr<class FRHIVertexArrayResource> GetVertexArrayResource() const
+        { return vao; }
+
+        SharedPtr<class FRHIIndexBufferResource> GetIndexBufferResource() const
+        { return ibo; }
+
+    private:
 		class UPrimitiveSceneComponent* SceneComponent = nullptr;
 		SharedPtr<class FRHIVertexArrayResource> vao = nullptr;
 		SharedPtr<class FRHIIndexBufferResource> ibo = nullptr;

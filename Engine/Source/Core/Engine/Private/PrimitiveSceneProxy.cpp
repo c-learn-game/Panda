@@ -19,6 +19,7 @@ namespace Panda
         vbo->InitResource();
         FVertexBufferResourceLayout Layout ({
                                                     FVertexBufferComponent("Position", FVertexBufferComponentType::Float4),
+                                                    FVertexBufferComponent("Normal", FVertexBufferComponentType::Float4),
                                                     FVertexBufferComponent("Color0", FVertexBufferComponentType::Float4),
                                                     FVertexBufferComponent("Color1", FVertexBufferComponentType::Float4),
                                                     FVertexBufferComponent("Color2", FVertexBufferComponentType::Float4)
