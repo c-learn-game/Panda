@@ -21,6 +21,9 @@ int main(int argc, char **argv)
 	FLoggerSubsystem::Init(FLoggerSubsystem::Debug);
 	LogInfo("Log system initialized.")
 
+    Panda::Path::InitApplicationPaths();
+    LogInfo("Path system initialized!")
+
     auto app = GetApplication(MakeArguments(argc, argv));
     app->PreInitApplication();
 

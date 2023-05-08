@@ -23,6 +23,8 @@ namespace Panda
 
         FString GetFragShaderSource() const { return FragShaderSource; }
 
+        //static SharedPtr<UMaterial> CreateMaterial(const FString& VertPath, const FString& )
+
 	private:
 		FString VertexShaderSource, FragShaderSource;
 		THash<FString, float> ScalarParameters;

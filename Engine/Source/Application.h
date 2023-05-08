@@ -6,6 +6,7 @@
 #define PANDA_APPLICATION_H
 
 #include "RHI/RHIWindow.h"
+#include "Core/Path/Path.h"
 
 int main(int argc, char** argv);
 
