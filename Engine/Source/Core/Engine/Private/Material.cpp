@@ -1,4 +1,5 @@
 #include "Core/Engine/Material.h"
+#include <fstream>
 
 namespace Panda
 {
@@ -23,5 +24,10 @@ namespace Panda
     {
         check(ScalarParameters.find(ParameterName) != ScalarParameters.end())
         ScalarParameters[ParameterName] = NewValue;
+    }
+
+    SharedPtr<UMaterial> UMaterial::LoadMaterial(const FString &VertPath, const FString &FragPath)
+    {
+
     }
 }

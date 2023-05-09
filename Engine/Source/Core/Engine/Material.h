@@ -23,7 +23,7 @@ namespace Panda
 
         FString GetFragShaderSource() const { return FragShaderSource; }
 
-        //static SharedPtr<UMaterial> CreateMaterial(const FString& VertPath, const FString& )
+        static SharedPtr<UMaterial> LoadMaterial(const FString& VertPath, const FString& FragPath);
 
 	private:
 		FString VertexShaderSource, FragShaderSource;

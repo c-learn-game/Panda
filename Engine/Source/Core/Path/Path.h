@@ -16,6 +16,7 @@ namespace Panda
 
     public:
         static FString ResourcePath;
+        static FString EngineShaderPath;
     };
 }
 

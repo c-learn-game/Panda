@@ -9,9 +9,12 @@ layout(location=4) in vec4 VertColor2;
 uniform vec4 CustomData0;
 uniform vec4 CustomData1;
 
+out vec4 FragColor;
+
 void main()
 {
     gl_position = VertPosition;
+    FragColor = VertexColor1;
     // CustomData数据插入
     // [custom vert shader %s]
 }

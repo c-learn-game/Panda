@@ -20,4 +20,7 @@
 
 #define PANDA_UNUSED(VAR) (void)VAR;
 
+// 发布版本的宏定义
+// #define PANDA_RELEASE
+
 #endif //PANDA_BASICMACROS_H
