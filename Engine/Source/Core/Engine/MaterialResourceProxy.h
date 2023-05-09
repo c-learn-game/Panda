@@ -21,7 +21,7 @@ namespace Panda
 
         void Update(const SharedPtr<FMaterialResourceProxy>& OldProxy = nullptr);
 
-    private:
+    public:
         SharedPtr<class UMaterial> Material;
         FString VertexShaderSource, FragShaderSource;
         SharedPtr<class FRHIShaderResource> Shader;

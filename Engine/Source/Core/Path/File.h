@@ -3,6 +3,7 @@
 #define PANDA_FILE_H
 
 #include "Basic/Basic.h"
+#include <fstream>
 
 namespace Panda
 {
@@ -23,10 +24,17 @@ namespace Panda
 
         bool Open(EFileOpenState OpenState = EFileOpenState::ReadOnly);
 
-        // 数据在FFile对象释放时释放
-        char *GetData();
+        void Close();
+
+        char * ReadAll();
 
     private:
+        void Release();
+
+    private:
+        std::fstream FileStream;
+        std::ofstream WriteStream;
+        FString FilePath;
         TArray<char*> ReadedDatas;
     };
 }

@@ -1,5 +1,6 @@
 #include "Core/Engine/Material.h"
-#include <fstream>
+#include "Core/Path/File.h"
+#include "Core/Path/Path.h"
 
 namespace Panda
 {
@@ -28,6 +29,31 @@ namespace Panda
 
     SharedPtr<UMaterial> UMaterial::LoadMaterial(const FString &VertPath, const FString &FragPath)
     {
+        LogInfo("create material")
+        LogInfo("   vertex source file: {}", VertPath)
+        LogInfo("   fragment source file: {}", FragPath)
+	    FFile VertSourceFile(VertPath);
+	    FFile FragSourceFile(FragPath);
 
+	    if (VertSourceFile.Open() && FragSourceFile.Open())
+        {
+	        FString VertSource = VertSourceFile.ReadAll();
+	        FString FragSource = FragSourceFile.ReadAll();
+	        VertSourceFile.Close();
+	        FragSourceFile.Close();
+            return MakeShared<UMaterial>(VertSource, FragSource);
+        }
+        LogWarn("open shader file failed!")
+        VertSourceFile.Close();
+        FragSourceFile.Close();
+        return nullptr;
+    }
+
+    FString UMaterial::EngineShaderSourcePath(const FString &FilePath)
+    {
+        FString SourcePath = Path::EngineShaderPath;
+        if (FilePath.empty() || !(FilePath[0]=='/'))
+            SourcePath.append("/");
+        return SourcePath.append(FilePath);
     }
 }

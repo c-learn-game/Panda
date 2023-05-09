@@ -13,8 +13,8 @@ out vec4 FragColor;
 
 void main()
 {
-    gl_position = VertPosition;
-    FragColor = VertexColor1;
+    gl_Position = VertPosition;
+    FragColor = VertColor1;
     // CustomData数据插入
     // [custom vert shader %s]
 }

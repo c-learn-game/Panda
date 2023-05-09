@@ -6,6 +6,9 @@
 #include "Core/Math/Vector4.h"
 #include "Core/Engine/PrimitiveSceneComponent.h"
 #include "Core/Engine/PrimitiveSceneProxy.h"
+#include "Core/Engine/Material.h"
+#include "Core/Engine/MaterialResourceProxy.h"
+#include "Core/Path/Path.h"
 #include "RHI/RHI.h"
 
 const static char* vertexShaderSource = "#version 400 core\n"
@@ -42,9 +45,6 @@ namespace Panda
     void FRenderer::Initialize()
     {
         Context->MakeCurrent();
-        Shader = FRHIShaderResource::Create();
-        Shader->SetShaderSource(vertexShaderSource, fragShaderSource);
-        Shader->InitResource();
         Component = MakeShared<UPrimitiveSceneComponent>();
         Component->AddVertex(FVector4( -0.5f, -0.5f, 0.0f, 1.0f));
         Component->AddVertex(FVector4( 0.5f, -0.5f, 0.0f, 1.0f));
@@ -58,6 +58,12 @@ namespace Panda
 		Component->AddElementIndex(0, 2, 3);
         Proxy = Component->CreateProxy();
         Proxy->CreateResource();
+
+
+        Material = UMaterial::LoadMaterial(UMaterial::EngineShaderSourcePath("/Private/LocalMeshVertexFactory.ver"),
+                                           UMaterial::EngineShaderSourcePath("/Private/LambertLighting.frag"));
+        MaterialProxy = MakeShared<FMaterialResourceProxy>(Material);
+        MaterialProxy->CreateResource();
         LogInfo("Renderer initialize success.")
     }
 
@@ -66,13 +72,13 @@ namespace Panda
         //glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         //glClear(GL_COLOR_BUFFER_BIT);
 
-        Shader->Bind();
+        MaterialProxy->Shader->Bind();
         RHICommand->DrawMesh(Proxy->GetVertexArrayResource(), Proxy->GetIndexBufferResource());
         Context->SwapBuffer();
     }
 
 	void FRenderer::DestroyRenderer()
 	{
-		Shader = nullptr;
+        MaterialProxy = nullptr;
 	}
 }
