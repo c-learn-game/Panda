@@ -39,4 +39,16 @@ namespace Panda
         PANDA_GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GetInternelFormat(Format), Width, Height, 0, GetInternelFormat(Format), GL_UNSIGNED_BYTE,Data))
         PANDA_GL_CALL(glGenerateMipmap(GL_TEXTURE_2D))
     }
+
+    void FOpenGLTextureResource::ReleaseResource()
+    {
+        check(IsValid())
+        PANDA_GL_CALL(glDeleteTextures(1, &TexId))
+        TexId = 0;
+    }
+
+    void FOpenGLTextureResource::Bind()
+    {
+        PANDA_GL_CALL(glBindTexture(GL_TEXTURE_2D, TexId))
+    }
 }
