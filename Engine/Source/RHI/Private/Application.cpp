@@ -58,7 +58,7 @@ namespace Panda
             RenderContext = FRenderContext::Get(MainWindow);
             Renderer = MakeShared<FRenderer>(RenderContext);
             Renderer->Initialize();
-            LogInfo("Application [{}] initialize success.", AppName)
+            LogInfo("Application [{}] initialize success.", AppName.ToStdString())
             return true;
         }
         return false;

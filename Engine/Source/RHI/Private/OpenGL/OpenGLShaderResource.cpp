@@ -12,7 +12,9 @@ namespace Panda
         auto CreateShader = [&](GLenum ShaderType, const FString& ShaderSource) -> uint
         {
             PANDA_GL_CALL(uint Shader = glCreateShader(ShaderType))
-            const char* Source = ShaderSource.c_str();
+            const char *Source;
+            std::string ShaderSourceString = ShaderSource.ToStdString();
+            Source = ShaderSourceString.c_str();
             PANDA_GL_CALL(glShaderSource(Shader, 1, &Source, nullptr))
             PANDA_GL_CALL(glCompileShader(Shader))
             int success = 0;

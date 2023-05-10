@@ -9,6 +9,7 @@
 #include <vector>
 #include <unordered_map>
 #include "BasicMacros.h"
+#include "String.h"
 
 namespace Panda
 {
@@ -21,14 +22,11 @@ namespace Panda
         return std::make_shared<T>(std::forward<Args>(args)...);
     }
 
-    // 类型别名
-    using FString = std::string;
-
     template<typename T>
     using TArray = std::vector<T>;
 
-	template<typename _Key, typename _Value>
-    using THash = std::unordered_map<_Key, _Value>;
+	template<typename Key, typename Value>
+    using THash = std::unordered_map<Key, Value>;
 
     using uint = unsigned int;
     using ulong = unsigned long;

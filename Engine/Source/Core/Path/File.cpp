@@ -7,6 +7,9 @@ namespace Panda
     FFile::FFile(const FString &InFilePath)
     : FilePath(InFilePath)
     {
+#ifdef PANDA_PLATFORM_WIN
+        FilePath.Replace("/", "\\");
+#endif
     }
 
     FFile::~FFile()
@@ -23,13 +26,13 @@ namespace Panda
         switch (OpenState)
         {
             case ReadOnly:
-                FileStream.open(FilePath, std::ios::in);
+                FileStream.open(FilePath.ToStdString(), std::ios::in|std::ios::binary);
                 break;
             case WriteOnly:
-                FileStream.open(FilePath, std::ios::out);
+                FileStream.open(FilePath.ToStdString(), std::ios::out|std::ios::binary);
                 break;
             case ReadWrite:
-                FileStream.open(FilePath, std::ios::in|std::ios::out);
+                FileStream.open(FilePath.ToStdString(), std::ios::in|std::ios::out|std::ios::binary);
                 break;
         }
         return FileStream.is_open();
@@ -46,11 +49,12 @@ namespace Panda
         if (FileStream.is_open())
         {
             FileStream.seekg(0, std::ios::end);
-            auto DataSize = FileStream.tellg();
-            char * Data = new char [DataSize];
+            size_t DataSize = FileStream.tellg();
+            char * Data = new char [DataSize+1];
             FileStream.seekg(0, std::ios::beg);
             FileStream.read(Data, DataSize);
             ReadedDatas.push_back(Data);
+            Data[DataSize] = '\0';
             return Data;
         }
         return nullptr;

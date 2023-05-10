@@ -18,7 +18,7 @@ namespace Panda
 
     FString FDirectory::ParentPath() const
     {
-        std::filesystem::path path(DirPath);
+        std::filesystem::path path(DirPath.ToStdString());
         return path.parent_path().string();
     }
 
@@ -31,10 +31,10 @@ namespace Panda
     {
         if (Exist())
         {
-            std::filesystem::directory_iterator DirList(DirPath);
+            std::filesystem::directory_iterator DirList(DirPath.ToStdString());
             for (auto& Dir : DirList)
             {
-                if (Dir.is_directory() && Dir.path().filename().string() == DirectoryName)
+                if (Dir.is_directory() && Dir.path().filename().string() == DirectoryName.ToStdString())
                 {
                     DirPath = Dir.path().string();
                     return true;
@@ -48,7 +48,7 @@ namespace Panda
     {
         if (FFileInfo::Exist(DirPath))
         {
-            return std::filesystem::is_directory(DirPath);
+            return std::filesystem::is_directory(DirPath.ToStdString());
         }
         return false;
     }
@@ -57,13 +57,13 @@ namespace Panda
     {
         if (Exist())
         {
-            std::filesystem::directory_iterator DirList(DirPath);
+            std::filesystem::directory_iterator DirList(DirPath.ToStdString());
             for (auto& Dir : DirList)
             {
-                if ((!Dir.is_directory()) && Dir.path().filename().string() == FileName)
+                if ((!Dir.is_directory()) && Dir.path().filename().string() == FileName.ToStdString())
                 {
                     Success = true;
-                    return Dir.path().string();
+                    return FString(Dir.path().string()).Replace("/","\\");
                 }
             }
         }

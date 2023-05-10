@@ -30,8 +30,8 @@ namespace Panda
     SharedPtr<UMaterial> UMaterial::LoadMaterial(const FString &VertPath, const FString &FragPath)
     {
         LogInfo("create material")
-        LogInfo("   vertex source file: {}", VertPath)
-        LogInfo("   fragment source file: {}", FragPath)
+        LogInfo("   vertex source file: {}", VertPath.ToStdString())
+        LogInfo("   fragment source file: {}", FragPath.ToStdString())
 	    FFile VertSourceFile(VertPath);
 	    FFile FragSourceFile(FragPath);
 
@@ -52,8 +52,8 @@ namespace Panda
     FString UMaterial::EngineShaderSourcePath(const FString &FilePath)
     {
         FString SourcePath = Path::EngineShaderPath;
-        if (FilePath.empty() || !(FilePath[0]=='/'))
-            SourcePath.append("/");
-        return SourcePath.append(FilePath);
+        if (FilePath.IsEmpty() || FilePath[0] != '/')
+            SourcePath.Append("/");
+        return SourcePath.Append(FilePath);
     }
 }

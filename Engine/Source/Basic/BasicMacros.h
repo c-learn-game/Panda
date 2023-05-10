@@ -23,4 +23,11 @@
 // 发布版本的宏定义
 // #define PANDA_RELEASE
 
+// 平台宏
+#ifdef _MSC_VER
+#define PANDA_PLATFORM_WIN
+#else
+#define PANDA_PLATFORM_UNIX
+#endif
+
 #endif //PANDA_BASICMACROS_H

@@ -13,7 +13,7 @@ namespace Panda
 
     bool FFileInfo::IsDir() const
     {
-        std::filesystem::path path(FilePath);
+        std::filesystem::path path(FilePath.ToStdString());
         return std::filesystem::is_directory(path);
     }
 
@@ -25,13 +25,13 @@ namespace Panda
         }
         else
         {
-            std::filesystem::path path(FilePath);
+            std::filesystem::path path(FilePath.ToStdString());
             return FDirectory(path.parent_path().string());
         }
     }
 
     bool FFileInfo::Exist(const FString &FilePath)
     {
-        return std::filesystem::exists(FilePath);
+        return std::filesystem::exists(FilePath.ToStdString());
     }
 }

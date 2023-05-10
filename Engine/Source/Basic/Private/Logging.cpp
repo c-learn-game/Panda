@@ -11,7 +11,7 @@ namespace Panda
 
     void FLoggerSubsystem::Init(FLogLevel LogLevel)
     {
-        CoreLogger = CreateLogger("Panda", LogLevel);
+        CoreLogger = CreateLogger(FString("Panda"), LogLevel);
     }
 
     SharedPtr<spdlog::logger> FLoggerSubsystem::CreateLogger(const FString &LoggerName, FLogLevel LogLevel)

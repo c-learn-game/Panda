@@ -27,7 +27,7 @@ namespace Panda
 
     bool RHIWindowPrivateGLFW::CreateWindow(const FString &WindowTitle)
     {
-        WindowP = glfwCreateWindow(RHIWINDOW_DEFAULT_WIDTH, RHIWINDOW_DEFAULT_HEIGHT, WindowTitle.c_str(), nullptr,
+        WindowP = glfwCreateWindow(RHIWINDOW_DEFAULT_WIDTH, RHIWINDOW_DEFAULT_HEIGHT, WindowTitle.ToStdString().c_str(), nullptr,
                                    nullptr);
         glfwSetWindowUserPointer(WindowP, Window);
         glfwSetWindowCloseCallback(WindowP, OnWindowClose);
@@ -46,7 +46,7 @@ namespace Panda
 
     bool RHIWindowPrivateGLFW::SetWindowTitle(const FString &NewTitle)
     {
-        glfwSetWindowTitle(WindowP, NewTitle.c_str());
+        glfwSetWindowTitle(WindowP, NewTitle.ToStdString().c_str());
         return true;
     }
 

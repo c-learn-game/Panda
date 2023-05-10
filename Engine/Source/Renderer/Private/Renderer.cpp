@@ -11,24 +11,6 @@
 #include "Core/Path/Path.h"
 #include "RHI/RHI.h"
 
-const static char* vertexShaderSource = "#version 400 core\n"
-                             "layout(location=0) in vec3 vPos;\n"
-                             "layout(location=3) in vec3 vColor;\n"
-                             "out vec4 pColor;\n"
-                             "void main()\n"
-                             "{\n"
-                             "  gl_Position = vec4(vPos.x, vPos.y, vPos.z, 1.0f);\n"
-                             "  pColor = vec4(vColor.x, vColor.y, vColor.z, 1.0f);\n"
-                             "}\n\0";
-
-const static char* fragShaderSource = "#version 400 core\n"
-                           "out vec4 FragColor;\n"
-                           "in vec4 pColor;\n"
-                           "void main()\n"
-                           "{\n"
-                           "    FragColor = pColor;\n"
-                           "}\n\0";
-
 static Panda::uint indices[] = {
         0, 1, 2,
         0, 2, 3
@@ -50,17 +32,17 @@ namespace Panda
         Component->AddVertex(FVector4( 0.5f, -0.5f, 0.0f, 1.0f));
         Component->AddVertex(FVector4( 0.0f, 0.5f, 0.0f, 1.0f));
         Component->AddVertex(FVector4( -0.5f, 0.5f, 0.0f, 1.0f));
-		Component->SetVertexColor(0, 1, { 1.0f, 0.0f, 0.0f });
-		Component->SetVertexColor(1, 1, { 0.0f, 1.0f, 0.0f });
-		Component->SetVertexColor(2, 1, { 0.0f, 0.0f, 1.0f });
-		Component->SetVertexColor(3, 1, { 1.0f, 1.0f, 0.0f });
+		Component->SetVertexColor(0, 0, { 1.0f, 0.0f, 0.0f });
+		Component->SetVertexColor(1, 0, { 0.0f, 1.0f, 0.0f });
+		Component->SetVertexColor(2, 0, { 0.0f, 0.0f, 1.0f });
+		Component->SetVertexColor(3, 0, { 1.0f, 1.0f, 0.0f });
 		Component->AddElementIndex(0, 1, 2);
 		Component->AddElementIndex(0, 2, 3);
         Proxy = Component->CreateProxy();
         Proxy->CreateResource();
 
 
-        Material = UMaterial::LoadMaterial(UMaterial::EngineShaderSourcePath("/Private/LocalMeshVertexFactory.ver"),
+        Material = UMaterial::LoadMaterial(UMaterial::EngineShaderSourcePath("/Private/LocalMeshVertexFactory.vert"),
                                            UMaterial::EngineShaderSourcePath("/Private/LambertLighting.frag"));
         MaterialProxy = MakeShared<FMaterialResourceProxy>(Material);
         MaterialProxy->CreateResource();

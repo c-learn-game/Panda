@@ -36,7 +36,7 @@ namespace Panda
 
 		FString ToString()
 		{
-			return fmt::format("(X={}, Y={}, Z={}, W={})", X, Y, Z, W);
+			return FString(fmt::format("(X={}, Y={}, Z={}, W={})", X, Y, Z, W));
 		}
 	};
 }
