@@ -42,8 +42,8 @@ namespace Panda
         Proxy->CreateResource();
 
 
-        Material = UMaterial::LoadMaterial(UMaterial::EngineShaderSourcePath("/Private/LocalMeshVertexFactory.vert"),
-                                           UMaterial::EngineShaderSourcePath("/Private/LambertLighting.frag"));
+        Material = UMaterial::LoadMaterial(UMaterial::EngineShaderSourcePath("/Private/LocalStaticMesh.vert"),
+                                           UMaterial::EngineShaderSourcePath("/Private/LocalStaticMesh.frag"));
         MaterialProxy = MakeShared<FMaterialResourceProxy>(Material);
         MaterialProxy->CreateResource();
         LogInfo("Renderer initialize success.")

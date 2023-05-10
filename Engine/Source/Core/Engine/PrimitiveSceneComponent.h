@@ -16,6 +16,7 @@ namespace Panda
 		FVector4 VertexPosition; // primitive vertices
 		FVector4 VertexNormal = {0,0,1,1};
 		FVector4 VertexColors[3]; // vertex colors
+        FVector4 VertexUV0;
 
 		explicit FPrimitiveVertex()
 			: VertexPosition({0,0,0,0})
@@ -27,10 +28,12 @@ namespace Panda
 			const FVector4& Normal = {0,0,1,1},
 			const FVector4& VertexColor0 = { 0,0,0,0 },
 			const FVector4& VertexColor1 = { 0,0,0,0 },
-			const FVector4& VertexColor2 = { 0,0,0,0 }
+			const FVector4& VertexColor2 = { 0,0,0,0 },
+            const FVector4& UV0 = {0,0,0,0}
 			)
 			: VertexPosition(Position)
 			, VertexNormal(Normal)
+            , VertexUV0(UV0)
 		{
 			VertexColors[0] = VertexColor0;
 			VertexColors[1] = VertexColor1;
@@ -85,6 +88,8 @@ namespace Panda
 		void SetVertexNormal(const int& Index, const FVector4& InNormal);
 
 		void SetVertexColor(const int& Index, const int& ColorIndex, const FVector4& VertexColor);
+
+        void SetVertexUV(const int& Index, int UVIndex, float U, float V);
 
 		bool Modified() const;
 

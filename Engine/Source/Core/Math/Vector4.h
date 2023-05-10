@@ -34,6 +34,11 @@ namespace Panda
 			, W(std::move(w))
 		{}
 
+        float &operator[](int Index)
+        {
+            return Data[Index];
+        }
+
 		FString ToString()
 		{
 			return FString(fmt::format("(X={}, Y={}, Z={}, W={})", X, Y, Z, W));

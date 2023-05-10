@@ -7,3 +7,6 @@
 [submodule "Engine/Third/spdlog"]
 	path = Engine/Third/spdlog
 	url = git@github.com:c-learn-game/spdlog.git
+[submodule "Engine/Third/stb"]
+	path = Engine/Third/stb
+	url = git@github.com:nothings/stb.git

@@ -26,6 +26,15 @@ namespace Panda
 		Vertices[Index].VertexColors[ColorIndex] = VertexColor;
 	}
 
+    void UPrimitiveSceneComponent::SetVertexUV(const int &Index, int UVIndex, float U, float V)
+    {
+        if (0 <= UVIndex && UVIndex < 2)
+        {
+            Vertices[Index].VertexUV0[UVIndex*2] = U;
+            Vertices[Index].VertexUV0[UVIndex*2+1] = V;
+        }
+    }
+
 	bool UPrimitiveSceneComponent::Modified() const
 	{
 		return bModified;
