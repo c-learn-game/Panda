@@ -16,9 +16,7 @@ namespace Panda
     public:
         explicit FOpenGLVertexBufferResource();
 
-        void SetData(void * InVertexData, size_t InDataSize) override;
-
-        void InitResource() override;
+        void InitResource(void* BufferData, size_t DataSize) override;
 
         void ReleaseResource() override;
 
@@ -29,9 +27,7 @@ namespace Panda
         size_t GetVertexCount() const { return DataSize / GetLayout().GetStride(); }
 
     private:
-        int CurrentOffset = 0;
         uint BufferId = 0;
-        void* VertexData = nullptr;
         size_t DataSize = 0;
     };
 

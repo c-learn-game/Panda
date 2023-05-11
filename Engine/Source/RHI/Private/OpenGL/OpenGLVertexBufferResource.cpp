@@ -12,18 +12,13 @@ namespace Panda
     {
     }
 
-    void FOpenGLVertexBufferResource::SetData(void *InVertexData, size_t InDataSize)
+    void FOpenGLVertexBufferResource::InitResource(void* BufferData, size_t InDataSize)
     {
-        VertexData = InVertexData;
         DataSize = InDataSize;
-    }
-
-    void FOpenGLVertexBufferResource::InitResource()
-    {
-        check(DataSize > 0 && VertexData)
+        check(DataSize > 0 && BufferData)
         PANDA_GL_CALL(glGenBuffers(1, &BufferId))
         PANDA_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, BufferId))
-        PANDA_GL_CALL(glBufferData(GL_ARRAY_BUFFER, DataSize, VertexData, GL_STATIC_DRAW))
+        PANDA_GL_CALL(glBufferData(GL_ARRAY_BUFFER, DataSize, BufferData, GL_STATIC_DRAW))
     }
 
     void FOpenGLVertexBufferResource::ReleaseResource()

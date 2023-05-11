@@ -10,9 +10,7 @@ namespace Panda
     {
     public:
 
-        void SetData(void* InIndexData, size_t InDataSize) override;
-
-        void InitResource() override;
+        void InitResource(void* InIndexData, size_t InDataSize) override;
 
         bool IsValid() const override { return BufferId > 0; }
 

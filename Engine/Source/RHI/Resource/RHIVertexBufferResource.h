@@ -102,12 +102,9 @@ namespace Panda
 	class FRHIVertexBufferResource : public FRHIResource
 	{
 	public:
-
-		virtual void SetData(void* BufferData, size_t DataSize) = 0;
-
         virtual void Bind() = 0;
 
-        virtual void InitResource() = 0;
+        virtual void InitResource(void* BufferData, size_t DataSize) = 0;
 
 		void SetLayout(const FVertexBufferResourceLayout& InLayout)
 		{

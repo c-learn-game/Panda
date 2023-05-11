@@ -15,8 +15,7 @@ namespace Panda
 	void FPrimitiveSceneProxy::CreateResource()
 	{
         auto vbo = FRHIVertexBufferResource::Create();
-        vbo->SetData(SceneComponent->Vertices.data(), SceneComponent->Vertices.size() * sizeof(FPrimitiveVertex));
-        vbo->InitResource();
+        vbo->InitResource(SceneComponent->Vertices.data(), SceneComponent->Vertices.size() * sizeof(FPrimitiveVertex));
         FVertexBufferResourceLayout Layout ({
                                                     FVertexBufferComponent("Position", FVertexBufferComponentType::Float4),
                                                     FVertexBufferComponent("Normal", FVertexBufferComponentType::Float4),
@@ -30,8 +29,7 @@ namespace Panda
         vao->SetVertexBufferResource(vbo);
         vao->InitResource();
         ibo = FRHIIndexBufferResource::Create();
-        ibo->SetData(SceneComponent->Indices.data(), sizeof(FPrimitiveElementIndex) * SceneComponent->Indices.size());
-        ibo->InitResource();
+        ibo->InitResource(SceneComponent->Indices.data(), sizeof(FPrimitiveElementIndex) * SceneComponent->Indices.size());
 	}
 
     void FPrimitiveSceneProxy::ReleaseResource()

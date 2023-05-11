@@ -8,20 +8,15 @@
 namespace Panda
 {
 
-    void FOpenGLIndexBufferResource::InitResource()
+    void FOpenGLIndexBufferResource::InitResource(void* InIndexData, size_t InDataSize)
     {
-        check(!IsValid() && IndexData && DataSize > 0)
-        PANDA_GL_CALL(glGenBuffers(1, &BufferId))
-        PANDA_GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BufferId))
-        PANDA_GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, DataSize, IndexData, GL_STATIC_DRAW))
-    }
-
-    void FOpenGLIndexBufferResource::SetData(void *InIndexData, size_t InDataSize)
-    {
-        check(!IsValid())
-        IndexData = InIndexData;
         DataSize = InDataSize;
         IndexCount = InDataSize / sizeof (uint) * 3;
+
+        check(!IsValid() && InIndexData && DataSize > 0)
+        PANDA_GL_CALL(glGenBuffers(1, &BufferId))
+        PANDA_GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BufferId))
+        PANDA_GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, DataSize, InIndexData, GL_STATIC_DRAW))
     }
 
     void FOpenGLIndexBufferResource::ReleaseResource()
