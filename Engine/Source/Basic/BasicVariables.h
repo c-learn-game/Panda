@@ -29,6 +29,7 @@ namespace Panda
     using THash = std::unordered_map<Key, Value>;
 
     using uint = unsigned int;
+    using uint8 = unsigned char;
     using ulong = unsigned long;
 
     struct FSize

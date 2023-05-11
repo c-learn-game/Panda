@@ -6,18 +6,39 @@
 
 namespace Panda
 {
-    enum FTextureFormat
+    enum class FTextureFormat : uint8
     {
         RGB,
         RGBA
     };
 
+    enum class FTextureTilingMethod : uint8
+    {
+        Wrap,
+        Clamp,
+        Mirror
+    };
+
+    enum class FTextureFilter : uint8
+    {
+        Nearest,
+        Linear
+    };
+
     class FRHITextureResource : public FRHIResource
     {
-    public:
-        //virtual void SetData(int Width, int Height, FTextureFormat Format) = 0;
+    protected:
+        size_t Width = 0;
+        size_t Height = 0;
+        bool bAutoMipmaps = true;
 
-        static SharedPtr<FRHITextureResource> Create();
+        FTextureTilingMethod XAxisTilingMethod = FTextureTilingMethod::Wrap;
+        FTextureTilingMethod YAxisTilingMethod = FTextureTilingMethod::Wrap;
+
+        virtual void InitResource(void* Data, FTextureFormat Format) = 0;
+
+    public:
+        static SharedPtr<FRHITextureResource> Create(size_t Width, size_t Height, int );
     };
 }
 
