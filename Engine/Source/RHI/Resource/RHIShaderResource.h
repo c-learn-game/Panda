@@ -11,6 +11,10 @@ namespace Panda
 
         virtual void SetShaderSource(const FString& VertexShaderSource, const FString& FragShaderSource) = 0;
 
+        virtual void Bind() = 0;
+
+        virtual void InitResource() = 0;
+
         static SharedPtr<FRHIShaderResource> Create();
     };
 }

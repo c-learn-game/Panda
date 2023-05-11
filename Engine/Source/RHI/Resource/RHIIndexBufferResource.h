@@ -14,6 +14,10 @@ namespace Panda
 
         virtual size_t GetIndexCount() const = 0;
 
+        virtual void Bind() = 0;
+
+        virtual void InitResource() = 0;
+
         static SharedPtr<FRHIIndexBufferResource> Create();
     };
 }

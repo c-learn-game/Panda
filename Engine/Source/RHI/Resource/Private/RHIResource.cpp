@@ -2,10 +2,12 @@
 #include "RHI/Resource/RHIVertexArrayResource.h"
 #include "RHI/Resource/RHIIndexBufferResource.h"
 #include "RHI/Resource/RHIShaderResource.h"
+#include "RHI/Resource/RHITextureResource.h"
 #include "RHI/Private/OpenGL/OpenGLVertexBufferResource.h"
 #include "RHI/Private/OpenGL/OpenGLVertexArrayResource.h"
 #include "RHI/Private/OpenGL/OpenGLIndexBufferResorce.h"
 #include "RHI/Private/OpenGL/OpenGLShaderResource.h"
+#include "RHI/Private/OpenGL/OpenGLTextureResource.h"
 
 namespace Panda
 {
@@ -28,4 +30,9 @@ namespace Panda
 	{
         return MakeShared<FOpenGLShaderResource>();
 	}
+
+    SharedPtr<FRHITextureResource> FRHITextureResource::Create()
+    {
+        return MakeShared<FOpenGLTextureResource>();
+    }
 }

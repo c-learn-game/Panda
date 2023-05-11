@@ -15,7 +15,7 @@ namespace Panda
     class FRHITextureResource : public FRHIResource
     {
     public:
-        virtual void SetData(void* Data, int Width, int Height, FTextureFormat Format) = 0;
+        //virtual void SetData(int Width, int Height, FTextureFormat Format) = 0;
 
         static SharedPtr<FRHITextureResource> Create();
     };

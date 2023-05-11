@@ -10,6 +10,10 @@ namespace Panda
 	public:
 		virtual void SetVertexBufferResource(SharedPtr<class FRHIVertexBufferResource> BufferResource) = 0;
 
+        virtual void Bind() = 0;
+
+        virtual void InitResource() = 0;
+
 		static SharedPtr<FRHIVertexArrayResource> Create();
 	};
 }

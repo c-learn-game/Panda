@@ -105,6 +105,10 @@ namespace Panda
 
 		virtual void SetData(void* BufferData, size_t DataSize) = 0;
 
+        virtual void Bind() = 0;
+
+        virtual void InitResource() = 0;
+
 		void SetLayout(const FVertexBufferResourceLayout& InLayout)
 		{
 			checkf(InLayout.IsValid(), "invalid buffer layout")

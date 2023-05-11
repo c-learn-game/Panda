@@ -11,13 +11,9 @@ namespace Panda
     public:
         ~FOpenGLTextureResource() override;
 
-        void SetData(void* InData, int InWidth, int InHeight, FTextureFormat InFormat) override;
-
-        void InitResource() override;
+        //void SetData(void* InData, int InWidth, int InHeight, FTextureFormat InFormat) override;
 
         void ReleaseResource() override;
-
-        void Bind() override;
 
         bool IsValid() const { return TexId > 0; }
 
