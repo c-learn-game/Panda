@@ -1,15 +1,14 @@
 
 #include "File.h"
+#include "Path.h"
 
 namespace Panda
 {
 
     FFile::FFile(const FString &InFilePath)
-    : FilePath(InFilePath)
+    : FilePath(Path::ToLocalPath(InFilePath))
     {
-#ifdef PANDA_PLATFORM_WIN
-        FilePath.Replace("/", "\\");
-#endif
+
     }
 
     FFile::~FFile()

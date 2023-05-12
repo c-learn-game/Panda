@@ -27,18 +27,24 @@ namespace Panda
 
     class FRHITextureResource : public FRHIResource
     {
-    protected:
-        size_t Width = 0;
-        size_t Height = 0;
+    public:
+
+        virtual void InitResource(void* Data) = 0;
+
+        virtual void Bind(const int& TexSlot) = 0;
+
+        static SharedPtr<FRHITextureResource> Create(int Width, int Height, FTextureFormat Format);
+
+    public:
+        int Width = 0;
+        int Height = 0;
+        FTextureFormat Format = FTextureFormat::RGB;
         bool bAutoMipmaps = true;
 
         FTextureTilingMethod XAxisTilingMethod = FTextureTilingMethod::Wrap;
         FTextureTilingMethod YAxisTilingMethod = FTextureTilingMethod::Wrap;
 
-        virtual void InitResource(void* Data, FTextureFormat Format) = 0;
-
-    public:
-        static SharedPtr<FRHITextureResource> Create(size_t Width, size_t Height, int );
+        FTextureFilter Filter = FTextureFilter::Linear;
     };
 }
 

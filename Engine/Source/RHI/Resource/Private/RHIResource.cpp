@@ -31,8 +31,12 @@ namespace Panda
         return MakeShared<FOpenGLShaderResource>();
 	}
 
-    SharedPtr<FRHITextureResource> FRHITextureResource::Create()
+    SharedPtr<FRHITextureResource> FRHITextureResource::Create(int Width, int Height, FTextureFormat Format)
     {
-        return MakeShared<FOpenGLTextureResource>();
+        auto TexResource = MakeShared<FOpenGLTextureResource>();
+        TexResource->Width = Width;
+        TexResource->Height = Height;
+        TexResource->Format = Format;
+        return TexResource;
     }
 }

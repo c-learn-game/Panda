@@ -18,7 +18,7 @@ namespace Panda
 		FString Name;
 		FVertexBufferComponentType DataType;
 		int Count;
-		int Offset;
+		size_t Offset;
 		bool Normalized;
 
 		FVertexBufferComponent(const FString& InName, const FVertexBufferComponentType& InDataType,
@@ -81,10 +81,10 @@ namespace Panda
 				Components[i].Offset = Offset;
 				Offset += Components[i].ComponentStride();
 			}
-			Stride = Offset;
+			Stride = (int)Offset;
 		}
 
-		int ComponentCount() const { return Components.size(); }
+		size_t ComponentCount() const { return Components.size(); }
 
         FVertexBufferComponent& operator[](const int& Index)
 		{
@@ -96,7 +96,7 @@ namespace Panda
 	private:
 		TArray<FVertexBufferComponent> Components;
 
-		size_t Stride = 0;
+		int Stride = 0;
 	};
 
 	class FRHIVertexBufferResource : public FRHIResource

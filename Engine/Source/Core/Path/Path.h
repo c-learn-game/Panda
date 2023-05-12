@@ -14,8 +14,10 @@ namespace Panda
 
         static void InitApplicationPaths();
 
+        static FString ToLocalPath(const FString& Path);
+
     public:
-        static FString ResourcePath;
+        static FString EnginContentPath;
         static FString EngineShaderPath;
     };
 }

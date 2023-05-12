@@ -62,4 +62,11 @@ namespace Panda
     {
         return String[Index];
     }
+
+    FString FString::Replace(const FString &OldString, const FString &NewString) const
+    {
+        FString ReplacedString = *this;
+        ReplacedString.Replace(OldString, NewString);
+        return ReplacedString;
+    }
 }

@@ -5,7 +5,7 @@
 
 namespace Panda
 {
-    FString Path::ResourcePath;
+    FString Path::EnginContentPath;
     FString Path::EngineShaderPath;
 
     FString Path::GetApplicationPath()
@@ -24,6 +24,16 @@ namespace Panda
         Directory.CdUp();
         Directory.Cd("Shader");
         EngineShaderPath = Directory.GetDirectoryLocalPath();
+        Directory.CdUp();
+        Directory.Cd("Content");
+        EnginContentPath = Directory.GetDirectoryLocalPath();
+#endif
+    }
+
+    FString Path::ToLocalPath(const FString &PathString)
+    {
+#ifdef PANDA_PLATFORM_WIN
+        return PathString.Replace("/", "\\");
 #endif
     }
 }

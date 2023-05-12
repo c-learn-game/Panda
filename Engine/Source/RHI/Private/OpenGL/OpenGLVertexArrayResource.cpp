@@ -52,7 +52,7 @@ namespace Panda
             PANDA_GL_CALL(glVertexAttribPointer(i, Component.Count,
                                                 ComponentTypeToOpenGLType(Component.DataType),
                                                 Component.Normalized ? GL_TRUE : GL_FALSE,
-                                                Layout.GetStride(), (void*)Component.Offset))
+                                                (int)Layout.GetStride(), (void*)Component.Offset))
             PANDA_GL_CALL(glEnableVertexAttribArray(i))
 
         }

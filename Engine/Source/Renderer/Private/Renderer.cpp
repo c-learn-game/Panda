@@ -1,6 +1,4 @@
-//
-// Created by chendebi on 2023/5/1.
-//
+
 
 #include "Renderer/Renderer.h"
 #include "Core/Math/Vector4.h"
@@ -8,6 +6,9 @@
 #include "Core/Engine/PrimitiveSceneProxy.h"
 #include "Core/Engine/Material.h"
 #include "Core/Engine/MaterialResourceProxy.h"
+#include "Core/Engine/Texture.h"
+#include "Core/Engine/TextureResourceProxy.h"
+#include "Basic/Private/EngineMacros.h"
 #include "Core/Path/Path.h"
 #include "RHI/RHI.h"
 
@@ -30,12 +31,16 @@ namespace Panda
         Component = MakeShared<UPrimitiveSceneComponent>();
         Component->AddVertex(FVector4( -0.5f, -0.5f, 0.0f, 1.0f));
         Component->AddVertex(FVector4( 0.5f, -0.5f, 0.0f, 1.0f));
-        Component->AddVertex(FVector4( 0.0f, 0.5f, 0.0f, 1.0f));
+        Component->AddVertex(FVector4( 0.5f, 0.5f, 0.0f, 1.0f));
         Component->AddVertex(FVector4( -0.5f, 0.5f, 0.0f, 1.0f));
 		Component->SetVertexColor(0, 0, { 1.0f, 0.0f, 0.0f });
 		Component->SetVertexColor(1, 0, { 0.0f, 1.0f, 0.0f });
 		Component->SetVertexColor(2, 0, { 0.0f, 0.0f, 1.0f });
 		Component->SetVertexColor(3, 0, { 1.0f, 1.0f, 0.0f });
+        Component->SetVertexUV(0, 0, 0.0f, 0.0f);
+        Component->SetVertexUV(1, 0, 1.0f, 0.0f);
+        Component->SetVertexUV(2, 0, 1.0f, 1.0f);
+        Component->SetVertexUV(3, 0, 0.0f, 1.0f);
 		Component->AddElementIndex(0, 1, 2);
 		Component->AddElementIndex(0, 2, 3);
         Proxy = Component->CreateProxy();
@@ -46,6 +51,11 @@ namespace Panda
                                            UMaterial::EngineShaderSourcePath("/Private/LocalStaticMesh.frag"));
         MaterialProxy = MakeShared<FMaterialResourceProxy>(Material);
         MaterialProxy->CreateResource();
+
+        Texture = MakeShared<UTexture>(ENGINE_RESOURCE("/Test/container.jpg"));
+        Texture->LoadAsset();
+        TextureProxy = SharedPtr<FTextureResourceProxy>(Texture->CreateProxy());
+        TextureProxy->CreateResource();
         LogInfo("Renderer initialize success.")
     }
 
@@ -55,6 +65,7 @@ namespace Panda
         //glClear(GL_COLOR_BUFFER_BIT);
 
         MaterialProxy->Shader->Bind();
+        TextureProxy->Bind(0);
         RHICommand->DrawMesh(Proxy->GetVertexArrayResource(), Proxy->GetIndexBufferResource());
         Context->SwapBuffer();
     }

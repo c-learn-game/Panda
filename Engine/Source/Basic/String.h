@@ -28,6 +28,7 @@ namespace Panda
         char &operator[](int Index);
 
         FString& Replace(const FString& OldString, const FString& NewString);
+        FString Replace(const FString& OldString, const FString& NewString) const;
 
         FString& Append(const FString& InString);
 
