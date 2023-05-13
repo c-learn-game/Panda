@@ -34,6 +34,8 @@ namespace Panda
     {
 #ifdef PANDA_PLATFORM_WIN
         return PathString.Replace("/", "\\");
+#else
+        return PathString;
 #endif
     }
 }

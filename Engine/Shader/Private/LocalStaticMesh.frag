@@ -3,7 +3,7 @@
 
 in vec3 FragNormal;
 in vec4 FragColor;
-in vec4 FragUV0;
+in vec4 FragUVIndex0;
 
 uniform sampler2D ContainerTex;
 
@@ -11,5 +11,5 @@ out vec4 PixelColor;
 
 void main()
 {
-    PixelColor = texture(ContainerTex, FragUV0.xy);
+    PixelColor = texture(ContainerTex, FragUVIndex0.xy);
 }

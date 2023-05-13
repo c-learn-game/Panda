@@ -11,7 +11,7 @@ namespace Panda
     private:
         friend class FTextureResourceProxy;
         FString TextureAssetPath;
-        FTextureResourceProxy* Proxy = nullptr;
+        class FTextureResourceProxy* Proxy = nullptr;
         uint8* AssetData = nullptr;
         int Width = 0;
         int Height = 0;
