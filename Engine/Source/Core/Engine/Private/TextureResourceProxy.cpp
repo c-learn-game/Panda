@@ -11,7 +11,7 @@ namespace Panda
         check(Texture)
     }
 
-    SharedPtr<FRHITextureResource> FTextureResourceProxy::CreateResource()
+    SharedPtr<FRHITextureResource> FTextureResourceProxy::CreateRHI()
     {
         TextureResource = FRHITextureResource::Create(Texture->Width, Texture->Height, FTextureFormat::RGB);
         TextureResource->InitResource(Texture->AssetData);

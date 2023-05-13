@@ -15,7 +15,7 @@ namespace Panda
     public:
         explicit FTextureResourceProxy(class UTexture* Texture);
 
-        SharedPtr<class FRHITextureResource> CreateResource();
+        SharedPtr<class FRHITextureResource> CreateRHI();
 
         void Bind(int Slot) const;
 

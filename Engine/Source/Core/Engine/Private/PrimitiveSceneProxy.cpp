@@ -12,7 +12,7 @@ namespace Panda
 
 	}
 
-	void FPrimitiveSceneProxy::CreateResource()
+	void FPrimitiveSceneProxy::CreateRHI()
 	{
         auto vbo = FRHIVertexBufferResource::Create();
         vbo->InitResource(SceneComponent->Vertices.data(), SceneComponent->Vertices.size() * sizeof(FPrimitiveVertex));
@@ -25,16 +25,10 @@ namespace Panda
                                                     FVertexBufferComponent("UV0", FVertexBufferComponentType::Float4),
                                             });
         vbo->SetLayout(Layout);
-        vao = FRHIVertexArrayResource::Create();
-        vao->SetVertexBufferResource(vbo);
-        vao->InitResource();
-        ibo = FRHIIndexBufferResource::Create();
-        ibo->InitResource(SceneComponent->Indices.data(), sizeof(FPrimitiveElementIndex) * SceneComponent->Indices.size());
+        VertexArray = FRHIVertexArrayResource::Create();
+        VertexArray->SetVertexBufferResource(vbo);
+        VertexArray->InitResource();
+        IndexBuffer = FRHIIndexBufferResource::Create();
+        IndexBuffer->InitResource(SceneComponent->Indices.data(), sizeof(FPrimitiveElementIndex) * SceneComponent->Indices.size());
 	}
-
-    void FPrimitiveSceneProxy::ReleaseResource()
-    {
-        vao = nullptr;
-        ibo = nullptr;
-    }
 }

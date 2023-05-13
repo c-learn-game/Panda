@@ -10,6 +10,5 @@ namespace Panda
     AActor::AActor()
     {
         RootComponent = MakeShared<UActorComponent>();
-
     }
 }

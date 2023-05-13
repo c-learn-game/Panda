@@ -44,18 +44,19 @@ namespace Panda
 		Component->AddElementIndex(0, 1, 2);
 		Component->AddElementIndex(0, 2, 3);
         Proxy = Component->CreateProxy();
-        Proxy->CreateResource();
+        Proxy->CreateRHI();
 
 
-        Material = UMaterial::LoadMaterial(ENGINE_SHADER("/Private/LocalStaticMesh.vert"),
+        Material = MakeShared<UMaterial>(ENGINE_SHADER("/Private/LocalStaticMesh.vert"),
                                            ENGINE_SHADER("/Private/LocalStaticMesh.frag"));
-        MaterialProxy = MakeShared<FMaterialResourceProxy>(Material);
-        MaterialProxy->CreateResource();
+        Material->LoadAsset();
+        MaterialProxy = Material->CreateProxy();
+        MaterialProxy->CreateRHI();
 
         Texture = MakeShared<UTexture>(ENGINE_RESOURCE("/Test/container.jpg"));
         Texture->LoadAsset();
         TextureProxy = SharedPtr<FTextureResourceProxy>(Texture->CreateProxy());
-        TextureProxy->CreateResource();
+        TextureProxy->CreateRHI();
         LogInfo("Renderer initialize success.")
     }
 
@@ -66,12 +67,12 @@ namespace Panda
 
         MaterialProxy->Shader->Bind();
         TextureProxy->Bind(0);
-        RHICommand->DrawMesh(Proxy->GetVertexArrayResource(), Proxy->GetIndexBufferResource());
+        RHICommand->DrawMesh(Proxy->VertexArray, Proxy->IndexBuffer);
         Context->SwapBuffer();
     }
 
 	void FRenderer::DestroyRenderer()
 	{
-        MaterialProxy = nullptr;
+        delete MaterialProxy;
 	}
 }

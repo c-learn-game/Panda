@@ -9,7 +9,7 @@ namespace Panda
 	class UMaterial
 	{
 	public:
-		explicit UMaterial(const FString& InVertexShaderSource, const FString& InFragShaderSource);
+		explicit UMaterial(const FString& InVertexShaderPath, const FString& InFragShaderPath);
 		
 		virtual ~UMaterial() = default;
 
@@ -19,17 +19,21 @@ namespace Panda
 
 		void SetScalarParameterValue(const FString& ParameterName, float NewValue);
 
-        FString GetVertexShaderSource() const { return VertexShaderSource; }
+        class FMaterialResourceProxy* CreateProxy();
 
-        FString GetFragShaderSource() const { return FragShaderSource; }
+        bool LoadAsset();
 
-        static SharedPtr<UMaterial> LoadMaterial(const FString& VertPath, const FString& FragPath);
+    public:
+	    class FMaterialResourceProxy* MaterialProxy = nullptr;
+
+    protected:
+	    friend class FMaterialResourceProxy;
+        FString VertexShaderSource, FragShaderSource;
+        THash<FString, float> ScalarParameters;
+        THash<FString, FVector4> Vector4Parameters;
 
 	private:
-		FString VertexShaderSource, FragShaderSource;
-		THash<FString, float> ScalarParameters;
-		THash<FString, FVector4> Vector4Parameters;
-		//THash<FString, int> Texture2DParameters;
+	    FString VertexShaderPath, FragShaderPath;
 	};
 }
 

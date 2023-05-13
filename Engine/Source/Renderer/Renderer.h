@@ -29,7 +29,7 @@ namespace Panda
         class FPrimitiveSceneProxy* Proxy = nullptr;
 
         SharedPtr<class UMaterial> Material = nullptr;
-        SharedPtr<class FMaterialResourceProxy> MaterialProxy = nullptr;
+        class FMaterialResourceProxy* MaterialProxy = nullptr;
 
         SharedPtr<class UTexture> Texture = nullptr;
         SharedPtr<class FTextureResourceProxy> TextureProxy = nullptr;

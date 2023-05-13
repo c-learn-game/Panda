@@ -25,7 +25,7 @@
 
 // 平台宏
 #ifdef _MSC_VER
-//#define PANDA_PLATFORM_WIN
+#define PANDA_PLATFORM_WIN
 #else
 #define PANDA_PLATFORM_UNIX
 #endif

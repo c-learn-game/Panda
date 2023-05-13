@@ -1,29 +1,21 @@
 #ifndef PANDA_PRIMITIVESCENEPROXY_H
 #define PANDA_PRIMITIVESCENEPROXY_H
 
-#include "ProxyBase.h"
+#include "Basic/Basic.h"
 
 namespace Panda
 {
-    class FPrimitiveSceneProxy : public FProxyBase
+    class FPrimitiveSceneProxy
 	{
 	public:
 		explicit FPrimitiveSceneProxy(class UPrimitiveSceneComponent* InComponent);
 
-		void CreateResource() override;
+		void CreateRHI();
 
-        void ReleaseResource() override;
-
-        SharedPtr<class FRHIVertexArrayResource> GetVertexArrayResource() const
-        { return vao; }
-
-        SharedPtr<class FRHIIndexBufferResource> GetIndexBufferResource() const
-        { return ibo; }
-
-    private:
+    public:
 		class UPrimitiveSceneComponent* SceneComponent = nullptr;
-		SharedPtr<class FRHIVertexArrayResource> vao = nullptr;
-		SharedPtr<class FRHIIndexBufferResource> ibo = nullptr;
+		SharedPtr<class FRHIVertexArrayResource> VertexArray = nullptr;
+		SharedPtr<class FRHIIndexBufferResource> IndexBuffer = nullptr;
 	};
 }
 

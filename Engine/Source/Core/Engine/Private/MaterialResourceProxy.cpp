@@ -5,44 +5,20 @@
 
 namespace Panda
 {
-    FMaterialResourceProxy::FMaterialResourceProxy(const SharedPtr<UMaterial>& InMaterial)
+    FMaterialResourceProxy::FMaterialResourceProxy(UMaterial* InMaterial)
             : Material(InMaterial)
     {
         check(Material)
-        VertexShaderSource = Material->GetVertexShaderSource();
-        FragShaderSource = Material->GetFragShaderSource();
+        VertexShaderSource = Material->VertexShaderSource;
+        FragShaderSource = Material->FragShaderSource;
     }
 
-    void FMaterialResourceProxy::CreateResource()
+    bool FMaterialResourceProxy::CreateRHI()
     {
         Shader = nullptr;
         Shader = FRHIShaderResource::Create();
         Shader->SetShaderSource(VertexShaderSource,FragShaderSource);
         Shader->InitResource();
-    }
-
-    void FMaterialResourceProxy::ReleaseResource()
-    {
-        Shader = nullptr;
-    }
-
-    void FMaterialResourceProxy::Update(const SharedPtr<FMaterialResourceProxy>& OldProxy)
-    {
-        if (OldProxy)
-        {
-            Shader = OldProxy->Shader;
-        }
-        else
-        {
-            Shader = nullptr;
-            Shader = FRHIShaderResource::Create();
-            Shader->SetShaderSource(VertexShaderSource,FragShaderSource);
-            Shader->InitResource();
-        }
-    }
-
-    bool FMaterialResourceProxy::IsValid() const
-    {
-        return Shader != nullptr && Shader->IsValid();
+        return true;
     }
 }

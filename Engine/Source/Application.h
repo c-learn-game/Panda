@@ -7,6 +7,7 @@
 
 #include "RHI/RHIWindow.h"
 #include "Core/Platform/Path.h"
+#include "Core/InstanceManager.h"
 
 int main(int argc, char** argv);
 

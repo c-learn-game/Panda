@@ -2,27 +2,21 @@
 #ifndef PANDA_MATERIALRESOURCEPROXY_H
 #define PANDA_MATERIALRESOURCEPROXY_H
 
-#include "ProxyBase.h"
+#include "Basic/Basic.h"
 
 namespace Panda
 {
-    class FMaterialResourceProxy : public FProxyBase
+    class FMaterialResourceProxy
     {
     public:
-        explicit FMaterialResourceProxy(const SharedPtr<class UMaterial>& InMaterial);
+        explicit FMaterialResourceProxy(class UMaterial* InMaterial);
 
         virtual ~FMaterialResourceProxy() = default;
 
-        bool IsValid() const;
-
-        void CreateResource() override;
-
-        void ReleaseResource() override;
-
-        void Update(const SharedPtr<FMaterialResourceProxy>& OldProxy = nullptr);
+        bool CreateRHI();
 
     public:
-        SharedPtr<class UMaterial> Material;
+        class UMaterial* Material = nullptr;
         FString VertexShaderSource, FragShaderSource;
         SharedPtr<class FRHIShaderResource> Shader;
     };

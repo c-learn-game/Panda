@@ -1,14 +1,13 @@
 #include "Core/Engine/Material.h"
-#include "Core/Platform/File.h"
-#include "Core/Platform/Path.h"
+#include "Core/Engine/Asset/AssetManager.h"
+#include "Core/Engine/MaterialResourceProxy.h"
 
 namespace Panda
 {
-	UMaterial::UMaterial(const FString& InVertexShaderSource, const FString& InFragShaderSource)
-		: VertexShaderSource(InVertexShaderSource)
-		, FragShaderSource(InFragShaderSource)
+	UMaterial::UMaterial(const FString& InVertexShaderPath, const FString& InFragShaderPath)
+		: VertexShaderPath(InVertexShaderPath)
+		, FragShaderPath(InFragShaderPath)
 	{
-
 	}
 
 	void UMaterial::AddScalarParameter(const FString &ParameterName, float DefaultValue)
@@ -27,25 +26,16 @@ namespace Panda
         ScalarParameters[ParameterName] = NewValue;
     }
 
-    SharedPtr<UMaterial> UMaterial::LoadMaterial(const FString &VertPath, const FString &FragPath)
+    bool UMaterial::LoadAsset()
     {
-        LogInfo("create material")
-        LogInfo("   vertex source file: {}", VertPath.ToStdString())
-        LogInfo("   fragment source file: {}", FragPath.ToStdString())
-	    FFile VertSourceFile(VertPath);
-	    FFile FragSourceFile(FragPath);
+	    VertexShaderSource = UAssetManager::Get()->LoadFileText(VertexShaderPath);
+	    FragShaderSource = UAssetManager::Get()->LoadFileText(FragShaderPath);
+        return (!VertexShaderSource.IsEmpty()) && (!FragShaderSource.IsEmpty());
+    }
 
-	    if (VertSourceFile.Open() && FragSourceFile.Open())
-        {
-	        FString VertSource = VertSourceFile.ReadAll();
-	        FString FragSource = FragSourceFile.ReadAll();
-	        VertSourceFile.Close();
-	        FragSourceFile.Close();
-            return MakeShared<UMaterial>(VertSource, FragSource);
-        }
-        LogWarn("open shader file failed!")
-        VertSourceFile.Close();
-        FragSourceFile.Close();
-        return nullptr;
+    FMaterialResourceProxy* UMaterial::CreateProxy()
+    {
+        MaterialProxy = new FMaterialResourceProxy(this);
+        return MaterialProxy;
     }
 }
