@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 	LogInfo("Log system initialized.")
 
     Panda::FPath::InitApplicationPaths();
-    LogInfo("Path system initialized!")
+    LogInfo("Platform system initialized!")
 
     auto app = GetApplication(MakeArguments(argc, argv));
     app->PreInitApplication();

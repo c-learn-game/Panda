@@ -1,7 +1,7 @@
 
-#include "Directory.h"
+#include "Core/Platform/Directory.h"
 #include <filesystem>
-#include "FileInfo.h"
+#include "Core/Platform/FileInfo.h"
 
 namespace Panda
 {

@@ -1,7 +1,7 @@
 
-#include "Path.h"
-#include "FileInfo.h"
-#include "Directory.h"
+#include "Core/Platform/Path.h"
+#include "Core/Platform/FileInfo.h"
+#include "Core/Platform/Directory.h"
 
 namespace Panda
 {
@@ -19,6 +19,7 @@ namespace Panda
         static_asset(false)
 #else
         FDirectory Directory = FFileInfo(__FILE__).Dir();
+        Directory.CdUp();
         Directory.CdUp();
         Directory.CdUp();
         Directory.CdUp();

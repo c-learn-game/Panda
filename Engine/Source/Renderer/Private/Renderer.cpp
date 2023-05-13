@@ -9,7 +9,7 @@
 #include "Core/Engine/Texture.h"
 #include "Core/Engine/TextureResourceProxy.h"
 #include "Core/Engine/Private/EngineMacros.h"
-#include "Core/Path/Path.h"
+#include "Core/Platform/Path.h"
 #include "RHI/RHI.h"
 
 static Panda::uint indices[] = {

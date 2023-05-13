@@ -3,7 +3,7 @@
 #define PANDA_ENGINEMACROS_H
 
 #include "Basic/Basic.h"
-#include "Core/Path/Path.h"
+#include "Core/Platform/Path.h"
 
 inline Panda::FString GetEngineContentResourcePath(const Panda::FString& ResourcePath)
 {

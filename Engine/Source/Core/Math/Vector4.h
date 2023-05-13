@@ -2,8 +2,8 @@
 // Created by chendebi on 2023/5/4.
 //
 
-#ifndef TEST_VECTOR4_H
-#define TEST_VECTOR4_H
+#ifndef PANDA_VECTOR4_H
+#define PANDA_VECTOR4_H
 
 #include "spdlog/fmt/fmt.h"
 
@@ -41,7 +41,7 @@ namespace Panda
 
 		FString ToString()
 		{
-			return FString(fmt::format("(X={}, Y={}, Z={}, W={})", X, Y, Z, W));
+			return FString(fmt::format("Vector4({}, {}, {}, {})", X, Y, Z, W));
 		}
 	};
 }

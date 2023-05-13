@@ -1,6 +1,6 @@
 
-#include "File.h"
-#include "Path.h"
+#include "Core/Platform/File.h"
+#include "Core/Platform/Path.h"
 
 namespace Panda
 {
