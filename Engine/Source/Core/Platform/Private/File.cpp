@@ -17,12 +17,14 @@ namespace Panda
         Close();
     }
 
-    bool FFile::Open(EFileOpenState OpenState)
+    bool FFile::Open(EFileFlag Flag)
     {
         Release();
         Close();
 
-        switch (OpenState)
+        FileOpenFlag = Flag;
+
+        switch (Flag)
         {
             case ReadOnly:
                 FileStream.open(FilePath.ToStdString(), std::ios::in|std::ios::binary);
@@ -33,6 +35,9 @@ namespace Panda
             case ReadWrite:
                 FileStream.open(FilePath.ToStdString(), std::ios::in|std::ios::out|std::ios::binary);
                 break;
+            case Append:
+                FileStream.open(FilePath.ToStdString(), std::ios::app | std::ios::binary);
+                break;
         }
         return FileStream.is_open();
     }
@@ -41,6 +46,14 @@ namespace Panda
     {
         if (FileStream.is_open())
             FileStream.close();
+    }
+
+    char *FFile::Read(long DataSize)
+    {
+        char *Data = new char [DataSize];
+        FileStream.read(Data, DataSize);
+        ReadedDatas.push_back(Data);
+        return Data;
     }
 
     char *FFile::ReadAll()
@@ -66,6 +79,18 @@ namespace Panda
             delete [] (ReadedDatas[i]);
         }
         ReadedDatas.clear();
+    }
+
+    void FFile::Write(void *Data, long DataSize)
+    {
+        if (IsOpened() && FileOpenFlag != ReadOnly)
+        {
+            FileStream.write(static_cast<char*>(Data), DataSize);
+        }
+        else
+        {
+            LogWarn("file not opened or not writeable!")
+        }
     }
 
 }

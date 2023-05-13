@@ -10,11 +10,14 @@ namespace Panda
     class FFile
     {
     public:
-        enum EFileOpenState
+        // 文件始终使用二进制打开方式
+        enum EFileFlag
         {
-            ReadOnly,
-            WriteOnly,
-            ReadWrite
+            None,
+            ReadOnly = FLAG(0),
+            WriteOnly = FLAG(1),
+            ReadWrite = FLAG(2),
+            Append = FLAG(3)
         };
 
     public:
@@ -22,20 +25,28 @@ namespace Panda
 
         ~FFile();
 
-        bool Open(EFileOpenState OpenState = EFileOpenState::ReadOnly);
+        bool Open(EFileFlag Flag = EFileFlag::ReadOnly);
 
         void Close();
 
+        char* Read(long DataSize);
+
         char * ReadAll();
+
+        EFileFlag GetFlag() const { return FileOpenFlag; }
+
+        bool IsOpened() const { return FileStream.is_open(); }
+
+        void Write(void *Data, long DataSize);
 
     private:
         void Release();
 
     private:
         std::fstream FileStream;
-        std::ofstream WriteStream;
         FString FilePath;
         TArray<char*> ReadedDatas;
+        EFileFlag FileOpenFlag = EFileFlag::None;
     };
 }
 

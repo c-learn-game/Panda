@@ -20,6 +20,9 @@
 
 #define PANDA_UNUSED(VAR) (void)VAR;
 
+#define BIT(x) (0x01 << x)
+#define FLAG(x) BIT(x)
+
 // 发布版本的宏定义
 // #define PANDA_RELEASE
 

@@ -11,5 +11,7 @@ out vec4 PixelColor;
 
 void main()
 {
-    PixelColor = texture(ContainerTex, FragUVIndex0.xy);
+    vec2 UV0 = FragUVIndex0.xy;
+    vec2 UV1 = FragUVIndex0.zw;
+    PixelColor = texture(ContainerTex, UV0);
 }

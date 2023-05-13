@@ -12,7 +12,6 @@ namespace Panda
 
     public:
         FString LoadFileText(const FString& FilePath);
-
     };
 }
 
