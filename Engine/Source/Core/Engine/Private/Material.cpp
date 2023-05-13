@@ -48,12 +48,4 @@ namespace Panda
         FragSourceFile.Close();
         return nullptr;
     }
-
-    FString UMaterial::EngineShaderSourcePath(const FString &FilePath)
-    {
-        FString SourcePath = Path::EngineShaderPath;
-        if (FilePath.IsEmpty() || FilePath[0] != '/')
-            SourcePath.Append("/");
-        return SourcePath.Append(FilePath);
-    }
 }

@@ -5,15 +5,15 @@
 
 namespace Panda
 {
-    FString Path::EnginContentPath;
-    FString Path::EngineShaderPath;
+    FString FPath::EnginContentPath;
+    FString FPath::EngineShaderPath;
 
-    FString Path::GetApplicationPath()
+    FString FPath::GetApplicationPath()
     {
         return "";
     }
 
-    void Path::InitApplicationPaths()
+    void FPath::InitApplicationPaths()
     {
 #ifdef PANDA_RELEASE
         static_asset(false)
@@ -30,7 +30,7 @@ namespace Panda
 #endif
     }
 
-    FString Path::ToLocalPath(const FString &PathString)
+    FString FPath::ToLocalPath(const FString &PathString)
     {
 #ifdef PANDA_PLATFORM_WIN
         return PathString.Replace("/", "\\");

@@ -8,7 +8,7 @@
 #include "Core/Engine/MaterialResourceProxy.h"
 #include "Core/Engine/Texture.h"
 #include "Core/Engine/TextureResourceProxy.h"
-#include "Basic/Private/EngineMacros.h"
+#include "Core/Engine/Private/EngineMacros.h"
 #include "Core/Path/Path.h"
 #include "RHI/RHI.h"
 
@@ -47,8 +47,8 @@ namespace Panda
         Proxy->CreateResource();
 
 
-        Material = UMaterial::LoadMaterial(UMaterial::EngineShaderSourcePath("/Private/LocalStaticMesh.vert"),
-                                           UMaterial::EngineShaderSourcePath("/Private/LocalStaticMesh.frag"));
+        Material = UMaterial::LoadMaterial(ENGINE_SHADER("/Private/LocalStaticMesh.vert"),
+                                           ENGINE_SHADER("/Private/LocalStaticMesh.frag"));
         MaterialProxy = MakeShared<FMaterialResourceProxy>(Material);
         MaterialProxy->CreateResource();
 

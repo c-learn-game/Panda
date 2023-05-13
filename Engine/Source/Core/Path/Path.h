@@ -6,7 +6,7 @@
 
 namespace Panda
 {
-    class Path
+    class FPath
     {
     public:
 

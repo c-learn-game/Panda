@@ -8,7 +8,7 @@
 namespace Panda
 {
     UTexture::UTexture(const FString &InAssetPath)
-    : TextureAssetPath(Path::ToLocalPath(InAssetPath))
+    : TextureAssetPath(FPath::ToLocalPath(InAssetPath))
     {
 
     }

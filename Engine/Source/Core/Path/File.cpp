@@ -6,7 +6,7 @@ namespace Panda
 {
 
     FFile::FFile(const FString &InFilePath)
-    : FilePath(Path::ToLocalPath(InFilePath))
+    : FilePath(FPath::ToLocalPath(InFilePath))
     {
 
     }

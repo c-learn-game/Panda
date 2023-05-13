@@ -23,8 +23,6 @@ namespace Panda
 
         FString GetFragShaderSource() const { return FragShaderSource; }
 
-        static FString EngineShaderSourcePath(const FString& FilePath);
-
         static SharedPtr<UMaterial> LoadMaterial(const FString& VertPath, const FString& FragPath);
 
 	private:
