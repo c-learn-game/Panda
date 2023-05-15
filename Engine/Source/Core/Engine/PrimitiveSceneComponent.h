@@ -1,11 +1,8 @@
-//
-// Created by chendebi on 2023/5/04.
-//
 
 #ifndef PANDA_PRIMITIVECOMPONENT_H
 #define PANDA_PRIMITIVECOMPONENT_H
 
-#include "Basic/Basic.h"
+#include "Core/Engine/Asset/AssetObject.h"
 #include "Core/Math/Vector4.h"
 
 namespace Panda
@@ -65,12 +62,12 @@ namespace Panda
 		{}
 	};
 
-	class UPrimitiveSceneComponent
+    class UPrimitiveSceneComponent : public UAssetObject
 	{
 	public:
 		explicit UPrimitiveSceneComponent();
 
-		virtual ~UPrimitiveSceneComponent();
+        ~UPrimitiveSceneComponent() override;
 
 		void AddVertex(const FPrimitiveVertex& Vertex);
 
@@ -94,6 +91,11 @@ namespace Panda
 		bool Modified() const;
 
 		class FPrimitiveSceneProxy* CreateProxy();
+
+    protected:
+        void Serialize(FArchive& Archive) override;
+
+        void Deserialize( FArchive& Archive) override;
 
 	private:
 	    friend class FPrimitiveSceneProxy;

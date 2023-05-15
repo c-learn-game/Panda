@@ -54,7 +54,28 @@ namespace Panda
 	    Vertices[Index].VertexNormal = InNormal;
 	}
 
-	FPrimitiveSceneProxy *UPrimitiveSceneComponent::CreateProxy() {
+	FPrimitiveSceneProxy *UPrimitiveSceneComponent::CreateProxy()
+    {
         return new FPrimitiveSceneProxy(this);
+    }
+
+    void UPrimitiveSceneComponent::Serialize(FArchive &Archive)
+    {
+        LogInfo("serialize")
+        Archive.Serialize(Vertices.data(), Vertices.size() * sizeof (FPrimitiveVertex));
+        Archive.Serialize(Indices.data(), Indices.size() * sizeof (FPrimitiveElementIndex));
+    }
+
+    void UPrimitiveSceneComponent::Deserialize(FArchive &Archive)
+    {
+        size_t VerticesSize;
+        void* VerticesData = Archive.Deserialize(VerticesSize);
+        Vertices.resize(VerticesSize / sizeof (FPrimitiveVertex));
+        memcpy(Vertices.data(), VerticesData, VerticesSize);
+
+        size_t IndicesSize;
+        void* IndicesData = Archive.Deserialize(IndicesSize);
+        Indices.resize(IndicesSize / sizeof (FPrimitiveElementIndex));
+        memcpy(Indices.data(), IndicesData, IndicesSize);
     }
 }

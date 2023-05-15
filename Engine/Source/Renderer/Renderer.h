@@ -25,7 +25,7 @@ namespace Panda
         SharedPtr<FRenderContext> Context;
 
         // 临时测试
-        SharedPtr<class UPrimitiveSceneComponent> Component;
+        class UPrimitiveSceneComponent* Component;
         class FPrimitiveSceneProxy* Proxy = nullptr;
 
         SharedPtr<class UMaterial> Material = nullptr;

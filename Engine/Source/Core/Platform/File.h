@@ -37,7 +37,7 @@ namespace Panda
 
         bool IsOpened() const { return FileStream.is_open(); }
 
-        void Write(void *Data, long DataSize);
+        void Write(void *Data, longlong DataSize);
 
     private:
         void Release();

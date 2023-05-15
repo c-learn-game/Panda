@@ -4,6 +4,8 @@
 
 #include "Basic/Basic.h"
 #include "Core/Platform/File.h"
+#include "Core/Math/Vector3.h"
+#include "Core/Math/Vector4.h"
 
 namespace Panda
 {
@@ -12,7 +14,10 @@ namespace Panda
     public:
         explicit FArchive(FFile* InAssetFile);
 
-        void Serialize(int Type, void* Data, long DataSize);
+        void Serialize(void* Data, longlong DataSize);
+
+        void* Deserialize(size_t & Size);
+
 
         template<typename T>
         inline FArchive& operator<<(const T& Data)
@@ -32,23 +37,43 @@ namespace Panda
         class FFile* AssetFile = nullptr;
     };
 
-
-    template<>
-    inline FArchive& FArchive::operator<<(const int &Data)
-    {
-        size_t TempSize = sizeof (int);
-        int temp = Data;
-        AssetFile->Write(&TempSize, sizeof (size_t));
-        AssetFile->Write(&temp, sizeof (int));
-        return *this;
+#define PANDA_ARCHIVE_TYPE(TypeClass) \
+    template<>\
+    inline FArchive& FArchive::operator<<(const TypeClass &Data)\
+    {\
+        size_t TempSize = sizeof (TypeClass);\
+        TypeClass temp = Data;\
+        AssetFile->Write(&TempSize, sizeof (size_t));\
+        AssetFile->Write(&temp, sizeof (TypeClass));\
+        return *this;\
+    }\
+\
+    template<>\
+    inline FArchive& FArchive::operator>>(TypeClass& Data)\
+    {\
+        size_t DataSize = *(size_t*)(AssetFile->Read(sizeof (size_t )));\
+        Data = *(TypeClass*)(AssetFile->Read(DataSize));\
+        return *this;\
     }
 
+    PANDA_ARCHIVE_TYPE(bool)
+    PANDA_ARCHIVE_TYPE(char)
+    PANDA_ARCHIVE_TYPE(int)
+    PANDA_ARCHIVE_TYPE(uint)
+    PANDA_ARCHIVE_TYPE(size_t)
+    PANDA_ARCHIVE_TYPE(long)
+    PANDA_ARCHIVE_TYPE(float)
+    PANDA_ARCHIVE_TYPE(double)
+    PANDA_ARCHIVE_TYPE(FVector3)
+    PANDA_ARCHIVE_TYPE(FVector4)
+
+    // string
     template<>
-    inline FArchive& FArchive::operator>>(int& Data)
+    inline FArchive& FArchive::operator<<(const FString &String)
     {
-        size_t DataSize = *(size_t*)(AssetFile->Read(sizeof (size_t )));
-        LogInfo("read data size is {}", DataSize);
-        Data = *(int*)(AssetFile->Read(DataSize));
+        std::string StdString = String.ToStdString();
+        const char *Data = StdString.c_str();
+        Serialize((void*)Data, StdString.size());
         return *this;
     }
 }

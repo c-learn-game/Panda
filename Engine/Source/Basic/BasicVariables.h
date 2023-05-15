@@ -31,6 +31,8 @@ namespace Panda
     using uint = unsigned int;
     using uint8 = unsigned char;
     using ulong = unsigned long;
+    using longlong = long long;
+    using ulonglong = unsigned long long;
 
     struct FSize
     {

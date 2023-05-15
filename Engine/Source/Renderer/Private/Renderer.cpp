@@ -11,6 +11,7 @@
 #include "Core/Engine/Private/EngineMacros.h"
 #include "Core/Platform/Path.h"
 #include "RHI/RHI.h"
+#include "Core/Engine/Asset/Package.h"
 
 static Panda::uint indices[] = {
         0, 1, 2,
@@ -28,7 +29,8 @@ namespace Panda
     void FRenderer::Initialize()
     {
         Context->MakeCurrent();
-        Component = MakeShared<UPrimitiveSceneComponent>();
+        Component = new UPrimitiveSceneComponent();
+        Component->AssetPath = ENGINE_RESOURCE("/SimpleMesh.asset");
         Component->AddVertex(FVector4( -0.5f, -0.5f, 0.0f, 1.0f));
         Component->AddVertex(FVector4( 0.5f, -0.5f, 0.0f, 1.0f));
         Component->AddVertex(FVector4( 0.5f, 0.5f, 0.0f, 1.0f));
@@ -43,6 +45,11 @@ namespace Panda
         Component->SetVertexUV(3, 0, 0.0f, 1.0f);
 		Component->AddElementIndex(0, 1, 2);
 		Component->AddElementIndex(0, 2, 3);
+        LogInfo("start save")
+        UPackage Package;
+        Package.Object = Component;
+        Package.Save();
+        LogInfo("end save")
         Proxy = Component->CreateProxy();
         Proxy->CreateRHI();
 
@@ -73,6 +80,8 @@ namespace Panda
 
 	void FRenderer::DestroyRenderer()
 	{
+        delete Proxy;
         delete MaterialProxy;
+        delete Component;
 	}
 }

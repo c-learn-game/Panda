@@ -15,6 +15,8 @@ namespace Panda
 
         //bool IsFile() const;
 
+        bool Exist() const;
+
         static bool Exist(const FString& FilePath);
 
         class FDirectory Dir();

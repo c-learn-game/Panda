@@ -81,7 +81,7 @@ namespace Panda
         ReadedDatas.clear();
     }
 
-    void FFile::Write(void *Data, long DataSize)
+    void FFile::Write(void *Data, longlong DataSize)
     {
         if (IsOpened() && FileOpenFlag != ReadOnly)
         {

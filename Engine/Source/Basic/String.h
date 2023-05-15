@@ -9,7 +9,7 @@ namespace Panda
     class FString
     {
     public:
-        explicit FString()  =default;
+        FString()  =default;
 
         FString(const char* InString);
 

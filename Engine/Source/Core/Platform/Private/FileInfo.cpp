@@ -30,6 +30,11 @@ namespace Panda
         }
     }
 
+    bool FFileInfo::Exist() const
+    {
+        return FFileInfo::Exist(FilePath);
+    }
+
     bool FFileInfo::Exist(const FString &FilePath)
     {
         return std::filesystem::exists(FilePath.ToStdString());
