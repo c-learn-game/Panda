@@ -6,8 +6,6 @@
 #define PANDA_BASICVARIABLES_H
 
 #include <iostream>
-#include <vector>
-#include <unordered_map>
 #include "BasicMacros.h"
 #include "String.h"
 
@@ -21,12 +19,6 @@ namespace Panda
     {
         return std::make_shared<T>(std::forward<Args>(args)...);
     }
-
-    template<typename T>
-    using TArray = std::vector<T>;
-
-	template<typename Key, typename Value>
-    using THash = std::unordered_map<Key, Value>;
 
     using uint = unsigned int;
     using uint8 = unsigned char;

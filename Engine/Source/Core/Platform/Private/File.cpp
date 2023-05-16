@@ -39,6 +39,7 @@ namespace Panda
                 FileStream.open(FilePath.ToStdString(), std::ios::app | std::ios::binary);
                 break;
         }
+
         return FileStream.is_open();
     }
 
@@ -48,12 +49,20 @@ namespace Panda
             FileStream.close();
     }
 
-    char *FFile::Read(long DataSize)
+    char *FFile::Read(longlong DataSize)
     {
-        char *Data = new char [DataSize];
-        FileStream.read(Data, DataSize);
-        ReadedDatas.push_back(Data);
-        return Data;
+        if (FileStream.is_open() && FileOpenFlag == ReadOnly)
+        {
+            char *Data = new char [DataSize];
+            FileStream.read(Data, DataSize);
+            ReadedDatas.push_back(Data);
+            return Data;
+        }
+        else
+        {
+            LogWarn("Reading the file failed, the file is not open or open flag is not ReadOnly!")
+        }
+        return nullptr;
     }
 
     char *FFile::ReadAll()
@@ -83,13 +92,13 @@ namespace Panda
 
     void FFile::Write(void *Data, longlong DataSize)
     {
-        if (IsOpened() && FileOpenFlag != ReadOnly)
+        if (IsOpened() && FileOpenFlag != ReadOnly && DataSize > 0)
         {
             FileStream.write(static_cast<char*>(Data), DataSize);
         }
         else
         {
-            LogWarn("file not opened or not writeable!")
+            LogWarn("file not open or not writable!")
         }
     }
 

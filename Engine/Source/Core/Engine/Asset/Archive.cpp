@@ -10,14 +10,15 @@ namespace Panda
 
     void FArchive::Serialize(void *Data, longlong DataSize)
     {
-        LogInfo("size: {}", DataSize)
-        AssetFile->Write(&DataSize, sizeof (longlong));
+        longlong Size = DataSize;
+        longlong TypeSize = sizeof (longlong);
+        AssetFile->Write(&Size, TypeSize);
         AssetFile->Write(Data, DataSize);
     }
 
-    void *FArchive::Deserialize(size_t &Size)
+    void *FArchive::Deserialize(longlong &Size)
     {
-        Size = (size_t)*(longlong *) (AssetFile->Read(sizeof(longlong)));
+        Size = *((longlong *) (AssetFile->Read(sizeof(longlong))));
         return AssetFile->Read(Size);
     }
 }

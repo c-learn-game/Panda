@@ -29,7 +29,7 @@ namespace Panda
 
         void Close();
 
-        char* Read(long DataSize);
+        char* Read(longlong DataSize);
 
         char * ReadAll();
 

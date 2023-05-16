@@ -3,6 +3,8 @@
 #include "Basic/Basic.h"
 #include "Core/Engine/Asset/Archive.h"
 #include "Core/Engine/Private/EngineMacros.h"
+#include "Core/Engine/Asset/AssetObject.h"
+#include "Core/Engine/Asset/Package.h"
 
 using namespace Panda;
 

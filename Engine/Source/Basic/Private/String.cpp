@@ -69,4 +69,23 @@ namespace Panda
         ReplacedString.Replace(OldString, NewString);
         return ReplacedString;
     }
+
+    TArray<FString> FString::Split(const FString &Delimiters) const
+    {
+        TArray<FString> OutArray;
+        size_t LastPos = String.find_first_not_of(Delimiters.String, 0);
+        size_t Pos = String.find_first_of(Delimiters.String, LastPos);
+        while (LastPos != std::string::npos || Pos != std::string::npos)
+        {
+            OutArray.emplace_back(String.substr(LastPos, Pos - LastPos));
+            LastPos = String.find_first_not_of(Delimiters.String, Pos);
+            Pos = String.find_first_of(Delimiters.String, LastPos);
+        }
+        return OutArray;
+    }
+
+    bool FString::operator!=(const FString &InString) const
+    {
+        return !(*this == InString);
+    }
 }

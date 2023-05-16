@@ -16,66 +16,53 @@ namespace Panda
 
         void Serialize(void* Data, longlong DataSize);
 
-        void* Deserialize(size_t & Size);
-
-
-        template<typename T>
-        inline FArchive& operator<<(const T& Data)
-        {
-            check(false)
-            return *this;
-        }
+        void* Deserialize(longlong & Size);
 
         template<typename T>
-        inline FArchive& operator>>(T& Data)
-        {
-            check(false)
-            return *this;
-        }
+        inline friend FArchive& operator<<(FArchive& Archive, const T& Data);
+
+        template<typename T>
+        inline friend FArchive& operator>>(FArchive& Archive, T& Data);
 
     private:
         class FFile* AssetFile = nullptr;
     };
 
-#define PANDA_ARCHIVE_TYPE(TypeClass) \
-    template<>\
-    inline FArchive& FArchive::operator<<(const TypeClass &Data)\
-    {\
-        size_t TempSize = sizeof (TypeClass);\
-        TypeClass temp = Data;\
-        AssetFile->Write(&TempSize, sizeof (size_t));\
-        AssetFile->Write(&temp, sizeof (TypeClass));\
-        return *this;\
-    }\
-\
-    template<>\
-    inline FArchive& FArchive::operator>>(TypeClass& Data)\
-    {\
-        size_t DataSize = *(size_t*)(AssetFile->Read(sizeof (size_t )));\
-        Data = *(TypeClass*)(AssetFile->Read(DataSize));\
-        return *this;\
+    template <typename ClassType>
+    inline FArchive& operator << (FArchive& Archive, const ClassType& Data)
+    {
+        ClassType TempData = Data;
+        Archive.Serialize(&TempData, sizeof (ClassType));
+        return Archive;
     }
 
-    PANDA_ARCHIVE_TYPE(bool)
-    PANDA_ARCHIVE_TYPE(char)
-    PANDA_ARCHIVE_TYPE(int)
-    PANDA_ARCHIVE_TYPE(uint)
-    PANDA_ARCHIVE_TYPE(size_t)
-    PANDA_ARCHIVE_TYPE(long)
-    PANDA_ARCHIVE_TYPE(float)
-    PANDA_ARCHIVE_TYPE(double)
-    PANDA_ARCHIVE_TYPE(FVector3)
-    PANDA_ARCHIVE_TYPE(FVector4)
+    template <typename ClassType>
+    inline FArchive& operator >> (FArchive& Archive, ClassType& Data)
+    {
+        longlong DataSize = 0;
+        Data = *(ClassType*)Archive.Deserialize(DataSize);
+        return Archive;
+    }
 
     // string
-    template<>
-    inline FArchive& FArchive::operator<<(const FString &String)
+    template <>
+    inline FArchive& operator<<(FArchive& Archive, const FString& String)
     {
         std::string StdString = String.ToStdString();
-        const char *Data = StdString.c_str();
-        Serialize((void*)Data, StdString.size());
-        return *this;
+        const char *StringData = StdString.c_str();
+        Archive.Serialize((void*)StringData, StdString.size()+1);
+        return Archive;
     }
+
+    template <>
+    inline FArchive& operator>>(FArchive& Archive, FString& String)
+    {
+        longlong StringLength = 0;
+        char* Data = (char *)Archive.Deserialize(StringLength);
+        String = Data;
+        return Archive;
+    }
+
 }
 
 #endif //PANDA_SARCHIVE_H

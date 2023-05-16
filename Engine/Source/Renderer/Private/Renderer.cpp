@@ -29,27 +29,8 @@ namespace Panda
     void FRenderer::Initialize()
     {
         Context->MakeCurrent();
-        Component = new UPrimitiveSceneComponent();
-        Component->AssetPath = ENGINE_RESOURCE("/SimpleMesh.asset");
-        Component->AddVertex(FVector4( -0.5f, -0.5f, 0.0f, 1.0f));
-        Component->AddVertex(FVector4( 0.5f, -0.5f, 0.0f, 1.0f));
-        Component->AddVertex(FVector4( 0.5f, 0.5f, 0.0f, 1.0f));
-        Component->AddVertex(FVector4( -0.5f, 0.5f, 0.0f, 1.0f));
-		Component->SetVertexColor(0, 0, { 1.0f, 0.0f, 0.0f });
-		Component->SetVertexColor(1, 0, { 0.0f, 1.0f, 0.0f });
-		Component->SetVertexColor(2, 0, { 0.0f, 0.0f, 1.0f });
-		Component->SetVertexColor(3, 0, { 1.0f, 1.0f, 0.0f });
-        Component->SetVertexUV(0, 0, 0.0f, 0.0f);
-        Component->SetVertexUV(1, 0, 1.0f, 0.0f);
-        Component->SetVertexUV(2, 0, 1.0f, 1.0f);
-        Component->SetVertexUV(3, 0, 0.0f, 1.0f);
-		Component->AddElementIndex(0, 1, 2);
-		Component->AddElementIndex(0, 2, 3);
-        LogInfo("start save")
-        UPackage Package;
-        Package.Object = Component;
-        Package.Save();
-        LogInfo("end save")
+
+        Component = LoadObject<UPrimitiveSceneComponent>("/Engine/SimpleMesh.asset");
         Proxy = Component->CreateProxy();
         Proxy->CreateRHI();
 

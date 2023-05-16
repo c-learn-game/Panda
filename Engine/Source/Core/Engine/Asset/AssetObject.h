@@ -23,7 +23,7 @@ namespace Panda
         virtual ~UAssetObject() = default;
 
     public:
-        FString AssetPath;
+        FString PackagePath;
     };
 }
 

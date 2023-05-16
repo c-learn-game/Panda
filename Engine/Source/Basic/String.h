@@ -3,6 +3,7 @@
 #define PANDA_STRING_H
 
 #include <string>
+#include "Containers.h"
 
 namespace Panda
 {
@@ -19,15 +20,8 @@ namespace Panda
 
         ~FString() = default;
 
-        FString& operator=(const char * InString);
-
-        bool operator==(const FString& InString) const;
-
-        char operator[](int Index) const;
-
-        char &operator[](int Index);
-
         FString& Replace(const FString& OldString, const FString& NewString);
+
         FString Replace(const FString& OldString, const FString& NewString) const;
 
         FString& Append(const FString& InString);
@@ -38,6 +32,19 @@ namespace Panda
 
         size_t Count() const { return String.size(); }
 
+        TArray<FString> Split(const FString& Delimiters = "") const;
+
+
+        // operators
+        FString& operator=(const char * InString);
+
+        bool operator==(const FString& InString) const;
+
+        bool operator!=(const FString& InString) const;
+
+        char operator[](int Index) const;
+
+        char &operator[](int Index);
 
     private:
         std::string String;

@@ -68,12 +68,12 @@ namespace Panda
 
     void UPrimitiveSceneComponent::Deserialize(FArchive &Archive)
     {
-        size_t VerticesSize;
+        longlong VerticesSize = 0;
         void* VerticesData = Archive.Deserialize(VerticesSize);
         Vertices.resize(VerticesSize / sizeof (FPrimitiveVertex));
         memcpy(Vertices.data(), VerticesData, VerticesSize);
 
-        size_t IndicesSize;
+        longlong IndicesSize;
         void* IndicesData = Archive.Deserialize(IndicesSize);
         Indices.resize(IndicesSize / sizeof (FPrimitiveElementIndex));
         memcpy(Indices.data(), IndicesData, IndicesSize);
