@@ -14,9 +14,11 @@ out vec3 FragNormal;
 out vec4 FragColor;
 out vec4 FragUVIndex0;
 
+uniform mat4 Transform;
+
 void main()
 {
-    gl_Position = VertPosition;
+    gl_Position = Transform * VertPosition;
     FragNormal = VertNormal.xyz;
     FragColor = VertColorIndex0;
     FragUVIndex0 = VertUVIndex0;

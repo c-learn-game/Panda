@@ -5,15 +5,19 @@
 
 namespace Panda
 {
+    struct FMatrix4x4;
+
     class FRHIShaderResource : public FRHIResource
     {
     public:
 
-        virtual void SetShaderSource(const FString& VertexShaderSource, const FString& FragShaderSource) = 0;
-
         virtual void Bind() = 0;
 
-        virtual void InitResource() = 0;
+        virtual void InitResource(const FString& VertexShaderSource, const FString& FragShaderSource) = 0;
+
+        virtual void AddUniformParameter(const FString& ParameterName) = 0;
+
+        virtual void SetMatParameter(const FString& ParameterName, const FMatrix4x4& Mat) = 0;
 
         static SharedPtr<FRHIShaderResource> Create();
     };

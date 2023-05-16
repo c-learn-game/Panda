@@ -4,10 +4,11 @@
 
 #include "OpenGLShaderResource.h"
 #include "OpenGLMacros.h"
+#include "Core/Math/Matrix4x4.h"
 
 namespace Panda
 {
-    void FOpenGLShaderResource::InitResource()
+    void FOpenGLShaderResource::InitResource(const FString& VertexShaderSource, const FString& FragShaderSource)
     {
         auto CreateShader = [&](GLenum ShaderType, const FString& ShaderSource) -> uint
         {
@@ -85,10 +86,29 @@ namespace Panda
         }
     }
 
-    void FOpenGLShaderResource::SetShaderSource(const FString &InVertexShaderSource,
-                                                const FString &InFragShaderSource)
+    void FOpenGLShaderResource::AddUniformParameter(const FString &ParameterName)
     {
-        VertexShaderSource = InVertexShaderSource;
-        FragShaderSource = InFragShaderSource;
+        PANDA_GL_CALL(uint Location = glGetUniformLocation(ShaderId, ParameterName.ToStdString().c_str()))
+        if (Location > 0)
+        {
+            UniformLocations[ParameterName] = Location;
+        }
+        else
+        {
+            LogWarn("not find uniform [{}] location in shader", ParameterName.ToStdString())
+        }
+    }
+
+    void FOpenGLShaderResource::SetMatParameter(const FString &ParameterName, const FMatrix4x4& Mat)
+    {
+        auto it = UniformLocations.find(ParameterName);
+        if (it != UniformLocations.end())
+        {
+            PANDA_GL_CALL(glUniformMatrix4fv(it->second, 1, GL_FALSE, Mat.ValuePtr()));
+        }
+        else
+        {
+            LogWarn("try to translate a invalid uniform value [{}] to shader", ParameterName.ToStdString())
+        }
     }
 }

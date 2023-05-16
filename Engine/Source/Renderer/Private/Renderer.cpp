@@ -9,14 +9,9 @@
 #include "Core/Engine/Texture.h"
 #include "Core/Engine/TextureResourceProxy.h"
 #include "Core/Engine/Private/EngineMacros.h"
-#include "Core/Platform/Path.h"
 #include "RHI/RHI.h"
 #include "Core/Engine/Asset/Package.h"
-
-static Panda::uint indices[] = {
-        0, 1, 2,
-        0, 2, 3
-};
+#include "Core/Math/MathCore.h"
 
 namespace Panda
 {
@@ -31,20 +26,27 @@ namespace Panda
         Context->MakeCurrent();
 
         Component = LoadObject<UPrimitiveSceneComponent>("/Engine/SimpleMesh.asset");
-        Proxy = Component->CreateProxy();
-        Proxy->CreateRHI();
-
 
         Material = MakeShared<UMaterial>(ENGINE_SHADER("/Private/LocalStaticMesh.vert"),
-                                           ENGINE_SHADER("/Private/LocalStaticMesh.frag"));
+                                         ENGINE_SHADER("/Private/LocalStaticMesh.frag"));
         Material->LoadAsset();
-        MaterialProxy = Material->CreateProxy();
-        MaterialProxy->CreateRHI();
 
         Texture = MakeShared<UTexture>(ENGINE_RESOURCE("/Test/container.jpg"));
         Texture->LoadAsset();
+
+
+        Proxy = Component->CreateProxy();
+        Proxy->CreateRHI();
+
+        MaterialProxy = Material->CreateProxy();
+        MaterialProxy->CreateRHI();
+        MaterialProxy->Shader->AddUniformParameter("Transform");
+
         TextureProxy = SharedPtr<FTextureResourceProxy>(Texture->CreateProxy());
         TextureProxy->CreateRHI();
+
+        Transform.Translate({0.25f, 0.25f, 0.0f});
+        Transform.Scale({2, 0.2f, 0.0f});
         LogInfo("Renderer initialize success.")
     }
 
@@ -54,6 +56,7 @@ namespace Panda
         //glClear(GL_COLOR_BUFFER_BIT);
 
         MaterialProxy->Shader->Bind();
+        MaterialProxy->Shader->SetMatParameter("Transform", Transform);
         TextureProxy->Bind(0);
         RHICommand->DrawMesh(Proxy->VertexArray, Proxy->IndexBuffer);
         Context->SwapBuffer();
@@ -63,6 +66,7 @@ namespace Panda
 	{
         delete Proxy;
         delete MaterialProxy;
+        TextureProxy = nullptr;
         delete Component;
 	}
 }

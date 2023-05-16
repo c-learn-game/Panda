@@ -17,8 +17,7 @@ namespace Panda
     {
         Shader = nullptr;
         Shader = FRHIShaderResource::Create();
-        Shader->SetShaderSource(VertexShaderSource,FragShaderSource);
-        Shader->InitResource();
+        Shader->InitResource(VertexShaderSource,FragShaderSource);
         return true;
     }
 }

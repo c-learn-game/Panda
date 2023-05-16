@@ -18,15 +18,16 @@ namespace Panda
 
         bool IsValid() const override;
 
-        void InitResource() override;
+        void InitResource(const FString& VertexShaderSource, const FString& FragShaderSource) override;
 
         void ReleaseResource() override;
 
-        void SetShaderSource(const FString& InVertexShaderSource, const FString& InFragShaderSource) override;
+        void AddUniformParameter(const FString& ParameterName) override;
+
+        void SetMatParameter(const FString& ParameterName, const FMatrix4x4& Mat) override;
 
     private:
-        FString VertexShaderSource;
-        FString FragShaderSource;
+        THash<FString, uint> UniformLocations;
         uint ShaderId = 0;
     };
 }

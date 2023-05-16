@@ -6,6 +6,7 @@
 #define TEST_RENDERER_H
 
 #include "RHI/RenderContext.h"
+#include "Core/Math/Matrix4x4.h"
 
 namespace Panda
 {
@@ -33,6 +34,8 @@ namespace Panda
 
         SharedPtr<class UTexture> Texture = nullptr;
         SharedPtr<class FTextureResourceProxy> TextureProxy = nullptr;
+
+        FMatrix4x4 Transform = FMatrix4x4(1.0);
     };
 }
 
