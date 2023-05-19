@@ -1,6 +1,3 @@
-//
-// Created by chendebi on 2023/4/30.
-//
 
 #ifndef PANDA_RHIWINDOW_H
 #define PANDA_RHIWINDOW_H
@@ -34,8 +31,8 @@ namespace Panda
         FString WindowTitle;
 
         FSize WindowSize;
-
-        SharedPtr<class RHIWindowPrivate> P = nullptr;
+        friend class RHIWindowPrivate;
+        SharedPtr<RHIWindowPrivate> P = nullptr;
     };
 }
 

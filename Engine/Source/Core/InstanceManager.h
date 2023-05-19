@@ -3,6 +3,7 @@
 #define PANDA_INSTANCEMANAGER_H
 
 #include "Instance.h"
+#include "Core/Engine/Game/GameEngine.h"
 
 int main(int argc, char** argv);
 
@@ -20,6 +21,5 @@ namespace Panda
         void Initialize() override;
     };
 }
-
 
 #endif //PANDA_INSTANCEMANAGER_H

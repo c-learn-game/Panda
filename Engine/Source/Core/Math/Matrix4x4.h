@@ -17,7 +17,7 @@ namespace Panda
 
         void Scale(const FVector3& InScale);
 
-        void Rotate(const FVector3& Rotation);
+        void Rotate(float Radius, const FVector3& Axis);
 
         const float* ValuePtr() const { return &Data[0]; }
     };
@@ -46,9 +46,9 @@ namespace Panda
         Data[10] *= InScale.Z;
     }
 
-    inline void FMatrix4x4::Rotate(const FVector3 &Rotation)
+    inline void FMatrix4x4::Rotate(float Radius, const FVector3& Axis)
     {
-        
+
     }
 }
 

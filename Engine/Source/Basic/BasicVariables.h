@@ -31,11 +31,26 @@ namespace Panda
         int Width;
         int Height;
 
-        FSize(int w = 0, int h = 0) : Width(w), Height(h) {}
+        explicit FSize(int w = 0, int h = 0) : Width(w), Height(h) {}
 
         bool IsValid() const { return Width > 0 && Height > 0; }
     };
 
+    struct FIntRect
+    {
+        int X = 0;
+        int Y = 0;
+        int Width = 0;
+        int Height = 0;
+
+        explicit FIntRect(int w = 0, int h = 0)
+        : Width(w), Height(h)
+        {}
+
+        FIntRect(int x, int y, int w, int h)
+        : X(x), Y(y), Width(w), Height(h)
+        {}
+    };
 }
 
 #endif //PANDA_BASICVARIABLES_H

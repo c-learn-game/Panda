@@ -1,15 +1,19 @@
-//
-// Created by chendebi on 2023/4/30.
-//
+
 
 #include "RHIWindowPrivateGLFW.h"
 #include "RHI/RHIWindow.h"
 #include "GLFW/glfw3.h"
 #include "Application.h"
+#include "Core/Engine/Engine.h"
 
 static void OnWindowClose(GLFWwindow* Window)
 {
     Panda::Application::Get()->Quit();
+}
+
+static void OnFrameBufferSizeChanged(GLFWwindow* Window, int w, int h)
+{
+    Panda::GGame->GetViewportClient()->ResizeViewport(0, 0, w, h);
 }
 
 namespace Panda
@@ -31,6 +35,7 @@ namespace Panda
                                    nullptr);
         glfwSetWindowUserPointer(WindowP, Window);
         glfwSetWindowCloseCallback(WindowP, OnWindowClose);
+        glfwSetFramebufferSizeCallback(WindowP, OnFrameBufferSizeChanged);
         checkf(WindowP != nullptr, "create glfw window failed!")
         return WindowP;
     }

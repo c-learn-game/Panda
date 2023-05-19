@@ -45,7 +45,8 @@ namespace Panda
         bool bShouldQuit = false;
 
         // p指针
-        class RHIApplicationPrivate* P = nullptr;
+        friend class RHIApplicationPrivate;
+        RHIApplicationPrivate* P = nullptr;
 
         TArray<FString> Arguments;
 

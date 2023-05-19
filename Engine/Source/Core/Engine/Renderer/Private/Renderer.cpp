@@ -1,6 +1,6 @@
 
 
-#include "Renderer/Renderer.h"
+#include "Core/Engine/Renderer/Renderer.h"
 #include "Core/Math/Vector4.h"
 #include "Core/Engine/PrimitiveSceneComponent.h"
 #include "Core/Engine/PrimitiveSceneProxy.h"
@@ -45,8 +45,8 @@ namespace Panda
         TextureProxy = SharedPtr<FTextureResourceProxy>(Texture->CreateProxy());
         TextureProxy->CreateRHI();
 
+        Transform.Scale({0.5, 0.5f, 0.0f});
         Transform.Translate({0.25f, 0.25f, 0.0f});
-        Transform.Scale({2, 0.2f, 0.0f});
         LogInfo("Renderer initialize success.")
     }
 

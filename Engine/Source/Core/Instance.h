@@ -30,7 +30,6 @@ namespace Panda
     public:
         UInstance(const UInstance& ) = delete;
         UInstance& operator=(const UInstance&) = delete;
-        UInstance operator=(const UInstance&) const = delete;
 
         virtual ~UInstance() = default;
 

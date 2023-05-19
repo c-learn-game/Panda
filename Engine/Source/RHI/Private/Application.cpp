@@ -6,7 +6,9 @@
 #include "RHI/Private/RHIApplicationPrivate.h"
 #include "RHI/RHIWindow.h"
 #include "RHI/RenderContext.h"
-#include "Renderer/Renderer.h"
+#include "Core/Engine/Renderer/Renderer.h"
+#include "Core/Engine/Game/ViewportClient.h"
+#include "Core/Engine/Engine.h"
 
 namespace Panda
 {
@@ -33,6 +35,7 @@ namespace Panda
         while (!bShouldQuit)
         {
             P->PollEvents();
+            //GGame.
             Renderer->RendererMain();
         }
 		LogInfo("Quit Application")
