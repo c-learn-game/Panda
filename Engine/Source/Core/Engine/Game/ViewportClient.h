@@ -2,24 +2,34 @@
 #ifndef PANDA_VIEWPORTCLIENT_H
 #define PANDA_VIEWPORTCLIENT_H
 
-#include "Basic/Basic.h"
+#include "Core/Engine/TickableObject.h"
 
 namespace Panda
 {
-    class UViewportClient
+    class UWorld;
+    class FSceneView;
+
+    class UViewportClient : public UTickableObject
     {
     public:
         explicit UViewportClient(FIntRect DefaultViewportRect = FIntRect());
 
-        virtual ~UViewportClient() = default;
+        virtual ~UViewportClient();
 
         void ResizeViewport(int x, int y, int w, int h);
 
         FIntRect GetViewportRect() const { return ViewportRect; }
 
+        UWorld* GetWorld() const { return World; }
+
+        FSceneView* CreateSceneView();
+
+        void Tick(double Duration) override;
+
     private:
         FIntRect ViewportRect;
         class UWorld* World = nullptr;
+        FSceneView* SceneView = nullptr;
     };
 }
 

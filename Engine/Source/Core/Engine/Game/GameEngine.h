@@ -16,6 +16,8 @@ namespace Panda
 
         UViewportClient* GetViewportClient() const { return ViewportClient; }
 
+        void Tick(double Duration);
+
     protected:
         void Initialize() override;
 

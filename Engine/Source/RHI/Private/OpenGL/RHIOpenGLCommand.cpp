@@ -7,6 +7,11 @@
 
 namespace Panda
 {
+    void FRHIOpenGLCommand::SetViewport(const FIntRect &NewViewport)
+    {
+        glViewport(NewViewport.X, NewViewport.Y, NewViewport.Width, NewViewport.Height);
+    }
+
     void FRHIOpenGLCommand::DrawMesh(const SharedPtr<FRHIVertexArrayResource> &VertexArrayResource,
                                      const SharedPtr<FRHIIndexBufferResource> &IndexBufferResource)
     {

@@ -1,5 +1,14 @@
-//
-// Created by Administrator on 2023/5/6.
-//
 
 #include "Core/Engine/Game/World.h"
+#include "Core/Engine/Game/Actor.h"
+
+namespace Panda
+{
+    void UWorld::Tick(double Duration)
+    {
+        for(auto Actor : Actors)
+        {
+            Actor->Tick(Duration);
+        }
+    }
+}

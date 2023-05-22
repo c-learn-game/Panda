@@ -54,6 +54,8 @@ namespace Panda
         SharedPtr<class RHIWindow> MainWindow = nullptr;
         SharedPtr<class FRenderContext> RenderContext = nullptr;
         SharedPtr<class FRenderer> Renderer = nullptr;
+
+        double LastFrameTime = 0.0f;
     };
 }
 

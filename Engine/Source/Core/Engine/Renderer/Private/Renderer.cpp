@@ -12,6 +12,8 @@
 #include "RHI/RHI.h"
 #include "Core/Engine/Asset/Package.h"
 #include "Core/Math/MathCore.h"
+#include "Core/Engine/Engine.h"
+#include "Core/Engine/Renderer/SceneView.h"
 
 namespace Panda
 {
@@ -24,6 +26,8 @@ namespace Panda
     void FRenderer::Initialize()
     {
         Context->MakeCurrent();
+
+        SceneView = GGame->GetViewportClient()->CreateSceneView();
 
         Component = LoadObject<UPrimitiveSceneComponent>("/Engine/SimpleMesh.asset");
 
@@ -45,18 +49,18 @@ namespace Panda
         TextureProxy = SharedPtr<FTextureResourceProxy>(Texture->CreateProxy());
         TextureProxy->CreateRHI();
 
-        Transform.Scale({0.5, 0.5f, 0.0f});
-        Transform.Translate({0.25f, 0.25f, 0.0f});
         LogInfo("Renderer initialize success.")
     }
 
     void FRenderer::RendererMain()
     {
+        TotalTime += SceneView->Duration;
         //glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         //glClear(GL_COLOR_BUFFER_BIT);
-
+        auto Mat = FMath::Translate(Transform, {static_cast<float>(FMath::Sin(TotalTime)), 0, 0});
+        RHICommand->SetViewport(SceneView->ViewportRect);
         MaterialProxy->Shader->Bind();
-        MaterialProxy->Shader->SetMatParameter("Transform", Transform);
+        MaterialProxy->Shader->SetMatParameter("Transform", Mat);
         TextureProxy->Bind(0);
         RHICommand->DrawMesh(Proxy->VertexArray, Proxy->IndexBuffer);
         Context->SwapBuffer();

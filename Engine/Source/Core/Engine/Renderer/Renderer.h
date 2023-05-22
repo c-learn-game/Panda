@@ -36,6 +36,9 @@ namespace Panda
         SharedPtr<class FTextureResourceProxy> TextureProxy = nullptr;
 
         FMatrix4x4 Transform = FMatrix4x4(1.0);
+        double  TotalTime = 0.0;
+
+        class FSceneView* SceneView = nullptr;
     };
 }
 

@@ -13,12 +13,6 @@ namespace Panda
 
         explicit FMatrix4x4(float v = 0.0f);
 
-        void Translate(const FVector3& Offset);
-
-        void Scale(const FVector3& InScale);
-
-        void Rotate(float Radius, const FVector3& Axis);
-
         const float* ValuePtr() const { return &Data[0]; }
     };
 
@@ -30,25 +24,6 @@ namespace Panda
         {
             Data[i+i*4] = v;
         }
-    }
-
-    inline void FMatrix4x4::Translate(const FVector3 &Offset)
-    {
-        Data[12] = Offset.X;
-        Data[13] = Offset.Y;
-        Data[14] = Offset.Z;
-    }
-
-    inline void FMatrix4x4::Scale(const FVector3 &InScale)
-    {
-        Data[0] *= InScale.X;
-        Data[5] *= InScale.Y;
-        Data[10] *= InScale.Z;
-    }
-
-    inline void FMatrix4x4::Rotate(float Radius, const FVector3& Axis)
-    {
-
     }
 }
 

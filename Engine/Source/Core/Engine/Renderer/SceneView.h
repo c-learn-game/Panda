@@ -6,14 +6,10 @@
 
 namespace Panda
 {
-    class FSceneView
+    struct FSceneView
     {
-    public:
-        explicit FSceneView(class UWorld* InWorld);
-
-    private:
-        UWorld* World = nullptr;
         FIntRect ViewportRect;
+        double Duration;
     };
 }
 

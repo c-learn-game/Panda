@@ -13,6 +13,8 @@ namespace Panda
     {
     public:
 
+        void SetViewport(const FIntRect& NewViewport) override;
+
         void DrawMesh(const SharedPtr<class FRHIVertexArrayResource>& InVertexArrayResource,
                       const SharedPtr<class FRHIIndexBufferResource>& InIndexBufferResource) override;
     };

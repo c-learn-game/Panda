@@ -2,11 +2,11 @@
 #ifndef PANDA_ACTOR_H
 #define PANDA_ACTOR_H
 
-#include "Basic/Basic.h"
+#include "Core/Engine/TickableObject.h"
 
 namespace Panda
 {
-    class AActor
+    class AActor : public UTickableObject
     {
     public:
         explicit AActor();
@@ -14,6 +14,10 @@ namespace Panda
         virtual ~AActor() = default;
 
         //void AddComponent(const SharedPtr<class UPrimitiveSceneComponent> &NewComponent);
+
+    protected:
+        friend class UWorld;
+        void Tick(double Duration) override {}
 
     private:
         SharedPtr<class UActorComponent> RootComponent = nullptr;

@@ -9,6 +9,7 @@
 #include "Core/Engine/Renderer/Renderer.h"
 #include "Core/Engine/Game/ViewportClient.h"
 #include "Core/Engine/Engine.h"
+#include "Core/Timer.h"
 
 namespace Panda
 {
@@ -32,10 +33,14 @@ namespace Panda
 
     int Application::Exec()
     {
+        LastFrameTime = UTimer::Now();
         while (!bShouldQuit)
         {
+            double CurrentFrameTime = UTimer::Now();
+            double TickDuration = CurrentFrameTime - LastFrameTime;
+            LastFrameTime = CurrentFrameTime;
             P->PollEvents();
-            //GGame.
+            GGame->GetViewportClient()->Tick(TickDuration);
             Renderer->RendererMain();
         }
 		LogInfo("Quit Application")

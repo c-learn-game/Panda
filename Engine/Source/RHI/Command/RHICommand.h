@@ -11,6 +11,8 @@ namespace Panda
     public:
         virtual ~FRHICommand() = default;
 
+        virtual void SetViewport(const FIntRect& NewViewport) = 0;
+
         virtual void DrawMesh(const SharedPtr<class FRHIVertexArrayResource>& VertexArrayResource,
                               const SharedPtr<class FRHIIndexBufferResource>& IndexBufferResource) = 0;
 
