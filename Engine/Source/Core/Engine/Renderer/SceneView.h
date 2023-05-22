@@ -8,7 +8,12 @@ namespace Panda
 {
     class FSceneView
     {
+    public:
+        explicit FSceneView(class UWorld* InWorld);
 
+    private:
+        UWorld* World = nullptr;
+        FIntRect ViewportRect;
     };
 }
 
