@@ -1,6 +1,6 @@
 
-#include "Core/Engine/TextureResourceProxy.h"
-#include "Core/Engine/Texture.h"
+#include "Core/Engine/Renderer/TextureResourceProxy.h"
+#include "Core/Engine/Game/Texture.h"
 #include "RHI/Resource/RHITextureResource.h"
 
 namespace Panda

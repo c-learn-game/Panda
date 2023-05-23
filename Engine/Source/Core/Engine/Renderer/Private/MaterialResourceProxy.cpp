@@ -1,7 +1,7 @@
 
-#include "Core/Engine/MaterialResourceProxy.h"
+#include "Core/Engine/Renderer/MaterialResourceProxy.h"
 #include "RHI/Resource/RHIShaderResource.h"
-#include "Core/Engine/Material.h"
+#include "Core/Engine/Game/Material.h"
 
 namespace Panda
 {

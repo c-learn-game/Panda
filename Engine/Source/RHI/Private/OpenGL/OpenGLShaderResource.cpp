@@ -1,10 +1,8 @@
-//
-// Created by chendebi on 2023/5/1.
-//
 
 #include "OpenGLShaderResource.h"
 #include "OpenGLMacros.h"
 #include "Core/Math/Matrix4x4.h"
+#include "RHI/Private/OpenGL/OpenGLTextureResource.h"
 
 namespace Panda
 {
@@ -110,5 +108,11 @@ namespace Panda
         {
             LogWarn("try to translate a invalid uniform value [{}] to shader", ParameterName.ToStdString())
         }
+    }
+
+    void FOpenGLShaderResource::SetTexture2DParameter(const FString &ParameterName, FRHITextureResource *Texture2D)
+    {
+        auto Tex = dynamic_cast<FOpenGLTextureResource*>(Texture2D);
+        Tex.
     }
 }

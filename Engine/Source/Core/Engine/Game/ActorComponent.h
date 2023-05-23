@@ -2,11 +2,11 @@
 #ifndef PANDA_ACTORCOMPONENT_H
 #define PANDA_ACTORCOMPONENT_H
 
-#include "Basic/Basic.h"
+#include "Core/Engine/TickableObject.h"
 
 namespace Panda
 {
-    class UActorComponent
+    class UActorComponent : public UTickableObject
     {
     public:
         UActorComponent();

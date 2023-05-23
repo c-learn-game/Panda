@@ -1,5 +1,5 @@
-#include "Core/Engine/PrimitiveSceneProxy.h"
-#include "Core/Engine/PrimitiveSceneComponent.h"
+#include "Core/Engine/Renderer/PrimitiveSceneProxy.h"
+#include "Core/Engine/Game/PrimitiveSceneComponent.h"
 #include "RHI/Resource/RHIIndexBufferResource.h"
 #include "RHI/Resource/RHIVertexArrayResource.h"
 #include "RHI/Resource/RHIVertexBufferResource.h"

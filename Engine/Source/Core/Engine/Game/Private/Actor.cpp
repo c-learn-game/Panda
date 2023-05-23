@@ -3,7 +3,7 @@
 //
 
 #include "Core/Engine/Game/Actor.h"
-#include "Core/Engine/ActorComponent.h"
+#include "Core/Engine/Game/ActorComponent.h"
 
 namespace Panda
 {

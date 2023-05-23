@@ -1,6 +1,6 @@
-#include "Core/Engine/Material.h"
+#include "Core/Engine/Game/Material.h"
 #include "Core/Engine/Asset/AssetManager.h"
-#include "Core/Engine/MaterialResourceProxy.h"
+#include "Core/Engine/Renderer/MaterialResourceProxy.h"
 
 namespace Panda
 {

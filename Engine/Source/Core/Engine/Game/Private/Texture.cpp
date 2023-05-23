@@ -1,7 +1,7 @@
 
-#include "Core/Engine/Texture.h"
+#include "Core/Engine/Game/Texture.h"
 #include "Core/Platform/Path.h"
-#include "Core/Engine/TextureResourceProxy.h"
+#include "Core/Engine/Renderer/TextureResourceProxy.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
