@@ -51,6 +51,21 @@ namespace Panda
         : X(x), Y(y), Width(w), Height(h)
         {}
     };
+
+    struct FLinearColor
+    {
+        union
+        {
+            struct { float R, G, B, A; };
+            float RGBA[4];
+        };
+
+        FLinearColor() : R(0), G(0), B(0), A(0) { }
+
+        FLinearColor(float r, float g, float b, float a=1.0f)
+        : R(r), G(g), B(b), A(a)
+        {}
+    };
 }
 
 #endif //PANDA_BASICVARIABLES_H

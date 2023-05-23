@@ -55,8 +55,8 @@ namespace Panda
     void FRenderer::RendererMain()
     {
         TotalTime += SceneView->Duration;
-        //glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        //glClear(GL_COLOR_BUFFER_BIT);
+        RHICommand->SetClearColor({0.2f, 0.3f, 0.3f, 1.0f});
+        RHICommand->Clear();
         auto Mat = FMath::Translate(Transform, {static_cast<float>(FMath::Sin(TotalTime)), 0, 0});
         RHICommand->SetViewport(SceneView->ViewportRect);
         MaterialProxy->Shader->Bind();

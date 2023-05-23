@@ -21,4 +21,19 @@ namespace Panda
         PANDA_GL_CALL(glDrawElements(GL_TRIANGLES, IndexBufferResource->GetIndexCount(),
                                      GL_UNSIGNED_INT, nullptr));
     }
+
+    void FRHIOpenGLCommand::SetClearColor(const FLinearColor &Color)
+    {
+        glClearColor(Color.R, Color.G, Color.B, Color.A);
+    }
+
+    void FRHIOpenGLCommand::Clear(int Flag)
+    {
+        int ClearFlags = 0;
+        if (Flag & FClearFlag::Color)
+            ClearFlags |= GL_COLOR_BUFFER_BIT;
+        if (Flag & FClearFlag::Depth)
+            ClearFlags |= GL_DEPTH_BUFFER_BIT;
+        glClear(ClearFlags);
+    }
 }

@@ -17,6 +17,10 @@ namespace Panda
 
         void DrawMesh(const SharedPtr<class FRHIVertexArrayResource>& InVertexArrayResource,
                       const SharedPtr<class FRHIIndexBufferResource>& InIndexBufferResource) override;
+
+        void SetClearColor(const FLinearColor& Color = {0,0,0,1}) override;
+
+        void Clear(int Flag = FClearFlag::Color) override;
     };
 }
 
