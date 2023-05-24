@@ -38,16 +38,25 @@ namespace Panda
         Texture = MakeShared<UTexture>(ENGINE_RESOURCE("/Test/container.jpg"));
         Texture->LoadAsset();
 
+        FaceTexture = MakeShared<UTexture>(ENGINE_RESOURCE("/Test/awesomeface.png"));
+        FaceTexture->LoadAsset();
+        FaceTexture->Format = FTextureFormat::RGBA;
 
         Proxy = Component->CreateProxy();
         Proxy->CreateRHI();
 
         MaterialProxy = Material->CreateProxy();
         MaterialProxy->CreateRHI();
+        MaterialProxy->Shader->Bind();
         MaterialProxy->Shader->AddUniformParameter("Transform");
+        MaterialProxy->Shader->AddUniformParameter("ContainerTex");
+        MaterialProxy->Shader->AddUniformParameter("ColorTex");
 
         TextureProxy = SharedPtr<FTextureResourceProxy>(Texture->CreateProxy());
         TextureProxy->CreateRHI();
+
+        FaceTextureProxy = SharedPtr<FTextureResourceProxy>(FaceTexture->CreateProxy());
+        FaceTextureProxy->CreateRHI();
 
         LogInfo("Renderer initialize success.")
     }
@@ -61,7 +70,8 @@ namespace Panda
         RHICommand->SetViewport(SceneView->ViewportRect);
         MaterialProxy->Shader->Bind();
         MaterialProxy->Shader->SetMatParameter("Transform", Mat);
-        TextureProxy->Bind(0);
+        MaterialProxy->Shader->SetTexture2DParameter("ContainerTex", TextureProxy->TextureResource.get(), 0);
+        MaterialProxy->Shader->SetTexture2DParameter("ColorTex", FaceTextureProxy->TextureResource.get(), 1);
         RHICommand->DrawMesh(Proxy->VertexArray, Proxy->IndexBuffer);
         Context->SwapBuffer();
     }
@@ -71,6 +81,7 @@ namespace Panda
         delete Proxy;
         delete MaterialProxy;
         TextureProxy = nullptr;
+        FaceTextureProxy = nullptr;
         delete Component;
 	}
 }

@@ -86,8 +86,8 @@ namespace Panda
 
     void FOpenGLShaderResource::AddUniformParameter(const FString &ParameterName)
     {
-        PANDA_GL_CALL(uint Location = glGetUniformLocation(ShaderId, ParameterName.ToStdString().c_str()))
-        if (Location > 0)
+        PANDA_GL_CALL(int Location = glGetUniformLocation(ShaderId, ParameterName.ToStdString().c_str()))
+        if (Location >= 0)
         {
             UniformLocations[ParameterName] = Location;
         }
@@ -110,9 +110,17 @@ namespace Panda
         }
     }
 
-    void FOpenGLShaderResource::SetTexture2DParameter(const FString &ParameterName, FRHITextureResource *Texture2D)
+    void FOpenGLShaderResource::SetTexture2DParameter(const FString &ParameterName, FRHITextureResource *Texture2D,int Slot)
     {
-        auto Tex = dynamic_cast<FOpenGLTextureResource*>(Texture2D);
-        Tex.
+        Texture2D->Bind(Slot);
+        auto it = UniformLocations.find(ParameterName);
+        if (it != UniformLocations.end())
+        {
+            glUniform1i(it->second, Slot);
+        }
+        else
+        {
+            LogWarn("try to translate a invalid uniform texture value [{}] to shader", ParameterName.ToStdString())
+        }
     }
 }

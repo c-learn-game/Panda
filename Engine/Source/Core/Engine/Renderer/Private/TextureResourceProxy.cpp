@@ -13,7 +13,7 @@ namespace Panda
 
     SharedPtr<FRHITextureResource> FTextureResourceProxy::CreateRHI()
     {
-        TextureResource = FRHITextureResource::Create(Texture->Width, Texture->Height, FTextureFormat::RGB);
+        TextureResource = FRHITextureResource::Create(Texture->Width, Texture->Height, Texture->Format);
         TextureResource->InitResource(Texture->AssetData);
         return TextureResource;
     }

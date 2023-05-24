@@ -35,6 +35,9 @@ namespace Panda
         SharedPtr<class UTexture> Texture = nullptr;
         SharedPtr<class FTextureResourceProxy> TextureProxy = nullptr;
 
+        SharedPtr<class UTexture> FaceTexture = nullptr;
+        SharedPtr<class FTextureResourceProxy> FaceTextureProxy = nullptr;
+
         FMatrix4x4 Transform = FMatrix4x4(1.0);
         double  TotalTime = 0.0;
 

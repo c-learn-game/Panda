@@ -3,6 +3,7 @@
 #define PANDA_TEXTURE_H
 
 #include "Basic/Basic.h"
+#include "RHI/Resource/RHITextureResource.h"
 
 namespace Panda
 {
@@ -16,6 +17,9 @@ namespace Panda
         int Width = 0;
         int Height = 0;
         int ChannelCount = 0;
+
+    public:
+        FTextureFormat Format = FTextureFormat::RGB;
 
     public:
         explicit UTexture(const FString& InAssetPath);

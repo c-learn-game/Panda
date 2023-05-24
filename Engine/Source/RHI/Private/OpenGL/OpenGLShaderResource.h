@@ -28,10 +28,10 @@ namespace Panda
 
         void SetMatParameter(const FString& ParameterName, const FMatrix4x4& Mat) override;
 
-        void SetTexture2DParameter(const FString& ParameterName, FRHITextureResource* Texture) override;
+        void SetTexture2DParameter(const FString& ParameterName, FRHITextureResource* Texture, int Slot) override;
 
     private:
-        THash<FString, uint> UniformLocations;
+        THash<FString, int> UniformLocations;
         uint ShaderId = 0;
     };
 }
