@@ -6,8 +6,9 @@
 
 namespace Panda
 {
-    struct FSceneView
+    class FSceneView
     {
+    public:
         FIntRect ViewportRect;
         double Duration;
     };

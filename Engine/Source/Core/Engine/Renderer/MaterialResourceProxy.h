@@ -19,6 +19,7 @@ namespace Panda
         class UMaterial* Material = nullptr;
         FString VertexShaderSource, FragShaderSource;
         SharedPtr<class FRHIShaderResource> Shader;
+        TArray<FString> AllParameters;
     };
 }
 

@@ -22,12 +22,14 @@ namespace Panda
     {
         LogInfo("load texture data.")
         LogInfo("   {}", TextureAssetPath.ToStdString())
+        int ChannelCount;
         AssetData = stbi_load(TextureAssetPath.ToStdString().c_str(), &Width, &Height, &ChannelCount, 0);
         if (!AssetData)
         {
             LogWarn("Load Texture {} failed!", TextureAssetPath.ToStdString())
             return false;
         }
+        LogInfo("Load texture success!, width:{}, height:{}", Width, Height)
         return true;
     }
 

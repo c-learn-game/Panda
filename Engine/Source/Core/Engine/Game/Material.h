@@ -6,6 +6,8 @@
 
 namespace Panda
 {
+    class UTexture;
+
 	class UMaterial
 	{
 	public:
@@ -19,9 +21,13 @@ namespace Panda
 
 		void SetScalarParameterValue(const FString& ParameterName, float NewValue);
 
+        void SetTextureParameterValue(const FString& ParameterName, UTexture* Texture);
+
         class FMaterialResourceProxy* CreateProxy();
 
         bool LoadAsset();
+
+        TArray<FString> GetAllParameterNames() const;
 
     public:
 	    class FMaterialResourceProxy* MaterialProxy = nullptr;
@@ -31,6 +37,8 @@ namespace Panda
         FString VertexShaderSource, FragShaderSource;
         THash<FString, float> ScalarParameters;
         THash<FString, FVector4> Vector4Parameters;
+        THash<FString, UTexture*> TextureParameters;
+        TArray<FString> AllParameterNames;
 
 	private:
 	    FString VertexShaderPath, FragShaderPath;

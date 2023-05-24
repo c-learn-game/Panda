@@ -7,20 +7,10 @@
 
 namespace Panda
 {
+    class FTextureResourceProxy;
+
     class UTexture
     {
-    private:
-        friend class FTextureResourceProxy;
-        FString TextureAssetPath;
-        class FTextureResourceProxy* Proxy = nullptr;
-        uint8* AssetData = nullptr;
-        int Width = 0;
-        int Height = 0;
-        int ChannelCount = 0;
-
-    public:
-        FTextureFormat Format = FTextureFormat::RGB;
-
     public:
         explicit UTexture(const FString& InAssetPath);
 
@@ -29,6 +19,17 @@ namespace Panda
         bool LoadAsset();
 
         FTextureResourceProxy* CreateProxy();
+
+    private:
+        friend class FTextureResourceProxy;
+        FString TextureAssetPath;
+        class FTextureResourceProxy* Proxy = nullptr;
+        uint8* AssetData = nullptr;
+        int Width = 0;
+        int Height = 0;
+
+    public:
+        FTextureFormat Format = FTextureFormat::RGB;
     };
 }
 

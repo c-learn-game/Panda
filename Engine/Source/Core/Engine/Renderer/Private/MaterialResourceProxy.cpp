@@ -11,6 +11,7 @@ namespace Panda
         check(Material)
         VertexShaderSource = Material->VertexShaderSource;
         FragShaderSource = Material->FragShaderSource;
+        AllParameters = Material->GetAllParameterNames();
     }
 
     bool FMaterialResourceProxy::CreateRHI()
@@ -18,6 +19,10 @@ namespace Panda
         Shader = nullptr;
         Shader = FRHIShaderResource::Create();
         Shader->InitResource(VertexShaderSource,FragShaderSource);
+        for (const auto& Parameter: AllParameters)
+        {
+            Shader->AddUniformParameter(Parameter);
+        }
         return true;
     }
 }
