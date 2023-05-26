@@ -26,9 +26,19 @@ namespace Panda
         : X(x), Y(y), Z(z)
         {}
 
+        float Length() const
+        {
+            return pow(pow(X,2.0f)+ pow(Y,2.0f)+ pow(Z,2.0f), 0.5f);
+        }
+
         FString ToString() const
         {
             return FString(fmt::format("Vector3({}, {}, {})", X, Y, Z));
+        }
+
+        FVector3 operator*(const FVector3& Vector) const
+        {
+            return {X*Vector.X, Y*Vector.Y, Z*Vector.Z};
         }
     };
 }

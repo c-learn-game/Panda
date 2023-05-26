@@ -22,6 +22,18 @@ namespace Panda
         AllParameterNames.push_back(ParameterName);
     }
 
+    void UMaterial::AddTextureParameter(const FString &ParameterName, UTexture *DefaultTexture)
+    {
+        TextureParameters[ParameterName] = DefaultTexture;
+        AllParameterNames.push_back(ParameterName);
+    }
+
+    void UMaterial::AddMatrix4x4Parameter(const FString &ParameterName, FMatrix4x4 DefaultMat)
+    {
+        Mat4Parameters[ParameterName] = DefaultMat;
+        AllParameterNames.push_back(ParameterName);
+    }
+
     void UMaterial::SetScalarParameterValue(const FString &ParameterName, float NewValue)
     {
         check(ScalarParameters.find(ParameterName) != ScalarParameters.end())
@@ -46,7 +58,6 @@ namespace Panda
     {
         check(TextureParameters.find(ParameterName) != TextureParameters.end())
         TextureParameters[ParameterName] = Texture;
-        AllParameterNames.push_back(ParameterName);
     }
 
     TArray<FString> UMaterial::GetAllParameterNames() const

@@ -34,6 +34,9 @@ namespace Panda
         Material = MakeShared<UMaterial>(ENGINE_SHADER("/Private/LocalStaticMesh.vert"),
                                          ENGINE_SHADER("/Private/LocalStaticMesh.frag"));
         Material->LoadAsset();
+        Material->AddMatrix4x4Parameter("Transform");
+        Material->AddTextureParameter("ContainerTex");
+        Material->AddTextureParameter("ColorTex");
 
         Texture = MakeShared<UTexture>(ENGINE_RESOURCE("/Test/container.jpg"));
         Texture->LoadAsset();
@@ -47,10 +50,6 @@ namespace Panda
 
         MaterialProxy = Material->CreateProxy();
         MaterialProxy->CreateRHI();
-        MaterialProxy->Shader->Bind();
-        MaterialProxy->Shader->AddUniformParameter("Transform");
-        MaterialProxy->Shader->AddUniformParameter("ContainerTex");
-        MaterialProxy->Shader->AddUniformParameter("ColorTex");
 
         TextureProxy = SharedPtr<FTextureResourceProxy>(Texture->CreateProxy());
         TextureProxy->CreateRHI();

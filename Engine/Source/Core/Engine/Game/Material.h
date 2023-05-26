@@ -2,7 +2,7 @@
 #define PANDA_MATERIAL_H
 
 #include "Basic/Basic.h"
-#include "Core/Math/Vector4.h"
+#include "Core/Math/MathCore.h"
 
 namespace Panda
 {
@@ -17,7 +17,11 @@ namespace Panda
 
 		void AddScalarParameter(const FString& ParameterName, float DefaultValue = 0.0f);
 
-		void AddVector4Parameter(const FString& ParameterName, FVector4 DefaultValue);
+		void AddVector4Parameter(const FString& ParameterName, FVector4 DefaultValue = FVector4(0));
+
+        void AddTextureParameter(const FString& ParameterName, UTexture* DefaultTexture = nullptr);
+
+        void AddMatrix4x4Parameter(const FString& ParameterName, FMatrix4x4 DefaultMat = FMatrix4x4());
 
 		void SetScalarParameterValue(const FString& ParameterName, float NewValue);
 
@@ -38,6 +42,7 @@ namespace Panda
         THash<FString, float> ScalarParameters;
         THash<FString, FVector4> Vector4Parameters;
         THash<FString, UTexture*> TextureParameters;
+        THash<FString, FMatrix4x4> Mat4Parameters;
         TArray<FString> AllParameterNames;
 
 	private:
