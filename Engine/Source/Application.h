@@ -59,6 +59,6 @@ namespace Panda
     };
 }
 
-extern Panda::SharedPtr<Panda::Application> GetApplication(const Panda::TArray<Panda::FString>& Arguments);
+extern Panda::Application* GetApplication(const Panda::TArray<Panda::FString>& Arguments);
 
 #endif //PANDA_APPLICATION_H

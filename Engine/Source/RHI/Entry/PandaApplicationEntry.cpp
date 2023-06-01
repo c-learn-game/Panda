@@ -11,7 +11,7 @@ static TArray<FString> MakeArguments(int argc, char **argv)
     TArray<FString> Arguments;
     for (int i = 0; i < argc; ++i)
     {
-        Arguments.push_back(argv[i]);
+        Arguments.emplace_back(argv[i]);
     }
     return Arguments;
 }
@@ -37,5 +37,7 @@ int main(int argc, char **argv)
     }
     app->PostInitApplication();
 
-    return app->Exec();
+    app->Exec();
+
+    delete app;
 }

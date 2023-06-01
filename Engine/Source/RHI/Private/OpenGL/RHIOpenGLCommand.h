@@ -21,6 +21,8 @@ namespace Panda
         void SetClearColor(const FLinearColor& Color = {0,0,0,1}) override;
 
         void Clear(int Flag = FClearFlag::Color) override;
+
+        void SetVerticalSyncState(bool bVSyncOn) override;
     };
 }
 

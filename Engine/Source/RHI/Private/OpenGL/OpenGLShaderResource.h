@@ -26,7 +26,7 @@ namespace Panda
 
         void AddUniformParameter(const FString& ParameterName) override;
 
-        void SetMatParameter(const FString& ParameterName, const FMatrix4x4& Mat) override;
+        void SetMatParameter(const FString& ParameterName, const FMatrix& Mat) override;
 
         void SetTexture2DParameter(const FString& ParameterName, FRHITextureResource* Texture, int Slot) override;
 

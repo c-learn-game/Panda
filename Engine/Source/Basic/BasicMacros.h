@@ -1,6 +1,4 @@
-//
-// Created by chendebi on 2023/4/29.
-//
+
 
 #ifndef PANDA_BASICMACROS_H
 #define PANDA_BASICMACROS_H

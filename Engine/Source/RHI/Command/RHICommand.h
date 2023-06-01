@@ -26,6 +26,8 @@ namespace Panda
 
         virtual void Clear(int Flag = FClearFlag::Color) = 0;
 
+        virtual void SetVerticalSyncState(bool bVSyncOn) = 0;
+
         static FRHICommand* Get();
     };
 }

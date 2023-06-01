@@ -2,11 +2,11 @@
 #ifndef PANDA_ACTOR_H
 #define PANDA_ACTOR_H
 
-#include "Core/Engine/TickableObject.h"
+#include "Core/Engine/GameObject.h"
 
 namespace Panda
 {
-    class AActor : public UTickableObject
+    class AActor : public UObject
     {
     public:
         explicit AActor();

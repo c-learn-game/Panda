@@ -1,5 +1,6 @@
 
 #include "Core/Engine/Game/GameEngine.h"
+#include "Core/Engine/Game/World.h"
 
 namespace Panda
 {
@@ -17,5 +18,10 @@ namespace Panda
     void UGameEngine::Tick(double Duration)
     {
         ViewportClient->Tick(Duration);
+    }
+
+    UWorld* UGameEngine::GetCurrentWorld() const
+    {
+        return ViewportClient->GetWorld();
     }
 }

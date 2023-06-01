@@ -7,6 +7,9 @@
 
 namespace Panda
 {
+
+    class UWorld;
+
     class UGameEngine : public UInstance<UGameEngine>
     {
         INSTANCE_CLASS(UGameEngine)
@@ -15,6 +18,8 @@ namespace Panda
         ~UGameEngine() override;
 
         UViewportClient* GetViewportClient() const { return ViewportClient; }
+
+        UWorld* GetCurrentWorld() const;
 
         void Tick(double Duration);
 

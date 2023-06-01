@@ -36,4 +36,9 @@ namespace Panda
             ClearFlags |= GL_DEPTH_BUFFER_BIT;
         glClear(ClearFlags);
     }
+
+    void FRHIOpenGLCommand::SetVerticalSyncState(bool bVSyncOn)
+    {
+
+    }
 }

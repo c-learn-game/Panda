@@ -31,8 +31,9 @@ namespace Panda
 
         Component = LoadObject<UPrimitiveSceneComponent>("/Engine/SimpleMesh.asset");
 
-        Material = MakeShared<UMaterial>(ENGINE_SHADER("/Private/LocalStaticMesh.vert"),
-                                         ENGINE_SHADER("/Private/LocalStaticMesh.frag"));
+        Material = NewObject<UMaterial>(nullptr,
+                                        ENGINE_SHADER("/Private/LocalStaticMesh.vert"),
+                                        ENGINE_SHADER("/Private/LocalStaticMesh.frag"));
         Material->LoadAsset();
         Material->AddMatrix4x4Parameter("Transform");
         Material->AddTextureParameter("ContainerTex");
@@ -65,7 +66,7 @@ namespace Panda
         TotalTime += SceneView->Duration;
         RHICommand->SetClearColor({0.2f, 0.3f, 0.3f, 1.0f});
         RHICommand->Clear();
-        auto Mat = FMath::Translate(Transform, {static_cast<float>(FMath::Sin(TotalTime)), 0, 0});
+        auto Mat = FMatrix::Translate(Transform, {static_cast<float>(FMath::Sin(TotalTime)), 0, 0});
         RHICommand->SetViewport(SceneView->ViewportRect);
         MaterialProxy->Shader->Bind();
         MaterialProxy->Shader->SetMatParameter("Transform", Mat);

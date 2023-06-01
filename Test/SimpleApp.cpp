@@ -8,8 +8,14 @@
 
 using namespace Panda;
 
-Panda::SharedPtr<Panda::Application> GetApplication(const Panda::TArray<Panda::FString>& Arguments)
+class MyApp : public Application
 {
-    auto app = Panda::MakeShared<Panda::Application>(Arguments);
-    return app;
+public:
+    explicit MyApp(const TArray<Panda::FString>& Arguments) : Application(Arguments)
+    {}
+};
+
+Application* GetApplication(const Panda::TArray<Panda::FString>& Arguments)
+{
+    return new MyApp(Arguments);
 }

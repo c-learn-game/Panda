@@ -3,12 +3,13 @@
 
 #include "Basic/Basic.h"
 #include "Core/Math/MathCore.h"
+#include "Core/Engine/GameObject.h"
 
 namespace Panda
 {
     class UTexture;
 
-	class UMaterial
+    class UMaterial : public UObject
 	{
 	public:
 		explicit UMaterial(const FString& InVertexShaderPath, const FString& InFragShaderPath);
@@ -21,7 +22,7 @@ namespace Panda
 
         void AddTextureParameter(const FString& ParameterName, UTexture* DefaultTexture = nullptr);
 
-        void AddMatrix4x4Parameter(const FString& ParameterName, FMatrix4x4 DefaultMat = FMatrix4x4());
+        void AddMatrix4x4Parameter(const FString& ParameterName, FMatrix DefaultMat = FMatrix());
 
 		void SetScalarParameterValue(const FString& ParameterName, float NewValue);
 
@@ -42,7 +43,7 @@ namespace Panda
         THash<FString, float> ScalarParameters;
         THash<FString, FVector4> Vector4Parameters;
         THash<FString, UTexture*> TextureParameters;
-        THash<FString, FMatrix4x4> Mat4Parameters;
+        THash<FString, FMatrix> Mat4Parameters;
         TArray<FString> AllParameterNames;
 
 	private:

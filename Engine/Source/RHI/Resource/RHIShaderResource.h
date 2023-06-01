@@ -5,7 +5,7 @@
 
 namespace Panda
 {
-    struct FMatrix4x4;
+    struct FMatrix;
     class FRHITextureResource;
 
     class FRHIShaderResource : public FRHIResource
@@ -18,7 +18,7 @@ namespace Panda
 
         virtual void AddUniformParameter(const FString& ParameterName) = 0;
 
-        virtual void SetMatParameter(const FString& ParameterName, const FMatrix4x4& Mat) = 0;
+        virtual void SetMatParameter(const FString& ParameterName, const FMatrix& Mat) = 0;
 
         virtual void SetTexture2DParameter(const FString& ParameterName, FRHITextureResource* Texture, int Slot) = 0;
 

@@ -1,7 +1,7 @@
 
 #include "OpenGLShaderResource.h"
 #include "OpenGLMacros.h"
-#include "Core/Math/Matrix4x4.h"
+#include "Core/Math/Matrix.h"
 #include "RHI/Private/OpenGL/OpenGLTextureResource.h"
 
 namespace Panda
@@ -97,7 +97,7 @@ namespace Panda
         }
     }
 
-    void FOpenGLShaderResource::SetMatParameter(const FString &ParameterName, const FMatrix4x4& Mat)
+    void FOpenGLShaderResource::SetMatParameter(const FString &ParameterName, const FMatrix& Mat)
     {
         auto it = UniformLocations.find(ParameterName);
         if (it != UniformLocations.end())

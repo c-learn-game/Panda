@@ -6,7 +6,7 @@
 #define TEST_RENDERER_H
 
 #include "RHI/RenderContext.h"
-#include "Core/Math/Matrix4x4.h"
+#include "Core/Math/Matrix.h"
 
 namespace Panda
 {
@@ -29,7 +29,7 @@ namespace Panda
         class UPrimitiveSceneComponent* Component;
         class FPrimitiveSceneProxy* Proxy = nullptr;
 
-        SharedPtr<class UMaterial> Material = nullptr;
+        class UMaterial* Material = nullptr;
         class FMaterialResourceProxy* MaterialProxy = nullptr;
 
         SharedPtr<class UTexture> Texture = nullptr;
@@ -38,7 +38,7 @@ namespace Panda
         SharedPtr<class UTexture> FaceTexture = nullptr;
         SharedPtr<class FTextureResourceProxy> FaceTextureProxy = nullptr;
 
-        FMatrix4x4 Transform = FMatrix4x4(1.0);
+        FMatrix Transform = FMatrix(1.0);
         double  TotalTime = 0.0;
 
         class FSceneView* SceneView = nullptr;

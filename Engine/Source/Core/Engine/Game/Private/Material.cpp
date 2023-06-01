@@ -28,7 +28,7 @@ namespace Panda
         AllParameterNames.push_back(ParameterName);
     }
 
-    void UMaterial::AddMatrix4x4Parameter(const FString &ParameterName, FMatrix4x4 DefaultMat)
+    void UMaterial::AddMatrix4x4Parameter(const FString &ParameterName, FMatrix DefaultMat)
     {
         Mat4Parameters[ParameterName] = DefaultMat;
         AllParameterNames.push_back(ParameterName);
