@@ -8,6 +8,7 @@
 namespace Panda
 {
 
+    class UObject;
     class UWorld;
 
     class UGameEngine : public UInstance<UGameEngine>
@@ -19,7 +20,7 @@ namespace Panda
 
         UViewportClient* GetViewportClient() const { return ViewportClient; }
 
-        UWorld* GetCurrentWorld() const;
+        UWorld* GetCurrentWorld();
 
         void Tick(double Duration);
 
@@ -27,7 +28,14 @@ namespace Panda
         void Initialize() override;
 
     private:
+        friend class UObject;
+        void AddGameObject(UObject* GameObject);
+
+        void RemoveGameObject(UObject* GameObject);
+
+    private:
         UViewportClient* ViewportClient = nullptr;
+        TArray<UObject*> GameObjects;
     };
 }
 

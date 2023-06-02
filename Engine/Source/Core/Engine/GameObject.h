@@ -11,25 +11,23 @@ namespace Panda
     class UObject : public UTickableObject
     {
     public:
+        explicit UObject(UObject* InParent = nullptr);
+
         virtual ~UObject() override;
 
-    private:
-        template <typename T, typename ...Args>
-        friend T* NewObject(class UWorld* World, Args&& ...args);
-
-        void SetObjectWorld(UWorld* NewWorld);
+        void SetParent(UObject* NewParent);
 
     private:
-        UWorld* World = nullptr;
+
+        void AddChildObject(UObject* Object);
+
+        void RemoveChildObject(UObject* Object);
+
+    private:
+        UObject* Parent = nullptr;
+
+        TArray<UObject*> ObjectChildren;
     };
-
-    template <typename T, typename ...Args>
-    T* NewObject(class UWorld* World, Args&& ...args)
-    {
-        UObject* Object = new T(std::forward<Args>(args) ...);
-        Object->SetObjectWorld(World ? World : UGameEngine::Get()->GetCurrentWorld());
-        return (T*)Object;
-    }
 }
 
 

@@ -20,8 +20,20 @@ namespace Panda
         ViewportClient->Tick(Duration);
     }
 
-    UWorld* UGameEngine::GetCurrentWorld() const
+    UWorld* UGameEngine::GetCurrentWorld()
     {
         return ViewportClient->GetWorld();
+    }
+
+    void UGameEngine::AddGameObject(UObject *GameObject)
+    {
+        if (GameObject)
+            GameObjects.push_back(GameObject);
+    }
+
+    void UGameEngine::RemoveGameObject(UObject *GameObject)
+    {
+        if (GameObject)
+            std::remove(GameObjects.begin(), GameObjects.end(), GameObject);
     }
 }

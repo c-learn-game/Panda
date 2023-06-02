@@ -8,7 +8,7 @@ namespace Panda
     UViewportClient::UViewportClient(FIntRect DefaultViewportRect)
     : ViewportRect(DefaultViewportRect)
     {
-        World = new UWorld;
+        World = new UWorld();
     }
 
     UViewportClient::~UViewportClient()

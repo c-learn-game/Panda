@@ -12,7 +12,7 @@ namespace Panda
     class UMaterial : public UObject
 	{
 	public:
-		explicit UMaterial(const FString& InVertexShaderPath, const FString& InFragShaderPath);
+		explicit UMaterial(const FString& InVertexShaderPath, const FString& InFragShaderPath, UObject* Parent = nullptr);
 		
 		virtual ~UMaterial() = default;
 

@@ -4,8 +4,9 @@
 
 namespace Panda
 {
-	UMaterial::UMaterial(const FString& InVertexShaderPath, const FString& InFragShaderPath)
-		: VertexShaderPath(InVertexShaderPath)
+	UMaterial::UMaterial(const FString& InVertexShaderPath, const FString& InFragShaderPath, UObject* Parent)
+		: UObject(Parent)
+        , VertexShaderPath(InVertexShaderPath)
 		, FragShaderPath(InFragShaderPath)
 	{
 	}

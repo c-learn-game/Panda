@@ -31,9 +31,8 @@ namespace Panda
 
         Component = LoadObject<UPrimitiveSceneComponent>("/Engine/SimpleMesh.asset");
 
-        Material = NewObject<UMaterial>(nullptr,
-                                        ENGINE_SHADER("/Private/LocalStaticMesh.vert"),
-                                        ENGINE_SHADER("/Private/LocalStaticMesh.frag"));
+        Material = new UMaterial(ENGINE_SHADER("/Private/LocalStaticMesh.vert"),
+                                 ENGINE_SHADER("/Private/LocalStaticMesh.frag"));
         Material->LoadAsset();
         Material->AddMatrix4x4Parameter("Transform");
         Material->AddTextureParameter("ContainerTex");
